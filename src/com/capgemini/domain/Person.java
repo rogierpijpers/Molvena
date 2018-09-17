@@ -5,6 +5,7 @@ import java.util.Date;
 public abstract class Person {
     protected String firstName;
     protected String lastName;
+    protected String password;
 
     protected Date dateOfBirth;
     protected String mail;
@@ -28,6 +29,14 @@ public abstract class Person {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getDateOfBirth() {
