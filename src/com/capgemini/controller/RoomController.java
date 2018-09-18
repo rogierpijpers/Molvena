@@ -5,26 +5,26 @@ import com.capgemini.domain.RoomType;
 import java.util.ArrayList;
 
 public class RoomController {
-    private static ArrayList<RoomType> roomTypeList = new ArrayList<>();
+    private ArrayList<RoomType> roomTypeList = new ArrayList<>();
 
-    public static void addRoomType(RoomType type) {
+    public void addRoomType(RoomType type) {
         roomTypeList.add(type);
     }
 
-    public ArrayList<RoomType> getRoomTypeList() {
-        return roomTypeList;
+    public RoomType getRoomType(int n) {
+        return roomTypeList.get(n);
     }
 
-    public static void addRoomTypes(){
-        roomTypeList.add(new RoomType(2,0));
-        roomTypeList.add(new RoomType(4,0));
-        roomTypeList.add(new RoomType(6,0));
-        roomTypeList.add(new RoomType(0,1));
-        roomTypeList.add(new RoomType(0,2));
-        roomTypeList.add(new RoomType(0,3));
+    public void addRoomTypes() {
+        roomTypeList.add(new RoomType(2, 0));
+        roomTypeList.add(new RoomType(4, 0));
+        roomTypeList.add(new RoomType(6, 0));
+        roomTypeList.add(new RoomType(0, 1));
+        roomTypeList.add(new RoomType(0, 2));
+        roomTypeList.add(new RoomType(0, 3));
 
-        for(RoomType roomType : roomTypeList){
-            System.out.println(roomType + " has " + roomType.getSingleBeds() + " single beds and " + roomType.getDoubleBeds() + " double beds");
+        for (RoomType roomType : roomTypeList) {
+            System.out.println(roomType + " has " + roomType.getSingleBeds() + " single beds and " + roomType.getDoubleBeds() + " double beds.");
         }
     }
 }

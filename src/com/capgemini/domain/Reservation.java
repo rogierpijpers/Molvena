@@ -1,36 +1,38 @@
 package com.capgemini.domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Reservation {
     private int reservationID;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Guest guest;
-    private byte amountOfGuests;
-    private ArrayList<Room> rooms;
-    private ArrayList<RoomType> roomType;
+    private int amountOfGuests;
+    private Room rooms;
+    private RoomType roomType;
 
     private boolean checkedIn = false;
 
-    public Reservation(int reservationID, Date startDate, Date endDate, Guest guest,
-                byte amountOfGuests, ArrayList<Room> rooms, ArrayList<RoomType> roomType){
+    public Reservation(int reservationID, LocalDate startDate, LocalDate endDate, Guest guest,
+                       int amountOfGuests, Room rooms, RoomType roomType) {
         this.reservationID = reservationID;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.guest =  guest;
+        this.guest = guest;
         this.amountOfGuests = amountOfGuests;
         this.rooms = rooms;
         this.roomType = roomType;
     }
 
     // TODO: Test
-    public void checkIn(){
+    public void checkIn() {
 
     }
+
     // TODO: Test
-    public void checkOut(){
+    public void checkOut() {
 
     }
 
@@ -42,19 +44,19 @@ public class Reservation {
         this.reservationID = reservationID;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -66,7 +68,7 @@ public class Reservation {
         this.guest = guest;
     }
 
-    public byte getAmountOfGuests() {
+    public int getAmountOfGuests() {
         return amountOfGuests;
     }
 
@@ -74,12 +76,8 @@ public class Reservation {
         this.amountOfGuests = amountOfGuests;
     }
 
-    public ArrayList<Room> getRooms() {
+    public Room getRooms() {
         return rooms;
-    }
-
-    public void setRooms(ArrayList<Room> rooms) {
-        this.rooms = rooms;
     }
 
     public boolean isCheckedIn() {
