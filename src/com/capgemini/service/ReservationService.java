@@ -17,6 +17,14 @@ public class ReservationService {
     private RoomRepository roomRepository;
     private ReservationRepository reservationRepository;
 
+    public void setRoomRepository(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
+    }
+
+    public void setReservationRepository(ReservationRepository reservationRepository) {
+        this.reservationRepository = reservationRepository;
+    }
+
     public ReservationService() {
         roomRepository = new RoomRepository();
         reservationRepository = new ReservationRepository();
