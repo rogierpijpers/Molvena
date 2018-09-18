@@ -2,8 +2,6 @@ package com.capgemini;
 
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
-import jdk.nashorn.internal.ir.LiteralNode;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,9 +11,7 @@ import java.util.List;
 public class ReservationService {
 
     public List<Room> getAllRooms() {
-
         List<Room> roomList = new ArrayList();
-
         for (int i = 0; i < 5; i++) {
             roomList.add(new Room());
         }
@@ -24,7 +20,6 @@ public class ReservationService {
 
     public List<Reservation> getAllReservations() {
         List<Reservation> reservationList = new ArrayList();
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         for (int i = 0; i < 5; i++) {
@@ -44,27 +39,25 @@ public class ReservationService {
     }
 
     public List<Room> getAllAvailableRooms(Date startDate, Date endDate) {
-
-        List<Room> AvailableRooms = new ArrayList();
-        List<Room> AllRooms = getAllRooms();
-        List<Reservation> AllReservations = getAllReservations();
-
-        return null;
-    }
-
-    private List<Room> getRoomsWithoutReservations() {
-
-        List<Room> AvailableRooms = new ArrayList();
-        List<Room> AllRooms = getAllRooms();
-        List<Reservation> AllReservations = getAllReservations();
-        List<Room> reservedrooms = new ArrayList();
-
-        for (Reservation reservation : AllReservations) {
-            for (Room room : reservation.getRooms()) {
-                if (!reservedrooms.contains(room))
-                    reservedrooms.add(room);
+        List<Room> availableRooms = new ArrayList();
+        List<Room> notAvailableRooms = getRoomsWithReservation(startDate, endDate);
+        List<Room> allRooms = getAllRooms();
+        for (Room room : allRooms) {
+            if (!notAvailableRooms.contains(room)){
+                availableRooms.add(room);
             }
         }
-        return null;
+        return availableRooms;
+    }
+
+    private List<Room> getRoomsWithReservation(Date startDate, Date endDate) {
+        List<Room> allReservedRooms = new ArrayList();
+
+        for (Reservation reservation: getAllReservations()) {
+            if (reservation.getEndDate().after(endDate) || reservation.getEndDate().equals(endDate) ||
+                    reservation.getStartDate().before(startDate) || reservation.getStartDate().equals(startDate))
+                allReservedRooms.addAll(reservation.getRooms());
+            }
+        return allReservedRooms;
     }
 }
