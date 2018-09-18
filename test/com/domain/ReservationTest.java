@@ -18,7 +18,7 @@ public class ReservationTest {
     }
 
     @Test
-    public void heckInAsReceptionistBeforeEndDate(){
+    public void checkInAsReceptionistBeforeEndDate(){
         Reservation reservation = new Reservation();
         long currentDateInInt = new Date().getTime();
         long tomorrowInInt = currentDateInInt + (3600000*24);

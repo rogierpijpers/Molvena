@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff9ce2ca-405d-4f43-ac60-5092f0db6102" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Molveno.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Molvena.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/capgemini/domain/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/capgemini/domain/Reservation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/com/domain/ReservationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/com/domain/ReservationTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -75,12 +69,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1896" />
+          <entry key="java" value="1897" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1896" />
+          <entry key="JAVA" value="1897" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project" />
@@ -91,8 +85,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/com/domain/ReservationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="33" column="42" selection-start-line="33" selection-start-column="42" selection-end-line="33" selection-end-column="42" />
+            <state relative-caret-position="651">
+              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -226,7 +220,7 @@
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537276817653" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537278360347" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -382,12 +376,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_Molveno_(1) - 2018.09.18 at 14h 12m 05s.xml">
-      <configuration name="All in Molveno (1)" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Molveno_(1) - 2018.09.18 at 14h 23m 55s.xml">
-      <configuration name="All in Molveno (1)" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="All_in_Molveno_(1) - 2018.09.18 at 14h 24m 18s.xml">
       <configuration name="All in Molveno (1)" configurationId="JUnit" />
     </history-entry>
@@ -411,6 +399,12 @@
     </history-entry>
     <history-entry file="ReservationTest_LoggedInAsReceptionistTest - 2018.09.18 at 15h 15m 28s.xml">
       <configuration name="ReservationTest.LoggedInAsReceptionistTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Molveno_(2) - 2018.09.18 at 15h 19m 57s.xml">
+      <configuration name="All in Molveno (2)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Molveno_(2) - 2018.09.18 at 15h 20m 21s.xml">
+      <configuration name="All in Molveno (2)" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -551,8 +545,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/com/domain/ReservationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="33" column="42" selection-start-line="33" selection-start-column="42" selection-end-line="33" selection-end-column="42" />
+        <state relative-caret-position="651">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
