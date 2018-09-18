@@ -4,6 +4,8 @@ import com.capgemini.data.ReservationRepository;
 import com.capgemini.data.RoomRepository;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
+import com.capgemini.domain.RoomType;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +32,17 @@ public class ReservationService {
             }
         }
         return availableRooms;
+    }
+
+    public List<Room> getAllAvailableRooms(Date startDate, Date endDate, RoomType roomType) {
+        List<Room> availableRooms = getAllAvailableRooms(startDate, endDate);
+        List<Room> availableRoomType = new ArrayList();
+        for (Room room : availableRooms) {
+            if (room.getRoomType().equals(roomType));
+            availableRoomType.add(room);
+
+        }
+        return availableRoomType;
     }
 
     private List<Room> getRoomsWithReservation(Date startDate, Date endDate) {
