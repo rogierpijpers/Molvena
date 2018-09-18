@@ -10,16 +10,7 @@ public class Reservation {
     private Guest guest;
     private byte amountOfGuests;
     private ArrayList<Room> rooms;
-    private boolean checkedIn;
-
-    // TODO: Test
-    public void checkIn(){
-
-    }
-    // TODO: Test
-    public void checkOut(){
-
-    }
+    private boolean checkedIn = false;
 
     public int getReservationID() {
         return reservationID;
@@ -73,7 +64,29 @@ public class Reservation {
         return checkedIn;
     }
 
-    public void setCheckedIn(boolean checkedIn) {
-        this.checkedIn = checkedIn;
+    public void setCheckedIn(boolean checkedIn, Person loggedInAs) {
+
+        if(loggedInAs instanceof Receptionist){
+
+            // for checkin
+
+            //checks if end date has already past
+            if(checkedIn){
+                if(new Date().before(getEndDate())){
+                    this.checkedIn = checkedIn;
+                }
+            } else {
+                // for checkout
+                if(this.checkedIn){
+                    System.out.println("You are already checked in");
+                } else {
+                    System.out.println("You can check out");
+                }
+            }
+
+
+
+        }
+
     }
 }
