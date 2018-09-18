@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class ReservationController {
     private ArrayList<Reservation> reservations = new ArrayList<>();
 
-    public ArrayList<Reservation> getReservations() {
+    public ArrayList<Reservation> getAllReservations() {
         return reservations;
     }
 

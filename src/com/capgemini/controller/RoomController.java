@@ -16,12 +16,12 @@ public class RoomController {
     }
 
     public void addRoomTypes() {
-        roomTypeList.add(new RoomType(2, 0));
-        roomTypeList.add(new RoomType(4, 0));
-        roomTypeList.add(new RoomType(6, 0));
-        roomTypeList.add(new RoomType(0, 1));
-        roomTypeList.add(new RoomType(0, 2));
-        roomTypeList.add(new RoomType(0, 3));
+        roomTypeList.add(new RoomType((byte)2, (byte)0));
+        roomTypeList.add(new RoomType((byte)4, (byte)0));
+        roomTypeList.add(new RoomType((byte)6, (byte)0));
+        roomTypeList.add(new RoomType((byte)0, (byte)1));
+        roomTypeList.add(new RoomType((byte)0, (byte)2));
+        roomTypeList.add(new RoomType((byte)0, (byte)3));
 
         for (RoomType roomType : roomTypeList) {
             System.out.println(roomType + " has " + roomType.getSingleBeds() + " single beds and " + roomType.getDoubleBeds() + " double beds.");

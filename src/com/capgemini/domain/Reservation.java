@@ -16,13 +16,13 @@ public class Reservation {
     private boolean checkedIn = false;
 
     public Reservation(int reservationID, LocalDate startDate, LocalDate endDate, Guest guest,
-                       int amountOfGuests, Room rooms, RoomType roomType) {
+                       int amountOfGuests, Room room, RoomType roomType) {
         this.reservationID = reservationID;
         this.startDate = startDate;
         this.endDate = endDate;
         this.guest = guest;
         this.amountOfGuests = amountOfGuests;
-        this.rooms = rooms;
+        this.rooms = room;
         this.roomType = roomType;
     }
 

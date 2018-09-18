@@ -30,7 +30,7 @@ public class CreateRoomAndReservationDemo {
         reservationController.addReservation(reservation);
 
         // View all reservations
-        System.out.println("Printing all reservations: " + reservationController.getReservations());
+        System.out.println("Printing all reservations: " + reservationController.getAllReservations());
 
         // Get reservation by ID
         System.out.println("Searching Reservation by given ID (1): " + reservationController.getReservationByID(reservation.getReservationID()));

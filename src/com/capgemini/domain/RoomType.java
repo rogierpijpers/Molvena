@@ -1,10 +1,10 @@
 package com.capgemini.domain;
 
 public class RoomType {
-    private int singleBeds;
-    private int doubleBeds;
+    private byte singleBeds;
+    private byte doubleBeds;
 
-    public RoomType(int singleBeds, int doubleBeds){
+    public RoomType(byte singleBeds, byte doubleBeds){
         this.singleBeds = singleBeds;
         this.doubleBeds = doubleBeds;
     }
@@ -14,7 +14,7 @@ public class RoomType {
         return singleBeds + (doubleBeds * 2);
     }
 
-    public int getSingleBeds() {
+    public byte getSingleBeds() {
         return singleBeds;
     }
 
@@ -22,7 +22,7 @@ public class RoomType {
         this.singleBeds = singleBeds;
     }
 
-    public int getDoubleBeds() {
+    public byte getDoubleBeds() {
         return doubleBeds;
     }
 
