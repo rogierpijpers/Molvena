@@ -1,15 +1,31 @@
 package com.capgemini.domain;
 
+import com.capgemini.Main;
+
 public class RoomType {
-    private byte singleBeds;
-    private byte doubleBeds;
+    private int singleBeds;
+    private int doubleBeds;
+
+    public RoomType(int singleBeds, int doubleBeds){
+        this.singleBeds = singleBeds;
+        this.doubleBeds = doubleBeds;
+    }
+
+    public void addRoomTypes(){
+        Main.addRoomType(new RoomType(2,0));
+        Main.addRoomType(new RoomType(4,0));
+        Main.addRoomType(new RoomType(6,0));
+        Main.addRoomType(new RoomType(0,1));
+        Main.addRoomType(new RoomType(0,2));
+        Main.addRoomType(new RoomType(0,3));
+    }
 
     // TODO: Create Test
     public int getAmountOfPeople(){
         return singleBeds + (doubleBeds * 2);
     }
 
-    public byte getSingleBeds() {
+    public int getSingleBeds() {
         return singleBeds;
     }
 
@@ -17,7 +33,7 @@ public class RoomType {
         this.singleBeds = singleBeds;
     }
 
-    public byte getDoubleBeds() {
+    public int getDoubleBeds() {
         return doubleBeds;
     }
 

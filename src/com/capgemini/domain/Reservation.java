@@ -10,7 +10,20 @@ public class Reservation {
     private Guest guest;
     private byte amountOfGuests;
     private ArrayList<Room> rooms;
-    private boolean checkedIn;
+    private ArrayList<RoomType> roomType;
+
+    private boolean checkedIn = false;
+
+    public Reservation(int reservationID, Date startDate, Date endDate, Guest guest,
+                byte amountOfGuests, ArrayList<Room> rooms, ArrayList<RoomType> roomType){
+        this.reservationID = reservationID;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.guest =  guest;
+        this.amountOfGuests = amountOfGuests;
+        this.rooms = rooms;
+        this.roomType = roomType;
+    }
 
     // TODO: Test
     public void checkIn(){
