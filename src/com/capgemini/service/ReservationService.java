@@ -4,11 +4,11 @@ import com.capgemini.data.ReservationRepository;
 import com.capgemini.data.RoomRepository;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+//TODO: add Unit test
 
 public class ReservationService {
 
