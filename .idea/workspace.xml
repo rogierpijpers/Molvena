@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54aa8d8b-076b-4b5b-88a3-80517d90ccd3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/capgemini/domain/RoomType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/capgemini/domain/RoomType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/capgemini/service/ReservationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/capgemini/service/ReservationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/com/capgemini/service/ReservationServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/com/capgemini/service/ReservationServiceTest.java" afterDir="false" />
     </list>
     <ignored path="$USER_HOME$/IdeaProjects/untitled/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -64,12 +63,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="5140" />
+          <entry key="java" value="5286" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="5140" />
+          <entry key="JAVA" value="5286" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -107,8 +106,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/capgemini/service/ReservationService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
+            <state relative-caret-position="224">
+              <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#536#537#0" expanded="true" />
@@ -130,8 +129,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/com/capgemini/service/ReservationServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="201" column="9" lean-forward="true" selection-start-line="201" selection-start-column="9" selection-end-line="201" selection-end-column="9" />
+            <state relative-caret-position="595">
+              <caret line="188" column="47" selection-start-line="188" selection-start-column="47" selection-end-line="188" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -142,8 +141,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/capgemini/domain/RoomType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            <state relative-caret-position="306">
+              <caret line="28" column="19" lean-forward="true" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -210,8 +209,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/com/capgemini/data/RoomRepository.java" />
         <option value="$PROJECT_DIR$/src/com/capgemini/data/ReservationRepository.java" />
-        <option value="$PROJECT_DIR$/src/com/capgemini/service/ReservationService.java" />
         <option value="$PROJECT_DIR$/test/com/capgemini/service/ReservationServiceTest.java" />
+        <option value="$PROJECT_DIR$/src/com/capgemini/service/ReservationService.java" />
+        <option value="$PROJECT_DIR$/src/com/capgemini/domain/RoomType.java" />
       </list>
     </option>
   </component>
@@ -301,7 +301,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537363558223" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537364176709" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -320,7 +320,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ReservationServiceTest.getAvailableRoomsWithWrongRoomTypeOutside">
+  <component name="RunManager" selected="JUnit.ReservationServiceTest.getAvailableRoomsWithRoomTypeOutside">
     <configuration name="ReservationServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Molvena" />
       <extension name="coverage">
@@ -408,8 +408,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ReservationServiceTest.getAvailableRoomsWithWrongRoomTypeOutside" />
         <item itemvalue="JUnit.ReservationServiceTest.getAvailableRoomsWithRoomTypeOutside" />
+        <item itemvalue="JUnit.ReservationServiceTest.getAvailableRoomsWithWrongRoomTypeOutside" />
         <item itemvalue="JUnit.ReservationServiceTest.getAvailableRoomsWithRoomType" />
         <item itemvalue="JUnit.ReservationServiceTest" />
         <item itemvalue="JUnit.ReservationServiceTest.getAvailableRoomsInsideEndAfterDateParametersTest" />
@@ -430,15 +430,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ReservationServiceTest_getAvailableRoomsWithRoomTypeOutside - 2018.09.19 at 15h 09m 14s.xml">
-      <configuration name="ReservationServiceTest.getAvailableRoomsWithRoomTypeOutside" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ReservationServiceTest_getAvailableRoomsWithRoomTypeOutside - 2018.09.19 at 15h 09m 54s.xml">
-      <configuration name="ReservationServiceTest.getAvailableRoomsWithRoomTypeOutside" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ReservationServiceTest_getAvailableRoomsWithRoomTypeOutside - 2018.09.19 at 15h 12m 05s.xml">
-      <configuration name="ReservationServiceTest.getAvailableRoomsWithRoomTypeOutside" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="ReservationServiceTest_getAvailableRoomsWithRoomTypeOutside - 2018.09.19 at 15h 19m 23s.xml">
       <configuration name="ReservationServiceTest.getAvailableRoomsWithRoomTypeOutside" configurationId="JUnit" />
     </history-entry>
@@ -460,12 +451,21 @@
     <history-entry file="ReservationServiceTest_getAvailableRoomsWithWrongRoomTypeOutside - 2018.09.19 at 15h 25m 07s.xml">
       <configuration name="ReservationServiceTest.getAvailableRoomsWithWrongRoomTypeOutside" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="ReservationServiceTest_getAvailableRoomsWithWrongRoomTypeOutside - 2018.09.19 at 15h 29m 35s.xml">
+      <configuration name="ReservationServiceTest.getAvailableRoomsWithWrongRoomTypeOutside" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ReservationServiceTest_getAvailableRoomsWithWrongRoomTypeOutside - 2018.09.19 at 15h 35m 52s.xml">
+      <configuration name="ReservationServiceTest.getAvailableRoomsWithWrongRoomTypeOutside" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ReservationServiceTest_getAvailableRoomsWithWrongRoomTypeOutside - 2018.09.19 at 15h 35m 57s.xml">
+      <configuration name="ReservationServiceTest.getAvailableRoomsWithWrongRoomTypeOutside" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14161074" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21677852" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -475,7 +475,7 @@
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3696884" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20538244" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.32719547" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -586,20 +586,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/capgemini/DummyTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/capgemini/domain/RoomType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/capgemini/domain/Room.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -621,10 +607,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test/com/capgemini/DummyTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/capgemini/domain/RoomType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="28" column="19" lean-forward="true" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/capgemini/service/ReservationService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
+        <state relative-caret-position="224">
+          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#536#537#0" expanded="true" />
@@ -635,8 +635,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/com/capgemini/service/ReservationServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="201" column="9" lean-forward="true" selection-start-line="201" selection-start-column="9" selection-end-line="201" selection-end-column="9" />
+        <state relative-caret-position="595">
+          <caret line="188" column="47" selection-start-line="188" selection-start-column="47" selection-end-line="188" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -43,7 +43,7 @@ public class ReservationService {
         List<Room> availableRooms = getAllAvailableRooms(startDate, endDate);
         List<Room> availableRoomType = new ArrayList();
         for (Room room : availableRooms) {
-            if (room.getRoomType().getDoubleBeds() == roomType.getDoubleBeds() && room.getRoomType().getSingleBeds() == roomType.getSingleBeds())
+            if (room.getRoomType().equals(roomType))
             availableRoomType.add(room);
         }
         return availableRoomType;
