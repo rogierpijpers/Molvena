@@ -3,6 +3,8 @@ package com.capgemini.domain;
 import com.capgemini.exceptions.InvalidDateException;
 
 import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reservation {
@@ -66,20 +68,27 @@ public class Reservation {
         return checkedIn;
     }
 
-    public void setCheckedIn(boolean checkedIn, Date checkInDate) throws InvalidDateException {
+    public void setCheckedIn(boolean checkedIn, Date currentDate) throws InvalidDateException {
 
-        if(checkInDate.after(getEndDate())){
+        if (currentDate.after(getEndDate())) {
             throw new InvalidDateException();
         } else {
-            if (!checkedIn) {
-                // for checkout
-                if (this.checkedIn) {
+            if (this.checkedIn) {
+                System.out.println("You are already checked in, do you want to check-out?");
+                if (checkedIn) {
                     System.out.println("You are already checked in");
                 } else {
-                    System.out.println("You can check out");
+                    System.out.println("You are checked out");
+                    this.checkedIn = checkedIn;
                 }
             } else {
-                this.checkedIn = true;
+                System.out.println("Do you want to check-in?");
+                if (checkedIn) {
+                    System.out.println("You are checked-in");
+                    this.checkedIn = checkedIn;
+                } else {
+                    System.out.println("You can't check-out, please check-in first");
+                }
             }
         }
     }
