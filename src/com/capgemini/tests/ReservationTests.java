@@ -37,12 +37,25 @@ public class ReservationTests {
     }
 
     @Test
+    public void testReservationConstructor() {
+        Reservation myReservation = new Reservation(1, startDate, endDate, guest, 6, room, roomType);
+        reservationController.addReservation(myReservation);
+
+        Reservation reservation = reservationController.getReservationByID(1);
+
+        // Test if the submitted parameters doesn't get corrupted along the way.
+        assertEquals(myReservation, reservation);
+    }
+
+    @Test
     public void testGetReservationByID() {
         Reservation myReservation = new Reservation(1, startDate, endDate, guest, 6, room, roomType);
         reservationController.addReservation(myReservation);
 
         Reservation reservation = reservationController.getReservationByID(1);
-        assertEquals(myReservation, reservation);
+        // if(myReservation.equals(reservation))
+        // Tests if the correct reservation returns correctly by GetReservationID();
+        assertEquals(myReservation.getReservationID(), reservation.getReservationID());
     }
 
     @Test
@@ -52,7 +65,8 @@ public class ReservationTests {
         reservationController.addReservation(myReservation);
 
         Reservation reservation = reservationController.getReservationByName("van de Moosdijk");
-        assertEquals(myReservation, reservation);
+        // Tests if the right reservation returns when using GetReservationByName();
+        assertEquals(myReservation.getGuest().getLastName(), reservation.getGuest().getLastName());
     }
 
     @Test
@@ -62,10 +76,13 @@ public class ReservationTests {
         reservationController.addReservation(myReservation1);
         reservationController.addReservation(myReservation2);
 
-        ArrayList<Reservation> reservationArrayList = new ArrayList<Reservation>();
+        ArrayList<Reservation> reservationArrayList = new ArrayList<>();
         reservationArrayList.add(myReservation1);
         reservationArrayList.add(myReservation2);
 
-        assertEquals("test", reservationArrayList, reservationController.getAllReservations());
+        // Test if the array object itself is equal.
+        assertEquals(reservationArrayList, reservationController.getAllReservations());
+        // Test if the size of the arrays are equal (is this necessary?)
+        assertEquals((reservationArrayList.size()), reservationController.getAllReservations().size());
     }
 }

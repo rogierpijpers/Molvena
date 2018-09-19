@@ -9,11 +9,6 @@ public class RoomType {
         this.doubleBeds = doubleBeds;
     }
 
-    // TODO: Create Test
-    public int getAmountOfPeople(){
-        return singleBeds + (doubleBeds * 2);
-    }
-
     public byte getSingleBeds() {
         return singleBeds;
     }

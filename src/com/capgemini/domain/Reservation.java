@@ -8,7 +8,7 @@ public class Reservation {
     private LocalDate endDate;
     private Guest guest;
     private int amountOfGuests;
-    private Room rooms;
+    private Room room;
     private RoomType roomType;
 
     private boolean checkedIn = false;
@@ -20,7 +20,7 @@ public class Reservation {
         this.endDate = endDate;
         this.guest = guest;
         this.amountOfGuests = amountOfGuests;
-        this.rooms = room;
+        this.room = room;
         this.roomType = roomType;
     }
 
@@ -74,8 +74,8 @@ public class Reservation {
         this.amountOfGuests = amountOfGuests;
     }
 
-    public Room getRooms() {
-        return rooms;
+    public Room getRoom() {
+        return room;
     }
 
     public boolean isCheckedIn() {
@@ -84,5 +84,37 @@ public class Reservation {
 
     public void setCheckedIn(boolean checkedIn) {
         this.checkedIn = checkedIn;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // if instanceof reservation
+        if (!(obj instanceof Reservation))
+            return false;
+
+        Reservation reservation = (Reservation)obj;
+
+        if(this.getReservationID() != reservation.getReservationID())
+            return false;
+
+        if (this.getStartDate() != reservation.getStartDate() )
+            return false;
+
+        if (this.getEndDate() != reservation.getEndDate())
+            return false;
+
+        if (this.getAmountOfGuests() != reservation.getAmountOfGuests())
+            return false;
+
+        if (this.getGuest() != reservation.getGuest())
+            return false;
+
+        if (this.getRoom() != reservation.getRoom())
+            return false;
+
+        if (this.getRoom().getRoomType() != reservation.getRoom().getRoomType())
+            return false;
+
+        return super.equals(obj);
     }
 }
