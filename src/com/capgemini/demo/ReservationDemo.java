@@ -20,14 +20,14 @@ public class ReservationDemo extends Demo {
     public void run() {
         System.out.println("-- Running reservation demo");
 
+        System.out.println("Please enter the number of persons");
+        int noPersons = inputReader.nextInt();
+
         System.out.println("Please enter the start date with format dd-MM-yyyy");
         Date startDate = readDate();
 
         System.out.println("Please enter the end date with format dd-MM-yyyy");
         Date endDate = readDate();
-
-        System.out.println("Please enter the number of persons");
-        int noPersons = inputReader.nextInt();
 
         // print room types available
 
