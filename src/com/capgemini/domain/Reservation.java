@@ -1,5 +1,7 @@
 package com.capgemini.domain;
 
+import com.capgemini.exceptions.InvalidDateException;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -64,29 +66,21 @@ public class Reservation {
         return checkedIn;
     }
 
-    public void setCheckedIn(boolean checkedIn, Person loggedInAs) {
+    public void setCheckedIn(boolean checkedIn, Date checkInDate) throws InvalidDateException {
 
-        if(loggedInAs instanceof Receptionist){
-
-            // for checkin
-
-            //checks if end date has already past
-            if(checkedIn){
-                if(new Date().before(getEndDate())){
-                    this.checkedIn = checkedIn;
-                }
-            } else {
+        if(checkInDate.after(getEndDate())){
+            throw new InvalidDateException();
+        } else {
+            if (!checkedIn) {
                 // for checkout
-                if(this.checkedIn){
+                if (this.checkedIn) {
                     System.out.println("You are already checked in");
                 } else {
                     System.out.println("You can check out");
                 }
+            } else {
+                this.checkedIn = true;
             }
-
-
-
         }
-
     }
 }
