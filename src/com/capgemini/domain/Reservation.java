@@ -1,6 +1,8 @@
 package com.capgemini.domain;
 
 import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reservation {
@@ -64,29 +66,28 @@ public class Reservation {
         return checkedIn;
     }
 
-    public void setCheckedIn(boolean checkedIn, Person loggedInAs) {
-
-        if(loggedInAs instanceof Receptionist){
-
-            // for checkin
-
-            //checks if end date has already past
+    public void setCheckedIn(boolean checkedIn, Date currentDate) {
+        if(this.checkedIn){
+            System.out.println("You are already checked in, do you want to check-out?");
             if(checkedIn){
-                if(new Date().before(getEndDate())){
+                System.out.println("You are already checked in");
+            } else {
+                System.out.println("You are checked out");
+                this.checkedIn = checkedIn;
+            }
+        } else {
+            System.out.println("Do you want to check-in?");
+            if(checkedIn){
+                System.out.println("You can check-in");
+                if(currentDate.before(endDate)){
+                    System.out.println("You are checked in");
                     this.checkedIn = checkedIn;
+                } else {
+                    System.out.println("You can't check-in after the end-date");
                 }
             } else {
-                // for checkout
-                if(this.checkedIn){
-                    System.out.println("You are already checked in");
-                } else {
-                    System.out.println("You can check out");
-                }
+                System.out.println("You can't check-out, please check-in first");
             }
-
-
-
         }
-
     }
 }

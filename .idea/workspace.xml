@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff9ce2ca-405d-4f43-ac60-5092f0db6102" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/com/capgemini/domain/Receptionist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/capgemini/domain/Receptionist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/capgemini/domain/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/capgemini/domain/Reservation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/com/domain/ReservationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/com/domain/ReservationTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -59,22 +61,22 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="9" />
+          <entry key="java" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="9" />
+          <entry key="JAVA" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1897" />
+          <entry key="java" value="2873" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1897" />
+          <entry key="JAVA" value="2873" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project" />
@@ -82,11 +84,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/com/domain/ReservationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+            <state>
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/capgemini/domain/Reservation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="77" column="16" lean-forward="true" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -95,13 +106,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/capgemini/domain/Reservation.java">
+        <entry file="file://$PROJECT_DIR$/src/com/capgemini/domain/Receptionist.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="74" column="49" lean-forward="true" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="49" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="84">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
@@ -128,12 +136,12 @@
       <list>
         <option value="$PROJECT_DIR$/src/com/capgemini/domain/Guest.java" />
         <option value="$PROJECT_DIR$/src/com/capgemini/domain/Person.java" />
-        <option value="$PROJECT_DIR$/src/com/capgemini/domain/Receptionist.java" />
         <option value="$PROJECT_DIR$/src/com/capgemini/domain/Room.java" />
         <option value="$PROJECT_DIR$/src/com/capgemini/domain/RoomType.java" />
         <option value="$PROJECT_DIR$/test/com/capgemini/DummyTest.java" />
-        <option value="$PROJECT_DIR$/src/com/capgemini/domain/Reservation.java" />
         <option value="$PROJECT_DIR$/test/com/domain/ReservationTest.java" />
+        <option value="$PROJECT_DIR$/src/com/capgemini/domain/Receptionist.java" />
+        <option value="$PROJECT_DIR$/src/com/capgemini/domain/Reservation.java" />
       </list>
     </option>
   </component>
@@ -220,7 +228,7 @@
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537278360347" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537365834467" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -376,27 +384,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_Molveno_(1) - 2018.09.18 at 14h 24m 18s.xml">
-      <configuration name="All in Molveno (1)" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Molveno_(1) - 2018.09.18 at 14h 24m 36s.xml">
-      <configuration name="All in Molveno (1)" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Molveno_(1) - 2018.09.18 at 14h 25m 30s.xml">
-      <configuration name="All in Molveno (1)" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ReservationTest_LoggedInAsReceptionistTest - 2018.09.18 at 15h 11m 16s.xml">
-      <configuration name="ReservationTest.LoggedInAsReceptionistTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ReservationTest_LoggedInAsReceptionistTest - 2018.09.18 at 15h 14m 45s.xml">
-      <configuration name="ReservationTest.LoggedInAsReceptionistTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ReservationTest_LoggedInAsReceptionistTest - 2018.09.18 at 15h 14m 58s.xml">
-      <configuration name="ReservationTest.LoggedInAsReceptionistTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ReservationTest_LoggedInAsReceptionistTest - 2018.09.18 at 15h 15m 22s.xml">
-      <configuration name="ReservationTest.LoggedInAsReceptionistTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="ReservationTest_LoggedInAsReceptionistTest - 2018.09.18 at 15h 15m 28s.xml">
       <configuration name="ReservationTest.LoggedInAsReceptionistTest" configurationId="JUnit" />
     </history-entry>
@@ -404,6 +391,27 @@
       <configuration name="All in Molveno (2)" configurationId="JUnit" />
     </history-entry>
     <history-entry file="All_in_Molveno_(2) - 2018.09.18 at 15h 20m 21s.xml">
+      <configuration name="All in Molveno (2)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Molveno_(2) - 2018.09.18 at 16h 13m 57s.xml">
+      <configuration name="All in Molveno (2)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Molveno_(2) - 2018.09.18 at 16h 14m 37s.xml">
+      <configuration name="All in Molveno (2)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Molveno_(2) - 2018.09.18 at 16h 14m 53s.xml">
+      <configuration name="All in Molveno (2)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Molveno_(2) - 2018.09.18 at 16h 15m 03s.xml">
+      <configuration name="All in Molveno (2)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Molveno_(2) - 2018.09.18 at 16h 15m 54s.xml">
+      <configuration name="All in Molveno (2)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Molveno_(2) - 2018.09.18 at 16h 25m 25s.xml">
+      <configuration name="All in Molveno (2)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Molveno_(2) - 2018.09.18 at 16h 28m 08s.xml">
       <configuration name="All in Molveno (2)" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -420,7 +428,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14899328" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14899328" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -430,7 +438,7 @@
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3299566" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.11577424" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -519,13 +527,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/capgemini/domain/Receptionist.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/capgemini/data/DummyRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
@@ -533,20 +534,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/capgemini/domain/Reservation.java">
+    <entry file="file://$PROJECT_DIR$/test/com/domain/ReservationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="74" column="49" lean-forward="true" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state>
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/domain/ReservationTest.java">
+    <entry file="file://$PROJECT_DIR$/src/com/capgemini/domain/Receptionist.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+        <state relative-caret-position="84">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/capgemini/domain/Reservation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="77" column="16" lean-forward="true" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
