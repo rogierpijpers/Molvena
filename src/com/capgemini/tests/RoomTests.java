@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class RoomTests {
-
     @Before
     public void initRoomData(){
 
