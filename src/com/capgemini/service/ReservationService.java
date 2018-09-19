@@ -5,10 +5,7 @@ import com.capgemini.data.RoomRepository;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 //TODO: add Unit test
 
@@ -46,9 +43,8 @@ public class ReservationService {
         List<Room> availableRooms = getAllAvailableRooms(startDate, endDate);
         List<Room> availableRoomType = new ArrayList();
         for (Room room : availableRooms) {
-            if (room.getRoomType().equals(roomType));
+            if (room.getRoomType().getDoubleBeds() == roomType.getDoubleBeds() && room.getRoomType().getSingleBeds() == roomType.getSingleBeds())
             availableRoomType.add(room);
-
         }
         return availableRoomType;
     }
@@ -56,11 +52,25 @@ public class ReservationService {
     private List<Room> getRoomsWithReservation(Date startDate, Date endDate) {
         List<Room> allReservedRooms = new ArrayList();
 
-        for (Reservation reservation: reservationRepository.getAllReservations()) {
-            if (reservation.getEndDate().after(endDate) || reservation.getEndDate().equals(endDate) ||
-                    reservation.getStartDate().before(startDate) || reservation.getStartDate().equals(startDate))
+        for(Reservation reservation : reservationRepository.getAllReservations()){
+            Date reservationStart = reservation.getStartDate();
+            Date reservationEnd = reservation.getEndDate();
+
+//TODO: give an understandable name
+
+            boolean checkOne = (reservationStart.after(startDate) || reservationStart.equals(startDate)) &&
+                    (reservationStart.before(endDate) || reservationStart.equals(endDate));
+
+            boolean checkTwo = (reservationEnd.after(startDate) || reservationEnd.equals(startDate)) &&
+                    (reservationEnd.before(endDate) || reservationEnd.equals(endDate));
+
+            boolean checkThree = (reservationStart.before(startDate) || reservationStart.equals(startDate)) &&
+                    (reservationEnd.after(endDate) || reservationEnd.equals(endDate));
+
+            if(checkOne || checkTwo || checkThree)
                 allReservedRooms.addAll(reservation.getRooms());
-            }
+        }
+
         return allReservedRooms;
     }
 }
