@@ -1,6 +1,10 @@
 package com.capgemini.domain;
 
+import com.capgemini.exceptions.InvalidDateException;
+
 import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reservation {
@@ -10,16 +14,7 @@ public class Reservation {
     private Guest guest;
     private byte amountOfGuests;
     private ArrayList<Room> rooms;
-    private boolean checkedIn;
-
-    // TODO: Test
-    public void checkIn(){
-
-    }
-    // TODO: Test
-    public void checkOut(){
-
-    }
+    private boolean checkedIn = false;
 
     public int getReservationID() {
         return reservationID;
@@ -73,7 +68,15 @@ public class Reservation {
         return checkedIn;
     }
 
-    public void setCheckedIn(boolean checkedIn) {
-        this.checkedIn = checkedIn;
+    public void checkIn(Date currentDate) throws InvalidDateException {
+
+        if (currentDate.after(getEndDate())) {
+            throw new InvalidDateException();
+        } else {
+            this.checkedIn = true;
+        }
+    }
+    public void checkOut(){
+        this.checkedIn = false;
     }
 }

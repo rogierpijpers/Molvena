@@ -62,7 +62,8 @@ public class ReservationServiceTest {
         reservation1.setAmountOfGuests((byte) 2);
         reservation1.setGuest(null);
         reservation1.setGuest(null);
-        reservation1.setCheckedIn(true);
+
+        reservation1.checkOut();
 
         List<Room> roomList = new ArrayList();
         roomList.add(room1);
