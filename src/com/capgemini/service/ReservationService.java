@@ -30,7 +30,7 @@ public class ReservationService {
         List<Room> notAvailableRooms = getRoomsWithReservation(startDate, endDate);
         List<Room> allRooms = roomRepository.getAllRooms();
         for (Room room : allRooms) {
-            if (!notAvailableRooms.contains(room)){
+            if (!notAvailableRooms.contains(room)) {
                 availableRooms.add(room);
             }
         }
@@ -42,7 +42,7 @@ public class ReservationService {
         List<Room> availableRoomType = new ArrayList();
         for (Room room : availableRooms) {
             if (room.getRoomType().equals(roomType))
-            availableRoomType.add(room);
+                availableRoomType.add(room);
         }
         return availableRoomType;
     }
@@ -50,7 +50,7 @@ public class ReservationService {
     private List<Room> getRoomsWithReservation(Date startDate, Date endDate) {
         List<Room> allReservedRooms = new ArrayList();
 
-        for(Reservation reservation : reservationRepository.getAllReservations()){
+        for (Reservation reservation : reservationRepository.getAllReservations()) {
             Date reservationStart = reservation.getStartDate();
             Date reservationEnd = reservation.getEndDate();
 
@@ -63,9 +63,10 @@ public class ReservationService {
             boolean checkInputRest = (reservationStart.before(startDate) || reservationStart.equals(startDate)) &&
                     (reservationEnd.after(endDate) || reservationEnd.equals(endDate));
 
-            if(checkInputStartDate || checkInputEndDate || checkInputRest)
+            if (checkInputStartDate || checkInputEndDate || checkInputRest)
                 allReservedRooms.addAll(reservation.getRooms());
         }
         return allReservedRooms;
     }
 }
+
