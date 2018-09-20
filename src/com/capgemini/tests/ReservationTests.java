@@ -1,47 +1,60 @@
 package com.capgemini.tests;
 
-import com.capgemini.controller.ReservationController;
-import com.capgemini.controller.RoomTypeController;
+import com.capgemini.data.ReservationRepository;
+import com.capgemini.data.RoomTypeRepository;
 import com.capgemini.domain.Guest;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
+import com.capgemini.service.ReservationService;
+import com.capgemini.service.RoomTypeService;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
 public class ReservationTests {
-    ReservationController reservationController;
-    RoomTypeController roomTypeController;
+    ReservationRepository reservationRepository;
+    ReservationService reservationService;
+    RoomTypeRepository roomTypeRepository;
+    RoomTypeService roomTypeService;
     Guest guest;
-    LocalDate startDate;
-    LocalDate endDate;
+    Date startDate;
+    Date endDate;
     Room room;
     RoomType roomType;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
 
     @Before
     public void initReservationData() {
-        reservationController = new ReservationController();
-        roomTypeController = new RoomTypeController();
-        roomTypeController.addRoomTypes();
+        reservationRepository = new ReservationRepository();
+        roomTypeRepository = new RoomTypeRepository();
+        //roomTypeRepository.addRoomTypes();
 
         guest = new Guest();
-        startDate = LocalDate.of(2019, 01, 01);
-        endDate = LocalDate.of(2019, 02, 01);
+        try {
+            startDate = dateFormat.parse("19-04-2018");
+            endDate = dateFormat.parse("19-05-2018");
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
         room = new Room();
-        roomType = roomTypeController.getRoomType(1);
+        roomType = roomTypeRepository.getRoomType(1);
     }
 
     @Test
     public void testReservationConstructor() {
         Reservation myReservation = new Reservation(startDate, endDate, guest, 6, room, roomType);
-        reservationController.addReservation(myReservation);
+        reservationRepository.addReservation(myReservation);
 
-        Reservation reservation = reservationController.getReservationByID(1);
+        Reservation reservation = reservationService.getReservationByID(1);
 
         // Test if the submitted parameters doesn't get corrupted along the way.
         assertEquals(myReservation, reservation);
@@ -50,9 +63,9 @@ public class ReservationTests {
     @Test
     public void testGetReservationByID() {
         Reservation myReservation = new Reservation(startDate, endDate, guest, 6, room, roomType);
-        reservationController.addReservation(myReservation);
+        reservationRepository.addReservation(myReservation);
 
-        Reservation reservation = reservationController.getReservationByID(1);
+        Reservation reservation = reservationService.getReservationByID(1);
         // if(myReservation.equals(reservation))
         // Tests if the correct reservation returns correctly by GetReservationID();
         assertEquals(myReservation.getReservationID(), reservation.getReservationID());
@@ -62,11 +75,11 @@ public class ReservationTests {
     public void testGetReservationByName() {
         guest.setLastName("van de Moosdijk");
         Reservation myReservation = new Reservation(startDate, endDate, guest, 6, room, roomType);
-        reservationController.addReservation(myReservation);
+        reservationRepository.addReservation(myReservation);
 
-        reservationController.addReservation(myReservation);
+        reservationRepository.addReservation(myReservation);
 
-        Reservation reservation = reservationController.getReservationByName("van de Moosdijk");
+        Reservation reservation = reservationService.getReservationByName("van de Moosdijk");
         // Tests if the right reservation returns when using GetReservationByName();
         assertEquals(myReservation.getGuest().getLastName(), reservation.getGuest().getLastName());
     }
@@ -77,16 +90,16 @@ public class ReservationTests {
         Reservation myReservation2 = new Reservation(startDate, endDate, guest, 6, room, roomType);
 
 
-        reservationController.addReservation(myReservation1);
-        reservationController.addReservation(myReservation2);
+        reservationRepository.addReservation(myReservation1);
+        reservationRepository.addReservation(myReservation2);
 
         ArrayList<Reservation> reservationArrayList = new ArrayList<>();
         reservationArrayList.add(myReservation1);
         reservationArrayList.add(myReservation2);
 
         // Test if the array object itself is equal.
-        assertEquals(reservationArrayList, reservationController.getAllReservations());
+        assertEquals(reservationArrayList, reservationRepository.getAllReservations());
         // Test if the size of the arrays are equal (is this necessary?)
-        assertEquals((reservationArrayList.size()), reservationController.getAllReservations().size());
+        assertEquals((reservationArrayList.size()), reservationRepository.getAllReservations().size());
     }
 }
