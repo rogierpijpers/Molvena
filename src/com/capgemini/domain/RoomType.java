@@ -24,4 +24,12 @@ public class RoomType {
     public void setDoubleBeds(byte doubleBeds) {
         this.doubleBeds = doubleBeds;
     }
+
+    @Override
+    public boolean equals(Object object) {
+       if (!(object instanceof RoomType))
+           return false;
+       RoomType roomType = (RoomType)object;
+       return (roomType.getSingleBeds() == this.getSingleBeds() && roomType.getDoubleBeds() == this.getDoubleBeds());
+    }
 }
