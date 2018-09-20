@@ -23,7 +23,8 @@ public class CmdDemo extends Demo{
     }
 
     private Person login(){
-        System.out.println("Please choose a person to log in");
+        System.out.println("MOLVENO LAKE RESORT");
+        System.out.println("Welcome. Please choose the account to login with:");
 
         List<Person> persons = new ArrayList<>();
         //TODO: Get users from mock repo
@@ -57,7 +58,7 @@ public class CmdDemo extends Demo{
 
         while(true){
             action.run();
-            System.out.println("Run demo again? y/n");
+            //System.out.println("Run demo again? y/n");
             if(!inputReader.nextLine().toLowerCase().equals("y"))
                 break;
         }
