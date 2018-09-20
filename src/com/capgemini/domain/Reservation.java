@@ -68,28 +68,15 @@ public class Reservation {
         return checkedIn;
     }
 
-    public void setCheckedIn(boolean checkedIn, Date currentDate) throws InvalidDateException {
+    public void checkIn(Date currentDate) throws InvalidDateException {
 
         if (currentDate.after(getEndDate())) {
             throw new InvalidDateException();
         } else {
-            if (this.checkedIn) {
-                System.out.println("You are already checked in, do you want to check-out?");
-                if (checkedIn) {
-                    System.out.println("You are already checked in");
-                } else {
-                    System.out.println("You are checked out");
-                    this.checkedIn = checkedIn;
-                }
-            } else {
-                System.out.println("Do you want to check-in?");
-                if (checkedIn) {
-                    System.out.println("You are checked-in");
-                    this.checkedIn = checkedIn;
-                } else {
-                    System.out.println("You can't check-out, please check-in first");
-                }
-            }
+            this.checkedIn = true;
         }
+    }
+    public void checkOut(){
+        this.checkedIn = false;
     }
 }

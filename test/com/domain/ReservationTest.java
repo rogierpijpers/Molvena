@@ -22,7 +22,7 @@ public class ReservationTest {
 
             reservation.setEndDate(reservationEndDate);
 
-            reservation.setCheckedIn(true, checkInDate);
+            reservation.checkIn(checkInDate);
             Assert.assertTrue(reservation.isCheckedIn());
 
         } catch (Exception e) {
@@ -42,7 +42,7 @@ public class ReservationTest {
 
             reservation.setEndDate(reservationEndDate);
 
-            reservation.setCheckedIn(true, checkInDate);
+            reservation.checkIn(checkInDate);
             Assert.assertFalse(reservation.isCheckedIn());
 
         } catch (Exception e) {
