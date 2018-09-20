@@ -1,6 +1,7 @@
 package com.capgemini.data;
 
 import com.capgemini.domain.Room;
+import com.capgemini.domain.RoomType;
 
 import java.util.ArrayList;
 import java.util.List;

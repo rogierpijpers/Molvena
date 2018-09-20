@@ -12,9 +12,23 @@ public class Reservation {
     private Date startDate;
     private Date endDate;
     private Guest guest;
-    private byte amountOfGuests;
-    private ArrayList<Room> rooms;
-    private boolean checkedIn = false;
+    private int amountOfGuests;
+    private Room room;
+    private RoomType roomType;
+    private boolean checkedIn;
+    private boolean isDeleted;
+
+    public Reservation(Date startDate, Date endDate, Guest guest,
+                       int amountOfGuests, Room room, RoomType roomType){
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.guest = guest;
+        this.amountOfGuests = amountOfGuests;
+        this.room = room;
+        this.roomType = roomType;
+        this.checkedIn = false;
+        this.isDeleted = false;
+    }
 
     public int getReservationID() {
         return reservationID;
@@ -48,7 +62,7 @@ public class Reservation {
         this.guest = guest;
     }
 
-    public byte getAmountOfGuests() {
+    public int getAmountOfGuests() {
         return amountOfGuests;
     }
 
@@ -56,12 +70,8 @@ public class Reservation {
         this.amountOfGuests = amountOfGuests;
     }
 
-    public ArrayList<Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(ArrayList<Room> rooms) {
-        this.rooms = rooms;
+    public Room getRoom() {
+        return room;
     }
 
     public boolean isCheckedIn() {
@@ -75,6 +85,46 @@ public class Reservation {
         } else {
             this.checkedIn = true;
         }
+    }
+
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // if instanceof reservation
+        if (!(obj instanceof Reservation))
+            return false;
+
+        Reservation reservation = (Reservation)obj;
+
+        if(this.getReservationID() != reservation.getReservationID())
+            return false;
+
+        if (this.getStartDate() != reservation.getStartDate() )
+            return false;
+
+        if (this.getEndDate() != reservation.getEndDate())
+            return false;
+
+        if (this.getAmountOfGuests() != reservation.getAmountOfGuests())
+            return false;
+
+        if (this.getGuest() != reservation.getGuest())
+            return false;
+
+        if (this.getRoom() != reservation.getRoom())
+            return false;
+
+        if (this.getRoom().getRoomType() != reservation.getRoom().getRoomType())
+            return false;
+
+        return true;
     }
     public void checkOut(){
         this.checkedIn = false;

@@ -5,6 +5,7 @@ import com.capgemini.data.RoomRepository;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
+
 import java.util.*;
 
 public class ReservationService {
@@ -64,9 +65,32 @@ public class ReservationService {
                     (reservationEnd.after(endDate) || reservationEnd.equals(endDate));
 
             if (checkInputStartDate || checkInputEndDate || checkInputRest)
+<<<<<<< HEAD
                 allReservedRooms.addAll(reservation.getRooms());
+=======
+                allReservedRooms.add(reservation.getRoom());
+>>>>>>> a3c779ec572d24cf570c7803016d697584706e04
         }
+
         return allReservedRooms;
+    }
+
+    public Reservation getReservationByID(int id) {
+        for (Reservation reservation : reservationRepository.getAllReservations()) {
+            if (reservation.getReservationID() == id) {
+                return reservation;
+            }
+        }
+        return null;
+    }
+
+    public Reservation getReservationByName(String lastName) {
+        for (Reservation reservation : reservationRepository.getAllReservations()) {
+            if (reservation.getGuest().getLastName() == lastName) {
+                return reservation;
+            }
+        }
+        return null;
     }
 }
 
