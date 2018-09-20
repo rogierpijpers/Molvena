@@ -73,7 +73,7 @@ public class ReservationServiceTest {
     }
 
     @Test
-    public void getAvailableRoomsWithinDateParametersTest() {
+    public void getAvailableRoomsNotAvailable() {
         try {
 
             Date startDateReservation = dateFormat.parse("20-04-2018");
@@ -93,7 +93,7 @@ public class ReservationServiceTest {
     }
 
     @Test
-    public void getAvailableRoomsOutsideDateParametersTest() {
+    public void getAvailableRoomsAvailable() {
         try {
 
             Date startDateReservation = dateFormat.parse("16-04-2018");
@@ -113,7 +113,7 @@ public class ReservationServiceTest {
     }
 
     @Test
-    public void getAvailableRoomsInsideStartBeforeDateParametersTest() {
+    public void getAvailableRoomsNotAvailableEndDateInside() {
         try {
 
             Date startDateReservation = dateFormat.parse("18-04-2018");
@@ -133,7 +133,7 @@ public class ReservationServiceTest {
     }
 
     @Test
-    public void getAvailableRoomsInsideEndAfterDateParametersTest() {
+    public void getAvailableRoomsNotAvailableStartDateInside() {
         try {
 
             Date startDateReservation = dateFormat.parse("23-04-2018");
@@ -153,7 +153,7 @@ public class ReservationServiceTest {
     }
 
     @Test
-    public void getAvailableRoomsWithRoomTypeOutside() {
+    public void getAvailableRoomsWithRoomType() {
         try {
 
             Date startDateReservation = dateFormat.parse("16-04-2018");
@@ -178,7 +178,7 @@ public class ReservationServiceTest {
     }
 
     @Test
-    public void getAvailableRoomsWithWrongRoomTypeOutside() {
+    public void getAvailableRoomsWithWrongRoomType() {
         try {
 
             Date startDateReservation = dateFormat.parse("16-04-2018");

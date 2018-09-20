@@ -7,8 +7,6 @@ import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import java.util.*;
 
-//TODO: add Unit test
-
 public class ReservationService {
 
     private RoomRepository roomRepository;
@@ -56,21 +54,18 @@ public class ReservationService {
             Date reservationStart = reservation.getStartDate();
             Date reservationEnd = reservation.getEndDate();
 
-//TODO: give an understandable name
-
-            boolean checkOne = (reservationStart.after(startDate) || reservationStart.equals(startDate)) &&
+            boolean checkInputStartDate = (reservationStart.after(startDate) || reservationStart.equals(startDate)) &&
                     (reservationStart.before(endDate) || reservationStart.equals(endDate));
 
-            boolean checkTwo = (reservationEnd.after(startDate) || reservationEnd.equals(startDate)) &&
+            boolean checkInputEndDate = (reservationEnd.after(startDate) || reservationEnd.equals(startDate)) &&
                     (reservationEnd.before(endDate) || reservationEnd.equals(endDate));
 
-            boolean checkThree = (reservationStart.before(startDate) || reservationStart.equals(startDate)) &&
+            boolean checkInputRest = (reservationStart.before(startDate) || reservationStart.equals(startDate)) &&
                     (reservationEnd.after(endDate) || reservationEnd.equals(endDate));
 
-            if(checkOne || checkTwo || checkThree)
+            if(checkInputStartDate || checkInputEndDate || checkInputRest)
                 allReservedRooms.addAll(reservation.getRooms());
         }
-
         return allReservedRooms;
     }
 }
