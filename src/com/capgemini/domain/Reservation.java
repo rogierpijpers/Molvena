@@ -1,7 +1,5 @@
 package com.capgemini.domain;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 public class Reservation {
@@ -12,8 +10,8 @@ public class Reservation {
     private int amountOfGuests;
     private Room room;
     private RoomType roomType;
-    private boolean isActive;
-    private boolean checkedIn = false;
+    private boolean checkedIn;
+    private boolean isDeleted;
 
     public Reservation(Date startDate, Date endDate, Guest guest,
                        int amountOfGuests, Room room, RoomType roomType){
@@ -23,7 +21,8 @@ public class Reservation {
         this.amountOfGuests = amountOfGuests;
         this.room = room;
         this.roomType = roomType;
-        isActive = true;
+        this.checkedIn = false;
+        this.isDeleted = false;
     }
 
     public int getReservationID() {
@@ -84,14 +83,6 @@ public class Reservation {
 
     public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     @Override
