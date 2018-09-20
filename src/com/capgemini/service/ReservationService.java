@@ -71,7 +71,7 @@ public class ReservationService {
 
     }
 
-    private void SoftDelete(int reservationID){
+    private void softDelete(Reservation reservation){
 
         if(reservationRepository.getReservationById(reservationID)){
             reservation.setDeleted(true);
