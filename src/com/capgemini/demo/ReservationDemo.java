@@ -1,6 +1,7 @@
 package com.capgemini.demo;
 
 import com.capgemini.domain.Person;
+import com.capgemini.domain.Receptionist;
 import com.capgemini.domain.Room;
 import com.capgemini.service.ReservationService;
 
@@ -39,18 +40,25 @@ public class ReservationDemo extends Demo {
         for(int i = 0; i < availableRooms.size(); i++)
             System.out.println(i + ". " + availableRooms.get(i));
 
-        int roomID = inputReader.nextInt();
-        Room selectedRoom = availableRooms.get(roomID);
+        int roomIndex = inputReader.nextInt();
+        Room selectedRoom = availableRooms.get(roomIndex);
 
         System.out.println("Please press [y] to confirm reservation or [n] to cancel");
         if(!inputReader.nextLine().toLowerCase().equals("y"))
             return;
 
-        // get info
-        // - if receptionist -> pick guest or create new
-        // - if guest -> use current info
+        if(currentUser instanceof Receptionist)
+            makeReservationAsReceptionist(noPersons, startDate, endDate, selectedRoom);
+        else
+            makeReservationAsGuest(noPersons, startDate, endDate, selectedRoom);
+    }
 
-        // create reservation
+    private void makeReservationAsReceptionist(int noPersons, Date startDate, Date endDate, Room room){
+
+    }
+
+    private void makeReservationAsGuest(int noPersons, Date startDate, Date endDate, Room room){
+
     }
 
     private Date readDate(){
