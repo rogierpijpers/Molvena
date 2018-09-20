@@ -65,11 +65,7 @@ public class ReservationService {
                     (reservationEnd.after(endDate) || reservationEnd.equals(endDate));
 
             if (checkInputStartDate || checkInputEndDate || checkInputRest)
-<<<<<<< HEAD
-                allReservedRooms.addAll(reservation.getRooms());
-=======
                 allReservedRooms.add(reservation.getRoom());
->>>>>>> a3c779ec572d24cf570c7803016d697584706e04
         }
 
         return allReservedRooms;
@@ -93,4 +89,3 @@ public class ReservationService {
         return null;
     }
 }
-
