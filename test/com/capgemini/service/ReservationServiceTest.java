@@ -1,4 +1,4 @@
-package com.capgemini.tests;
+package com.capgemini.service;
 
 import com.capgemini.data.ReservationRepository;
 import com.capgemini.domain.Guest;
@@ -24,17 +24,14 @@ public class ReservationServiceTest {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     private Room room1 = new Room();
-    private Room room2 = new Room();
 
     private RoomType roomType1;
-    private RoomType roomType2;
 
     @Before
     public void setupRoom() {
         roomRepository = new RoomRepository();
 
         roomType1 = new RoomType((byte) 0, (byte) 2);
-        //room1.setRoomID((short) 1);
         room1.setRoomType(roomType1);
 
         roomRepository.addRoom(room1);
