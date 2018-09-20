@@ -7,13 +7,10 @@ import java.util.List;
 
 public class ReservationRepository {
 
-    private List<Reservation> reservations;
+    private List<Reservation> reservations = new ArrayList<>();
 
-    public ReservationRepository(){
-        reservations = new ArrayList();
-    }
-
-    public void addReservation(Reservation reservation){
+    public void addReservation(Reservation reservation) {
+        reservation.setReservationID((reservations.size() + 1));
         reservations.add(reservation);
     }
 
