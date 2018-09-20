@@ -53,8 +53,6 @@ public class ReservationTest {
     @Test
     public void OnReservationConstructIsCheckedInIsFalse() {
         Reservation reservation = new Reservation();
-
-
         Assert.assertSame(false, reservation.isCheckedIn());
     }
 }

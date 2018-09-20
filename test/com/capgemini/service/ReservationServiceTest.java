@@ -62,8 +62,13 @@ public class ReservationServiceTest {
         reservation1.setAmountOfGuests((byte) 2);
         reservation1.setGuest(null);
         reservation1.setGuest(null);
-        reservation1.setCheckedIn(true);
+        try {
 
+            Date now = dateFormat.parse("20-04-2018");
+            reservation1.setCheckedIn(false, now);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
         List<Room> roomList = new ArrayList();
         roomList.add(room1);
         roomList.add(room2);
