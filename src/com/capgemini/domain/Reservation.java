@@ -129,4 +129,9 @@ public class Reservation {
     public void checkOut(){
         this.checkedIn = false;
     }
+
+    @Override
+    public String toString(){
+        return startDate.toString() + " - " + endDate.toString() + ". " + guest.getFirstName() + " " + guest.getLastName() + ". " + amountOfGuests;
+    }
 }
