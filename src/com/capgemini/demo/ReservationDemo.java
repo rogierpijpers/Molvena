@@ -1,10 +1,13 @@
 package com.capgemini.demo;
 
 import com.capgemini.domain.Person;
+import com.capgemini.domain.Room;
+import com.capgemini.service.ReservationService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class ReservationDemo extends Demo {
@@ -29,13 +32,25 @@ public class ReservationDemo extends Demo {
         System.out.println("Please enter the end date with format dd-MM-yyyy");
         Date endDate = readDate();
 
-        // print room types available
+        //TODO: according to our flowchart this is roomtype, but there is no interface available to select roomTypes
+        ReservationService reservationService = new ReservationService();
+        System.out.println("Please enter select a room");
+        List<Room> availableRooms = reservationService.getAllAvailableRooms(startDate, endDate);
+        for(int i = 0; i < availableRooms.size(); i++)
+            System.out.println(i + ". " + availableRooms.get(i));
 
-        // make reservation or cancel
+        int roomID = inputReader.nextInt();
+        Room selectedRoom = availableRooms.get(roomID);
+
+        System.out.println("Please press [y] to confirm reservation or [n] to cancel");
+        if(!inputReader.nextLine().toLowerCase().equals("y"))
+            return;
 
         // get info
         // - if receptionist -> pick guest or create new
         // - if guest -> use current info
+
+        // create reservation
     }
 
     private Date readDate(){
