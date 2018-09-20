@@ -22,7 +22,7 @@ public class ReservationDemo extends Demo {
     public void run() {
         initTestData();
 
-        System.out.println("-- Running the reservation demo");
+        //System.out.println("-- Running the reservation demo");
 
         System.out.println("Please enter the amount of persons you want to book for.");
         int noPersons = inputReader.nextInt();
@@ -61,7 +61,7 @@ public class ReservationDemo extends Demo {
         System.out.println("Please select for which guest you want to create the reservation.");
         int i = 0;
         for(Guest guest : guestRepository.getAllGuests()){
-            System.out.println(i + ". " + guest.getFirstName() + " " + guest.getLastName());
+            System.out.println(i + ". " + guest.getFirstName() + " " + guest.getLastName() + " - CONFIRM");
             i++;
         }
 
