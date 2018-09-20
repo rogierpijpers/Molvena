@@ -1,13 +1,16 @@
 package com.capgemini.service;
 
 import com.capgemini.data.ReservationRepository;
+import com.capgemini.domain.Guest;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
+import com.capgemini.service.ReservationService;
 import org.junit.Assert;
 import org.junit.Before;
 import com.capgemini.data.RoomRepository;
 import org.junit.Test;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,184 +24,160 @@ public class ReservationServiceTest {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     private Room room1 = new Room();
-    private Room room2 = new Room();
+
+    private RoomType roomType1;
 
     @Before
     public void setupRoom() {
         roomRepository = new RoomRepository();
 
-        RoomType roomType1 = new RoomType();
-        roomType1.setSingleBeds((byte) 0);
-        roomType1.setDoubleBeds((byte) 2);
-        room1.setRoomID((short) 1);
+        roomType1 = new RoomType((byte) 0, (byte) 2);
         room1.setRoomType(roomType1);
 
-        RoomType roomType2 = new RoomType();
-        roomType2.setSingleBeds((byte) 2);
-        roomType2.setDoubleBeds((byte) 0);
-        room2.setRoomID((short) 1);
-        room2.setRoomType(roomType2);
-
         roomRepository.addRoom(room1);
-        roomRepository.addRoom(room2);
     }
 
     @Before
     public void setupReservation() {
         reservationRepository = new ReservationRepository();
-        Reservation reservation1 = new Reservation();
-        reservation1.setReservationID(1);
-
+        Date startDateReservation1 = null;
+        Date endDateReservation1 = null;
         try {
+            startDateReservation1 = dateFormat.parse("19-04-2018");
+            endDateReservation1 = dateFormat.parse("25-04-2018");
+            Guest guest = new Guest();
 
-            Date startDateReservation1 = dateFormat.parse("19-04-2018");
-            Date endDateReservation1 = dateFormat.parse("25-04-2018");
-            reservation1.setStartDate(startDateReservation1);
-            reservation1.setEndDate(endDateReservation1);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            Reservation reservation = new Reservation(startDateReservation1, endDateReservation1, guest, 6, room1, roomType1);
+
+            reservationRepository.addReservation(reservation);
+        }
+         catch(ParseException e){
+                e.printStackTrace();
+            }
         }
 
-        reservation1.setAmountOfGuests((byte) 2);
-        reservation1.setGuest(null);
-        reservation1.setGuest(null);
-        reservation1.setCheckedIn(true);
+        @Test
+        public void getAvailableRoomsNotAvailable () {
+            try {
+                Date startDateReservation = dateFormat.parse("20-04-2018");
+                Date endDateReservation = dateFormat.parse("24-04-2018");
 
-        List<Room> roomList = new ArrayList();
-        roomList.add(room1);
-        roomList.add(room2);
-        reservation1.setRooms((ArrayList<Room>) roomList);
+                ReservationService reservationService = new ReservationService();
+                reservationService.setReservationRepository(reservationRepository);
+                reservationService.setRoomRepository(roomRepository);
+                List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation);
 
-        reservationRepository.addReservation(reservation1);
-    }
+                //comparison, expected = 0 rooms left. compare with size of results
+                Assert.assertSame(0, result.size());
 
-    @Test
-    public void getAvailableRoomsNotAvailable() {
-        try {
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
-            Date startDateReservation = dateFormat.parse("20-04-2018");
-            Date endDateReservation = dateFormat.parse("24-04-2018");
+        @Test
+        public void getAvailableRoomsAvailable () {
+            try {
 
-            ReservationService reservationService = new ReservationService();
-            reservationService.setReservationRepository(reservationRepository);
-            reservationService.setRoomRepository(roomRepository);
-            List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation);
+                Date startDateReservation = dateFormat.parse("16-04-2018");
+                Date endDateReservation = dateFormat.parse("18-04-2018");
 
-            //comparison, expected = 0 rooms left. compare with size of results
-            Assert.assertSame(0, result.size());
+                ReservationService reservationService = new ReservationService();
+                reservationService.setReservationRepository(reservationRepository);
+                reservationService.setRoomRepository(roomRepository);
+                List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation);
 
-        } catch (ParseException e) {
-            e.printStackTrace();
+                //comparison, expected = 2 rooms left. compare with size of results
+                Assert.assertSame(1, result.size());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Test
+        public void getAvailableRoomsNotAvailableEndDateInside () {
+            try {
+
+                Date startDateReservation = dateFormat.parse("18-04-2018");
+                Date endDateReservation = dateFormat.parse("23-04-2018");
+
+                ReservationService reservationService = new ReservationService();
+                reservationService.setReservationRepository(reservationRepository);
+                reservationService.setRoomRepository(roomRepository);
+                List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation);
+
+                //comparison, expected = 0 rooms left. compare with size of results
+                Assert.assertSame(0, result.size());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Test
+        public void getAvailableRoomsNotAvailableStartDateInside () {
+            try {
+
+                Date startDateReservation = dateFormat.parse("23-04-2018");
+                Date endDateReservation = dateFormat.parse("28-04-2018");
+
+                ReservationService reservationService = new ReservationService();
+                reservationService.setReservationRepository(reservationRepository);
+                reservationService.setRoomRepository(roomRepository);
+                List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation);
+
+                //comparison, expected = 0 rooms left. compare with size of results
+                Assert.assertSame(0, result.size());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Test
+        public void getAvailableRoomsWithRoomType () {
+            try {
+
+                Date startDateReservation = dateFormat.parse("16-04-2018");
+                Date endDateReservation = dateFormat.parse("18-04-2018");
+
+                RoomType roomTypeTest = new RoomType((byte)0, (byte)2);
+
+                ReservationService reservationService = new ReservationService();
+                reservationService.setReservationRepository(reservationRepository);
+                reservationService.setRoomRepository(roomRepository);
+
+                List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation, roomTypeTest);
+
+                //comparison, expected = 1 rooms left. compare with size of results
+                Assert.assertSame(1, result.size());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Test
+        public void getAvailableRoomsWithWrongRoomType () {
+            try {
+
+                Date startDateReservation = dateFormat.parse("16-04-2018");
+                Date endDateReservation = dateFormat.parse("18-04-2018");
+
+                RoomType roomTypeTest = new RoomType((byte)0, (byte)3);
+
+                ReservationService reservationService = new ReservationService();
+                reservationService.setReservationRepository(reservationRepository);
+                reservationService.setRoomRepository(roomRepository);
+
+                List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation, roomTypeTest);
+
+                //comparison, expected = 0 rooms left. compare with size of results
+                Assert.assertSame(0, result.size());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
-
-    @Test
-    public void getAvailableRoomsAvailable() {
-        try {
-
-            Date startDateReservation = dateFormat.parse("16-04-2018");
-            Date endDateReservation = dateFormat.parse("18-04-2018");
-
-            ReservationService reservationService = new ReservationService();
-            reservationService.setReservationRepository(reservationRepository);
-            reservationService.setRoomRepository(roomRepository);
-            List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation);
-
-            //comparison, expected = 2 rooms left. compare with size of results
-            Assert.assertSame(2, result.size());
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void getAvailableRoomsNotAvailableEndDateInside() {
-        try {
-
-            Date startDateReservation = dateFormat.parse("18-04-2018");
-            Date endDateReservation = dateFormat.parse("23-04-2018");
-
-            ReservationService reservationService = new ReservationService();
-            reservationService.setReservationRepository(reservationRepository);
-            reservationService.setRoomRepository(roomRepository);
-            List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation);
-
-            //comparison, expected = 0 rooms left. compare with size of results
-            Assert.assertSame(0, result.size());
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void getAvailableRoomsNotAvailableStartDateInside() {
-        try {
-
-            Date startDateReservation = dateFormat.parse("23-04-2018");
-            Date endDateReservation = dateFormat.parse("28-04-2018");
-
-            ReservationService reservationService = new ReservationService();
-            reservationService.setReservationRepository(reservationRepository);
-            reservationService.setRoomRepository(roomRepository);
-            List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation);
-
-            //comparison, expected = 0 rooms left. compare with size of results
-            Assert.assertSame(0, result.size());
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void getAvailableRoomsWithRoomType() {
-        try {
-
-            Date startDateReservation = dateFormat.parse("16-04-2018");
-            Date endDateReservation = dateFormat.parse("18-04-2018");
-
-            RoomType roomTypeTest = new RoomType();
-            roomTypeTest.setSingleBeds((byte) 0);
-            roomTypeTest.setDoubleBeds((byte) 2);
-
-            ReservationService reservationService = new ReservationService();
-            reservationService.setReservationRepository(reservationRepository);
-            reservationService.setRoomRepository(roomRepository);
-
-            List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation, roomTypeTest);
-
-            //comparison, expected = 1 rooms left. compare with size of results
-            Assert.assertSame(1, result.size());
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void getAvailableRoomsWithWrongRoomType() {
-        try {
-
-            Date startDateReservation = dateFormat.parse("16-04-2018");
-            Date endDateReservation = dateFormat.parse("18-04-2018");
-
-            RoomType roomTypeTest = new RoomType();
-            roomTypeTest.setSingleBeds((byte) 0);
-            roomTypeTest.setDoubleBeds((byte) 3);
-
-            ReservationService reservationService = new ReservationService();
-            reservationService.setReservationRepository(reservationRepository);
-            reservationService.setRoomRepository(roomRepository);
-
-            List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation, roomTypeTest);
-
-            //comparison, expected = 0 rooms left. compare with size of results
-            Assert.assertSame(0, result.size());
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-}
