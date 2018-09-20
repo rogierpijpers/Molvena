@@ -71,45 +71,10 @@ public class ReservationService {
 
     }
 
+    private void SoftDelete(int reservationID){
 
-//    private void setSoftDelete(String lastName){
-//
-//        //All the rooms will be stored in this variable
-//        List<Room> lastnameResult = new ArrayList();
-//
-//        //For each reservation in the repository, do the following...
-//        for(Reservation reservation : reservationRepository.getAllReservations()){
-//
-//            //store the last name of the reservation into this variable
-//            String reservationLastName = reservation.getGuest().getLastName();
-//
-//            //if last name equals the reservations last name
-//            if(lastName.equals(reservationLastName)){
-//                if(reservation.isDeleted()){
-//                    System.out.println("This reservation is already deleted");
-//                } else {
-//                    lastnameResult.addAll(reservation.getRooms());
-//                }
-//            } else {
-//                System.out.println("No reservations found");
-//            }
-//        }
-//    }
-
-    private void setSoftDelete(int reservationID){
-
-        //For each reservation in the repository, do the following...
-        for(Reservation reservation : reservationRepository.getAllReservations()){
-
-            //store the reservation ID of the reservation into this variable
-            int ID = reservation.getReservationID();
-
-            //if last name equals the reservations last name
-            if(reservationID == ID){
-                reservation.setDeleted(true);
-            } else {
-                System.out.println("No reservations found");
-            }
+        if(reservationRepository.getReservationById(reservationID)){
+            reservation.setDeleted(true);
         }
     }
 }
