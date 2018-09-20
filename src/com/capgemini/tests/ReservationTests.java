@@ -1,7 +1,7 @@
 package com.capgemini.tests;
 
 import com.capgemini.controller.ReservationController;
-import com.capgemini.controller.RoomController;
+import com.capgemini.controller.RoomTypeController;
 import com.capgemini.domain.Guest;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ReservationTests {
     ReservationController reservationController;
-    RoomController roomController;
+    RoomTypeController roomTypeController;
     Guest guest;
     LocalDate startDate;
     LocalDate endDate;
@@ -26,19 +26,19 @@ public class ReservationTests {
     @Before
     public void initReservationData() {
         reservationController = new ReservationController();
-        roomController = new RoomController();
-        roomController.addRoomTypes();
+        roomTypeController = new RoomTypeController();
+        roomTypeController.addRoomTypes();
 
         guest = new Guest();
         startDate = LocalDate.of(2019, 01, 01);
         endDate = LocalDate.of(2019, 02, 01);
         room = new Room();
-        roomType = roomController.getRoomType(1);
+        roomType = roomTypeController.getRoomType(1);
     }
 
     @Test
     public void testReservationConstructor() {
-        Reservation myReservation = new Reservation(1, startDate, endDate, guest, 6, room, roomType);
+        Reservation myReservation = new Reservation(startDate, endDate, guest, 6, room, roomType);
         reservationController.addReservation(myReservation);
 
         Reservation reservation = reservationController.getReservationByID(1);
@@ -49,7 +49,7 @@ public class ReservationTests {
 
     @Test
     public void testGetReservationByID() {
-        Reservation myReservation = new Reservation(1, startDate, endDate, guest, 6, room, roomType);
+        Reservation myReservation = new Reservation(startDate, endDate, guest, 6, room, roomType);
         reservationController.addReservation(myReservation);
 
         Reservation reservation = reservationController.getReservationByID(1);
@@ -61,7 +61,9 @@ public class ReservationTests {
     @Test
     public void testGetReservationByName() {
         guest.setLastName("van de Moosdijk");
-        Reservation myReservation = new Reservation(1, startDate, endDate, guest, 6, room, roomType);
+        Reservation myReservation = new Reservation(startDate, endDate, guest, 6, room, roomType);
+        reservationController.addReservation(myReservation);
+
         reservationController.addReservation(myReservation);
 
         Reservation reservation = reservationController.getReservationByName("van de Moosdijk");
@@ -71,8 +73,10 @@ public class ReservationTests {
 
     @Test
     public void testGetAllReservations() {
-        Reservation myReservation1 = new Reservation(1, startDate, endDate, guest, 6, room, roomType);
-        Reservation myReservation2 = new Reservation(2, startDate, endDate, guest, 6, room, roomType);
+        Reservation myReservation1 = new Reservation(startDate, endDate, guest, 6, room, roomType);
+        Reservation myReservation2 = new Reservation(startDate, endDate, guest, 6, room, roomType);
+
+
         reservationController.addReservation(myReservation1);
         reservationController.addReservation(myReservation2);
 

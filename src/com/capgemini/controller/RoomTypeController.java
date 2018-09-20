@@ -4,7 +4,7 @@ import com.capgemini.domain.RoomType;
 
 import java.util.ArrayList;
 
-public class RoomController {
+public class RoomTypeController {
     private ArrayList<RoomType> roomTypeList = new ArrayList<>();
 
     public void addRoomType(RoomType type) {
@@ -14,12 +14,13 @@ public class RoomController {
     public RoomType getRoomType(int n) {
         return roomTypeList.get(n);
     }
+    // TODO getAllRoomTypes return list
 
     public byte getAmountOfPeople(byte singleBeds, byte doubleBeds){
         byte people = (byte)(singleBeds + (doubleBeds * 2));
         return people;
     }
-    
+
     public void addRoomTypes() {
         roomTypeList.add(new RoomType((byte) 2, (byte) 0));
         roomTypeList.add(new RoomType((byte) 4, (byte) 0));

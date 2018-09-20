@@ -10,28 +10,20 @@ public class Reservation {
     private int amountOfGuests;
     private Room room;
     private RoomType roomType;
+    private boolean isActive;
+    // TODO isActive;
 
     private boolean checkedIn = false;
 
-    public Reservation(int reservationID, LocalDate startDate, LocalDate endDate, Guest guest,
-                       int amountOfGuests, Room room, RoomType roomType) {
-        this.reservationID = reservationID;
+    public Reservation(LocalDate startDate, LocalDate endDate, Guest guest,
+                       int amountOfGuests, Room room, RoomType roomType){
         this.startDate = startDate;
         this.endDate = endDate;
         this.guest = guest;
         this.amountOfGuests = amountOfGuests;
         this.room = room;
         this.roomType = roomType;
-    }
-
-    // TODO: Test
-    public void checkIn() {
-
-    }
-
-    // TODO: Test
-    public void checkOut() {
-
+        isActive = true;
     }
 
     public int getReservationID() {
@@ -84,6 +76,22 @@ public class Reservation {
 
     public void setCheckedIn(boolean checkedIn) {
         this.checkedIn = checkedIn;
+    }
+
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     @Override

@@ -12,6 +12,7 @@ public class ReservationController {
     }
 
     public void addReservation(Reservation reservation) {
+        reservation.setReservationID((reservations.size() + 1));
         reservations.add(reservation);
     }
 
@@ -19,8 +20,6 @@ public class ReservationController {
         for (Reservation reservation : reservations) {
             if (reservation.getReservationID() == id) {
                 return reservation;
-            } else {
-                System.out.println("Reservation with ID " + id + " does not exist.");
             }
         }
         return null;
@@ -30,8 +29,6 @@ public class ReservationController {
         for (Reservation reservation : reservations) {
             if (reservation.getGuest().getLastName() == lastName) {
                 return reservation;
-            } else {
-                System.out.println("No reservations with this name found.");
             }
         }
         return null;
