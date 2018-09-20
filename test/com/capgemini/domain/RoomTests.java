@@ -1,4 +1,4 @@
-package com.capgemini.tests;
+package com.capgemini.domain;
 
 import org.junit.Before;
 import org.junit.Test;

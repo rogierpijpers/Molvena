@@ -12,13 +12,12 @@ public class Main {
     }
 
     public static void addRoomTypes() {
-        RoomTypeRepository rtRepo = new RoomTypeRepository();
-        ArrayList<RoomType> roomTypeList = new ArrayList<>();
-        roomTypeList.add(new RoomType((byte) 2, (byte) 0));
-        roomTypeList.add(new RoomType((byte) 4, (byte) 0));
-        roomTypeList.add(new RoomType((byte) 6, (byte) 0));
-        roomTypeList.add(new RoomType((byte) 0, (byte) 1));
-        roomTypeList.add(new RoomType((byte) 0, (byte) 2));
-        roomTypeList.add(new RoomType((byte) 0, (byte) 3));
+        RoomTypeRepository roomTypeRepository = new RoomTypeRepository();
+        roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 0));
+        roomTypeRepository.addRoomType(new RoomType((byte) 4, (byte) 0));
+        roomTypeRepository.addRoomType(new RoomType((byte) 6, (byte) 0));
+        roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 1));
+        roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 2));
+        roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 3));
     }
 }

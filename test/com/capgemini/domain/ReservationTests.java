@@ -1,4 +1,4 @@
-package com.capgemini.tests;
+package com.capgemini.domain;
 
 import com.capgemini.data.ReservationRepository;
 import com.capgemini.data.RoomTypeRepository;
@@ -35,9 +35,11 @@ public class ReservationTests {
     public void initReservationData() {
         reservationRepository = new ReservationRepository();
         roomTypeRepository = new RoomTypeRepository();
-        //roomTypeRepository.addRoomTypes();
+        reservationService = new ReservationService();
+        reservationService.setReservationRepository(reservationRepository);
 
         guest = new Guest();
+
         try {
             startDate = dateFormat.parse("19-04-2018");
             endDate = dateFormat.parse("19-05-2018");
@@ -46,6 +48,13 @@ public class ReservationTests {
             e.printStackTrace();
         }
         room = new Room();
+
+        roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 0));
+        roomTypeRepository.addRoomType(new RoomType((byte) 4, (byte) 0));
+        roomTypeRepository.addRoomType(new RoomType((byte) 6, (byte) 0));
+        roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 1));
+        roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 2));
+        roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 3));
         roomType = roomTypeRepository.getRoomType(1);
     }
 
@@ -88,7 +97,6 @@ public class ReservationTests {
     public void testGetAllReservations() {
         Reservation myReservation1 = new Reservation(startDate, endDate, guest, 6, room, roomType);
         Reservation myReservation2 = new Reservation(startDate, endDate, guest, 6, room, roomType);
-
 
         reservationRepository.addReservation(myReservation1);
         reservationRepository.addReservation(myReservation2);
