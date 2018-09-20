@@ -114,6 +114,6 @@ public class Reservation {
         if (this.getRoom().getRoomType() != reservation.getRoom().getRoomType())
             return false;
 
-        return super.equals(obj);
+        return true;
     }
 }
