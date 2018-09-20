@@ -11,6 +11,15 @@ public class Reservation {
     private byte amountOfGuests;
     private ArrayList<Room> rooms;
     private boolean checkedIn;
+    private boolean isDeleted;
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
 
     // TODO: Test
     public void checkIn(){
