@@ -4,9 +4,9 @@ public class RoomType {
     private byte singleBeds;
     private byte doubleBeds;
 
-    // TODO: Create Test
-    public int getAmountOfPeople(){
-        return singleBeds + (doubleBeds * 2);
+    public RoomType(byte singleBeds, byte doubleBeds){
+        this.singleBeds = singleBeds;
+        this.doubleBeds = doubleBeds;
     }
 
     public byte getSingleBeds() {
