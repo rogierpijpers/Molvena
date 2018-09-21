@@ -5,26 +5,32 @@ import com.capgemini.data.ReservationRepository;
 import com.capgemini.data.RoomRepository;
 import com.capgemini.data.RoomTypeRepository;
 import com.capgemini.domain.Guest;
+import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 public abstract class Demo {
     protected ReservationService reservationService;
     protected GuestRepository guestRepository;
+    protected ReservationRepository reservationRepository;
+    protected RoomRepository roomRepository;
 
     public abstract void run();
     public abstract String getDescription();
 
     protected void initTestData(){
-        RoomRepository roomRepository = createRoomRepository();
-        ReservationRepository reservationRepository = createReservationRepository();
+        roomRepository = createRoomRepository();
+        guestRepository = createGuestRepository();
+        reservationRepository = createReservationRepository();
 
         reservationService = new ReservationService();
         reservationService.setReservationRepository(reservationRepository);
         reservationService.setRoomRepository(roomRepository);
-
-        guestRepository = createGuestRepository();
     }
 
     private GuestRepository createGuestRepository(){
@@ -52,7 +58,17 @@ public abstract class Demo {
     }
 
     private ReservationRepository createReservationRepository(){
-        return new ReservationRepository();
+        ReservationRepository reservationRepository = new ReservationRepository();
+
+        Date startDate = new Date();
+        Date endDate = addDays(startDate, 1);
+        Guest guest = guestRepository.getAllGuests().get(0);
+        Room room = roomRepository.getAllRooms().get(0);
+        RoomType roomType = room.getRoomType();
+        Reservation myReservation = new Reservation(startDate, endDate, guestRepository.getAllGuests().get(0), 6, room, roomType);
+
+        reservationRepository.addReservation(myReservation);
+        return reservationRepository;
     }
 
     private RoomTypeRepository createRoomTypeRepository(){
@@ -64,5 +80,13 @@ public abstract class Demo {
         roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 2));
         roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 3));
         return roomTypeRepository;
+    }
+
+    private static Date addDays(Date date, int days) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, days);
+
+        return cal.getTime();
     }
 }

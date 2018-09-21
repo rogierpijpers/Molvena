@@ -19,7 +19,10 @@ public class CmdDemo extends Demo{
 
         System.out.println("Logged in as: " + currentUser.getFirstName() + " " + currentUser.getLastName());
 
-        doActions();
+        while(true){
+            doActions();
+            System.out.println("\n -------------");
+        }
     }
 
     private Person login(){
@@ -46,6 +49,7 @@ public class CmdDemo extends Demo{
     private void doActions(){
         List<Demo> actions = new ArrayList<>();
         actions.add(new ReservationDemo(currentUser, inputReader));
+        actions.add(new CheckInDemo(currentUser, inputReader));
 
         System.out.println("Please choose an action to perform:");
         for(int i = 0; i < actions.size(); i++){
@@ -56,12 +60,7 @@ public class CmdDemo extends Demo{
         int index = inputReader.nextInt();
         Demo action = actions.get(index);
 
-        while(true){
-            action.run();
-            //System.out.println("Run demo again? y/n");
-            if(!inputReader.nextLine().toLowerCase().equals("y"))
-                break;
-        }
+        action.run();
     }
 
     @Override
