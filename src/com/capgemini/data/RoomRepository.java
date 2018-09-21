@@ -21,4 +21,14 @@ public class RoomRepository {
     public void addRoom(Room room){
         rooms.add(room);
     }
+
+    //Get a single room by roomnumber
+    public Room getRoomByRoomNumber(short roomID) {
+        List<Room> allRooms = getAllRooms();
+        for (Room room : allRooms) {
+            if (room.getRoomID() == roomID)
+                return room;
+        }
+        return null;
+    }
 }

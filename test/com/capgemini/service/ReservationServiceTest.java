@@ -180,4 +180,21 @@ public class ReservationServiceTest {
                 e.printStackTrace();
             }
         }
+
+
+
+    @Test
+    public void softDeleteReservation(){
+        try {
+            ReservationService reservationService = new ReservationService();
+            reservationService.setReservationRepository(reservationRepository);
+            Reservation reservation = reservationRepository.getAllReservations().get(0);
+            reservationService.softDelete(reservation);
+            Assert.assertSame(true, reservation.isDeleted());
+        } catch(Exception e){
+            e.printStackTrace();
+            Assert.assertTrue(false);
+        }
     }
+}
+
