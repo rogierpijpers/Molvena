@@ -201,4 +201,17 @@ public class ReservationServiceTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void softDeleteReservation(){
+        Reservation reservation = new Reservation();
+        ReservationService reservationService = new ReservationService();
+        reservation.setReservationID(1);
+
+
+        Reservation result = reservationService.softDelete(reservation);
+        Assert.assertSame(reservation, result);
+
+
+    }
 }
