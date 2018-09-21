@@ -6,6 +6,7 @@ import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 
+import java.io.InvalidObjectException;
 import java.util.*;
 
 public class ReservationService {
@@ -69,6 +70,16 @@ public class ReservationService {
         }
 
         return allReservedRooms;
+
+    }
+
+    public void softDelete(Reservation reservation) throws InvalidObjectException{
+
+        if(getReservationByID(reservation.getReservationID()) != null){
+            reservation.setDeleted(true);
+        } else {
+            throw new InvalidObjectException("Reservation not found.");
+        }
     }
 
     public Reservation getReservationByID(int id) {
