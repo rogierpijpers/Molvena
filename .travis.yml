@@ -1,0 +1,6 @@
+language: java
+script:
+- echo "skipping tests"
+notifications:
+  email: false
+  slack: capgemax:7MDJtZvUxLRcMITeBaRwZp1a
