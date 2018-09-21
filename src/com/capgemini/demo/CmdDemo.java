@@ -51,7 +51,7 @@ public class CmdDemo extends Demo{
         actions.add(new ReservationDemo(currentUser, inputReader));
         actions.add(new CheckInDemo(currentUser, inputReader));
         actions.add(new CancelReservationDemo(currentUser, inputReader));
-
+ 
         System.out.println("Please choose an action to perform:");
         for(int i = 0; i < actions.size(); i++){
             Demo action = actions.get(i);
