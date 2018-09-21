@@ -19,5 +19,10 @@ public class Room {
     public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
     }
+
+    @Override
+    public String toString(){
+        return roomID + " " + roomType.getDoubleBeds() + " - " + roomType.getSingleBeds();
+    }
 }
 

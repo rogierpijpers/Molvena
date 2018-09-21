@@ -88,4 +88,8 @@ public class ReservationService {
         }
         return null;
     }
+
+    public void addReservation(Reservation reservation){
+        reservationRepository.addReservation(reservation);
+    }
 }
