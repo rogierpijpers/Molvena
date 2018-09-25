@@ -2,7 +2,7 @@ package com.capgemini.domain;
 
 import java.util.Date;
 
-public abstract class Person {
+public class Person {
     protected String firstName;
     protected String lastName;
     protected String password;

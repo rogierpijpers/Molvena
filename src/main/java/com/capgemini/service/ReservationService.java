@@ -14,8 +14,7 @@ public class ReservationService {
     private RoomRepository roomRepository;
     private ReservationRepository reservationRepository;
 
-    public void setRoomRepository(RoomRepository roomRepository) {
-        this.roomRepository = roomRepository;
+    public void setRoomRepository(RoomRepository roomRepository) { this.roomRepository = roomRepository;
     }
 
     public void setReservationRepository(ReservationRepository reservationRepository) {
