@@ -5,6 +5,7 @@ import com.capgemini.data.RoomRepository;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
+import org.springframework.security.web.firewall.RequestRejectedException;
 
 import java.io.InvalidObjectException;
 import java.util.*;
@@ -26,6 +27,7 @@ public class ReservationService {
         roomRepository = new RoomRepository();
         reservationRepository = new ReservationRepository();
     }
+
 
     public List<Room> getAllAvailableRooms(Date startDate, Date endDate) {
         List<Room> availableRooms = new ArrayList();
@@ -100,7 +102,11 @@ public class ReservationService {
         return null;
     }
 
-    public void addReservation(Reservation reservation){
-        reservationRepository.addReservation(reservation);
+    public void addReservation(Reservation reservation) throws RequestRejectedException{
+        if(reservation != null) {
+            reservationRepository.addReservation(reservation);
+        } else {
+            throw new RequestRejectedException("reservation is empty, cannot add to database");
+        }
     }
 }

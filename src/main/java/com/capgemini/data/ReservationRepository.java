@@ -13,7 +13,6 @@ public class ReservationRepository {
         reservations.add(reservation);
     }
 
-
     public List<Reservation> getAllReservations() {
         List<Reservation> nonSoftDeletedReservations = new ArrayList<>();
         for (Reservation reservation :
