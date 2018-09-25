@@ -18,6 +18,11 @@ import java.util.List;
 public class PersonRepository {
     private List<Person> persons;
 
+    public PersonRepository(){
+        persons = new ArrayList<>();
+        addInitialAccounts();
+    }
+
     public void addInitialAccounts(){
         Person person1 = new Guest();
         person1.setFirstName("Thom");
@@ -42,11 +47,6 @@ public class PersonRepository {
         receptionist1.setCountry("NL");
         receptionist1.setDateOfBirth(new Date(31-8-1994));
         persons.add(receptionist1);
-    }
-
-    public PersonRepository(){
-        persons = new ArrayList<>();
-        addInitialAccounts();
     }
 
     public List<Person> getPersons() {
