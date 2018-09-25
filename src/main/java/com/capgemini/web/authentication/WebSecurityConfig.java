@@ -24,9 +24,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        personRepository.addInitialAccounts();
         String username = "Thom@moosjes.nl";
-        String password = personRepository.getSinglePerson("Thom@moosjes.nl").getPassword();
+        String password = personRepository.getSinglePerson(username).getPassword();
 
         auth.inMemoryAuthentication().passwordEncoder(passwordEncoder())
                   .withUser(username).password(password).roles("USER");
