@@ -3,7 +3,9 @@ package com.capgemini.web.authentication;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +19,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().passwordEncoder(passwordEncoder())
-                .withUser("user").password(ENCODED_PASSWORD).roles("USER");
+                .withUser("user").password(ENCODED_PASSWORD).roles("ADMIN");
+        auth.inMemoryAuthentication().passwordEncoder(passwordEncoder())
+                .withUser("user2").password(ENCODED_PASSWORD).roles("GUEST");
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception{
+//        Log.info("configuring Security");
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/HelloWorld").hasRole("GUEST")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and().httpBasic();
     }
 
     @Bean
