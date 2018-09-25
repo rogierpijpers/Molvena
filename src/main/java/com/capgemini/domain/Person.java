@@ -25,7 +25,7 @@ public abstract class Person {
     protected String city;
     protected String zipCode;
     protected String country;
-
+    
     public String getFirstName() {
         return firstName;
     }
@@ -45,7 +45,6 @@ public abstract class Person {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
