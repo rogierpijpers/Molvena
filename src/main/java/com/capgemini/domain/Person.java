@@ -15,6 +15,9 @@ public abstract class Person {
     protected String zipCode;
     protected String country;
 
+    public boolean match(String mail, String password) {
+        return this.mail.equals(mail) && this.password.equals(password);
+    }
     public String getFirstName() {
         return firstName;
     }
@@ -34,7 +37,6 @@ public abstract class Person {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }

@@ -51,7 +51,7 @@ public class PersonRepository {
 
     public Person getSinglePerson(String mail){
         for (Person person : persons) {
-            if (person.getMail() == mail){
+            if (person.getMail().equals(mail)){
                 return person;
             }
         }
