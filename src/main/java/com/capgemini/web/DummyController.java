@@ -4,11 +4,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloWorldController {
+public class DummyController {
 
-    @RequestMapping("/HelloWorld")
+    @RequestMapping("/dummy")
     public String index(){
         return "Hello World";
+    }
+
+    @RequestMapping("/dummy/protected")
+    public String helloWorldTest(){
+        return "Hello World (I should be logged in to see this)";
     }
 
 }
