@@ -5,6 +5,8 @@ import com.capgemini.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.EmptyStackException;
+
 @RestController
 public class RegisterController {
 
@@ -12,12 +14,14 @@ public class RegisterController {
     private RegistrationService registrationService;
 
     @RequestMapping("/register")
-    public String createRegistrationPage(){
-        return "html/register";
-    }
-//    @PostMapping
-//    public Person createRegistration(@RequestBody Person person){
-//        this.registrationService.AddRegistration(person);
-//        return person;
+    @PostMapping
+    public Person createRegistration(@RequestBody Person person) {
 
+        if (person.equals(null)) {
+            throw new NullPointerException();
+        }
+
+        this.registrationService.AddRegistration(person);
+        return person;
+    }
 }
