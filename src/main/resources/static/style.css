@@ -1,0 +1,3 @@
+.reservationBtnForm, .getReservation, .updateReservation, .createReservation, .deleteReservation{
+visibility: hidden;
+}
