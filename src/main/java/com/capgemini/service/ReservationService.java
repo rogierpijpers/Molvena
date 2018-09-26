@@ -27,6 +27,10 @@ public class ReservationService {
         reservationRepository = new ReservationRepository();
     }
 
+    public List<Reservation> getAllReservations(){
+        return reservationRepository.getAllReservations();
+    }
+
     public List<Room> getAllAvailableRooms(Date startDate, Date endDate) {
         List<Room> availableRooms = new ArrayList();
         List<Room> notAvailableRooms = getRoomsWithReservation(startDate, endDate);
