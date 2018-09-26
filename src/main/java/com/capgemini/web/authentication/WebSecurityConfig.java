@@ -1,15 +1,7 @@
 package com.capgemini.web.authentication;
 
-
-
-
-
-
-import com.capgemini.data.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,28 +18,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().passwordEncoder(passwordEncoder())
-                .withUser("user").password(ENCODED_PASSWORD).roles("ADMIN");
-        auth.inMemoryAuthentication().passwordEncoder(passwordEncoder())
-                .withUser("user2").password(ENCODED_PASSWORD).roles("GUEST");
-    }
 
+    }
     @Override
     public void configure(HttpSecurity auth) throws Exception{
-//        Log.info("configuring Security");
-        auth.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/HelloWorld").hasRole("GUEST")
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and().httpBasic();
         auth.authenticationProvider(authenticationProvider());
         auth.userDetailsService(userDetailsService());
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/*/");
+        auth.authorizeRequests()
+                .antMatchers("dummy/**").hasAnyRole("GUEST", "ADMIN")//USER role can access /users/**
+                .antMatchers("admin/**").hasRole("ADMIN")//ADMIN role can access /admin/**
+                .antMatchers("/").permitAll()// anyone can access /quests/**
+                .anyRequest().authenticated()//any other request just need authentication
+                .and()
+                .formLogin();
     }
 
     @Override

@@ -25,6 +25,16 @@ public abstract class Person {
     protected String city;
     protected String zipCode;
     protected String country;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    protected String role;
     
     public String getFirstName() {
         return firstName;
