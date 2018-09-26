@@ -65,3 +65,87 @@ function toggleAccountMenu(){
 	document.querySelector(".updateGuest").style.visibility = "visible";
 	document.querySelector(".deleteGuest").style.visibility = "visible";
 }
+
+function getReservation(){
+	//document.querySelector("input[name=reservationInput]").style.visibility = "visible";
+	//var reservationInput = document.querySelector("input[name=reservationInput]").value();
+	//reservation = getSingleReservation(reservationInput);
+
+
+
+	// var reservation = null;
+	// if (typeof reservationInput === "number" ){
+	// 	reservation = getSingleReservationById(reservationInput);
+	// }
+	// else if (typeof reservationInput === "string"){
+	// 	reservation = getSingleReservationByName(reservationInput);
+	// }
+	// else{
+	// 	// Throw error
+	// 	alert("Reservation input not valid (replace with exception!!!");
+	// 	// TODO: Exception
+	// }
+}
+
+// Back-end FUNCTIONS
+var url = "http://localhost:8080/";
+
+function getSingleReservation(reservationInput){
+	fetch(url + "reservation/" + reservationInput)
+	.then(function(response){
+		return response.json();
+	})
+	.then(function(json){
+		console.log(JSON.stringify(json));
+		// TODO: display in html
+	});
+}
+
+function getAllReservations(){
+fetch(url + "reservation/all")
+	.then(function(response){
+		return response.json();
+	})
+	.then(function(json){
+		console.log(JSON.stringify(json));
+		// TODO: display in html
+		document.getElementById("reservationDisplay").innerHTML = json;
+	});
+}
+
+function createReservation(startDate, endDate, guest, amountOfGuests, room, roomType){
+
+}
+
+function updateReservation(){
+
+}
+
+function deleteReservation(reservationId){
+
+}
+
+
+function getGuestById(reservationId){
+
+}
+
+function getGuestByName(clientName){
+
+}
+
+function getAllGuests(){
+}
+
+function createGuest(){
+
+}
+
+function updateGuest(){
+
+}
+
+function deleteGuest(){
+
+}
+
