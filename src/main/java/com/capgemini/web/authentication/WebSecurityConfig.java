@@ -24,13 +24,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity auth) throws Exception{
         auth.authenticationProvider(authenticationProvider());
         auth.userDetailsService(userDetailsService());
-        auth.authorizeRequests()
-                .antMatchers("dummy/**").hasAnyRole("GUEST", "ADMIN")//USER role can access /users/**
-                .antMatchers("admin/**").hasRole("ADMIN")//ADMIN role can access /admin/**
-                .antMatchers("/").permitAll()// anyone can access /quests/**
-                .anyRequest().authenticated()//any other request just need authentication
-                .and()
-                .formLogin();
+        auth.
+        authorizeRequests()
+        .antMatchers("/").permitAll()
+        .antMatchers("/dummy", "/dummy/**").hasAnyAuthority("GUEST", "ADMIN")
+        .antMatchers("/admin", "/admin/**").hasAuthority("ADMIN")
+        .antMatchers("/*").permitAll()
+        .anyRequest().authenticated()
+        .and()
+        .formLogin();
     }
 
     @Override
