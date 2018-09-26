@@ -21,7 +21,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     private User mapPersonToUser(Person person){
         User user;
-            user = new User(person.getMail(), person.getPassword(), Arrays.asList(new SimpleGrantedAuthority("ROLE_" + person.getRole())));
+            user = new User(person.getMail(), person.getPassword(), Arrays.asList(new SimpleGrantedAuthority(person.getRole())));
 
         return user;
     }
