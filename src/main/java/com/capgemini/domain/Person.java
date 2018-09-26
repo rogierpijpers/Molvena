@@ -8,6 +8,9 @@ public abstract class Person {
     @NotNull
     @NotEmpty
     protected String firstName;
+    
+    @NotNull
+    @NotEmpty
     protected String lastName;
 
     @NotNull
