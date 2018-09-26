@@ -1,5 +1,6 @@
 package com.capgemini.web;
 
+import com.capgemini.domain.Guest;
 import com.capgemini.domain.Person;
 import com.capgemini.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,13 @@ public class RegisterController {
 
     @RequestMapping("/register")
     @PostMapping
-    public Person createRegistration(@RequestBody Person person) {
+    public Person createRegistration(@RequestBody Guest guest) {
 
-        if (person.equals(null)) {
+        if (guest.equals(null)) {
             throw new NullPointerException();
         }
 
-        this.registrationService.AddRegistration(person);
-        return person;
+        this.registrationService.AddRegistration(guest);
+        return guest;
     }
 }

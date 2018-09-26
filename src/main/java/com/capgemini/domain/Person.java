@@ -1,19 +1,43 @@
 package com.capgemini.domain;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class Person {
+public abstract class Person {
+    @NotNull
+    @NotEmpty
     protected String firstName;
+    
+    @NotNull
+    @NotEmpty
     protected String lastName;
+
+    @NotNull
+    @NotEmpty
     protected String password;
 
     protected Date dateOfBirth;
+
+    @NotNull
+    @NotEmpty
     protected String mail;
+
     protected String phone;
     protected String address;
     protected String city;
     protected String zipCode;
     protected String country;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    protected String role;
     
     public String getFirstName() {
         return firstName;

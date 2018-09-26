@@ -1,7 +1,7 @@
 package com.capgemini.service;
 
 import com.capgemini.data.RegistrationRepository;
-import com.capgemini.domain.Person;
+import com.capgemini.domain.Guest;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +30,11 @@ public class RegistrationService {
 //            String city,
 //            String zipCode,
 //            String country
-            Person person
+            Guest guest
     )
     {
-        if(person != null){
-            registrationRepository.addRegistration(person);
+        if(guest != null){
+            registrationRepository.addRegistration(guest);
         }
 //        Person person = new Person();
 //        person.setFirstName(firstName);

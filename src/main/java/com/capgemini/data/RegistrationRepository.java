@@ -1,6 +1,6 @@
 package com.capgemini.data;
 
-import com.capgemini.domain.Person;
+import com.capgemini.domain.Guest;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +8,14 @@ import java.util.List;
 @Repository
 public class RegistrationRepository {
 
-    private List<Person> registrations = new ArrayList<>();
+    private List<Guest> registrations = new ArrayList<>();
 
-    public List<Person> getAllRegistrations(){
+        public List<Guest> getAllRegistrations(){
         return registrations;
     }
 
-    public void addRegistration(Person person){
-        registrations.add(person);
+    public void addRegistration(Guest guest){
+        registrations.add(guest);
     }
 }
 
