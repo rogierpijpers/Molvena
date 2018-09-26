@@ -5,10 +5,13 @@ import com.capgemini.data.RoomRepository;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
+import org.springframework.stereotype.Service;
 
 import java.io.InvalidObjectException;
 import java.util.*;
+import java.util.stream.Collectors;
 
+@Service
 public class ReservationService {
 
     private RoomRepository roomRepository;
@@ -93,6 +96,14 @@ public class ReservationService {
             }
         }
         return null;
+    }
+
+    public Reservation getReservationByIdForGuest(int id, String username){
+        return getReservationsByUsername(username).stream().filter(x -> x.getReservationID() == id).findFirst().orElse(null);
+    }
+
+    public List<Reservation> getReservationsByUsername(String username){
+        return reservationRepository.getAllReservations().stream().filter(x -> x.getGuest().getMail().equals(username)).collect(Collectors.toList());
     }
 
     public Reservation getReservationByName(String lastName) {
