@@ -111,6 +111,6 @@ public class ReservationService {
 
     //Give the id of the reservation you wan to update and the new reservation object you want to update
     public void updateReservation(int reservationID, Reservation currentReservations){
-        reservationRepository.updateReservation(reservationID, currentReservations)
+        reservationRepository.updateReservation(reservationID, currentReservations);
     }
 }
