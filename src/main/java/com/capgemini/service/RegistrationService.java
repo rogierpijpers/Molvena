@@ -19,33 +19,7 @@ public class RegistrationService {
         registrationRepository = new RegistrationRepository();
     }
 
-    public void AddRegistration(
-//            String firstName,
-//            String lastName,
-//            String password,
-//            Date dateOfBirth,
-//            String mail,
-//            String phone,
-//            String address,
-//            String city,
-//            String zipCode,
-//            String country
-            Guest guest
-    )
-    {
-        if(guest != null){
+    public void AddRegistration(Guest guest) {
             registrationRepository.addRegistration(guest);
-        }
-//        Person person = new Person();
-//        person.setFirstName(firstName);
-//        person.setLastName(lastName);
-//        person.setPassword(password);
-//        person.setDateOfBirth(dateOfBirth);
-//        person.setMail(mail);
-//        person.setPhone(phone);
-//        person.setAddress(address);
-//        person.setCity(city);
-//        person.setZipCode(zipCode);
-//        person.setCountry(country);
-        }
     }
+}

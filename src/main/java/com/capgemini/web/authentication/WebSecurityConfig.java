@@ -21,21 +21,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/*/").antMatchers("/register");
-
     public void configure(HttpSecurity auth) throws Exception{
         auth.authenticationProvider(authenticationProvider());
         auth.userDetailsService(userDetailsService());
         auth.
         authorizeRequests()
         .antMatchers("/").permitAll()
-        .antMatchers("/dummy", "/dummy/**").hasAnyAuthority("GUEST", "ADMIN")
-        .antMatchers("/admin", "/admin/**").hasAuthority("ADMIN")
-        .antMatchers("/*").permitAll()
-        .anyRequest().authenticated()
-        .and()
-        .formLogin();
+//        .antMatchers("/dummy", "/dummy/**").hasAnyAuthority("GUEST", "ADMIN")
+//        .antMatchers("/admin", "/admin/**").hasAuthority("ADMIN")
+//        .antMatchers("/*").permitAll()
+        .anyRequest().permitAll();
+//        .and()
+//        .formLogin();
     }
 
     @Override
