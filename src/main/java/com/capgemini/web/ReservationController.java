@@ -69,7 +69,9 @@ public class ReservationController {
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value="/reservation/{id}", method=RequestMethod.PUT)
     public void editReservationById(@PathVariable("id") int id, @RequestBody Reservation reservation) throws Exception {
+        System.out.println("Updating: " + reservation);
         service.updateReservation(id, reservation);
+        System.out.println("Updated: " + reservation);
     }
 
     @Secured({"ROLE_GUEST", "ROLE_ADMIN"})

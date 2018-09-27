@@ -27,6 +27,7 @@ public class Reservation {
         isDeleted = deleted;
     }
 
+    public Reservation(){}
 
     public Reservation(Date startDate, Date endDate, Guest guest,
                        int amountOfGuests, Room room, RoomType roomType){
