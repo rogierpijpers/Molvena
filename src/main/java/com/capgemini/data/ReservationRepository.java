@@ -22,6 +22,15 @@ public class ReservationRepository {
         reservations.add(reservation);
     }
 
+    public Reservation getReservationById(int id){
+        return getAllReservations().stream().filter(x -> x.getReservationID() == id).findFirst().orElse(null);
+    }
+
+    public void updateReservation(int id, Reservation reservation){
+        Reservation replace = getReservationById(id);
+        reservations.remove(replace);
+        reservations.add(reservation);
+    }
 
     public List<Reservation> getAllReservations() {
         List<Reservation> nonSoftDeletedReservations = new ArrayList<>();

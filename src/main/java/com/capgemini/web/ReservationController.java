@@ -4,6 +4,7 @@ import com.capgemini.domain.Reservation;
 import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
 import com.capgemini.web.authentication.AuthenticationHelper;
+import com.capgemini.web.util.exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -33,8 +34,24 @@ public class ReservationController {
     }
 
     @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
+    @RequestMapping("/reservation/{username}")
+    public List<Reservation> getReservationsByUsername(@PathVariable("username") String username) throws UnauthorizedException {
+        if(AuthenticationHelper.userIsGuest()) {
+            String loggedInUsername = AuthenticationHelper.getCurrentUsername();
+            if(username.equals(loggedInUsername))
+                return service.getReservationsByUsername(username);
+            else
+                throw new UnauthorizedException();
+        }else{
+            return service.getReservationsByUsername(username);
+        }
+    }
+
+    // TODO: get reservation by name
+
+    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
     @RequestMapping("/reservation/")
-    public List<Reservation> getReservationById(){
+    public List<Reservation> getAllReservations(){
         if(AuthenticationHelper.userIsGuest()){
             String username = AuthenticationHelper.getCurrentUsername();
             return service.getReservationsByUsername(username);
@@ -52,7 +69,7 @@ public class ReservationController {
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value="/reservation/{id}", method=RequestMethod.PUT)
     public void editReservationById(@PathVariable("id") int id, @RequestBody Reservation reservation) throws Exception {
-        throw new Exception("I don't exist yet.");
+        service.updateReservation(id, reservation);
     }
 
     @Secured({"ROLE_GUEST", "ROLE_ADMIN"})

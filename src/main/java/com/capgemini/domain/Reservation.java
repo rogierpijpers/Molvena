@@ -76,7 +76,7 @@ public class Reservation {
         return amountOfGuests;
     }
 
-    public void setAmountOfGuests(byte amountOfGuests) {
+    public void setAmountOfGuests(int amountOfGuests) {
         this.amountOfGuests = amountOfGuests;
     }
 
