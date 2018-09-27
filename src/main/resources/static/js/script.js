@@ -3,6 +3,7 @@ window.onload=console.log("ready");
 var parentForm = document.querySelector("#mainForm");
 parentForm.addEventListener("click", callRelevantFunction, false);
 
+
 // Calls the button function related to the clicked button.
 // The name is retrieved from the 'name' of the input field, so make sure that name and the function name is equal.
 function callRelevantFunction(e){
@@ -38,33 +39,31 @@ function toggleItems(){
 	document.querySelector(".deleteReservationBtn").style.visibility = "hidden";	
 }
 
-function toggleReservationMenu(){
-	// document.querySelector(".getReservationBtn").style.visibility = "visible"
-	// document.querySelector(".createReservationBtn").style.visibility = "visible";
-	// document.querySelector(".updateReservationBtn").style.visibility = "visible";
-	// document.querySelector(".deleteReservationBtn").style.visibility = "visible";
-}
-
+// TODO: Alles in 1 nette functie
 function toggleGetReservation(){
-	if(document.querySelector(".getReservationDisplay").style.visibility = "visible"){
-		console.log("toggling to hidden");
-		document.querySelector(".getReservationDisplay").style.visibility = "hidden";
-	}
-	else if (document.querySelector(".getReservationDisplay").style.visibility = "hidden")
-	{
-		console.log("toggling to visible");
-		document.querySelector(".getReservationDisplay").style.visibility = "visible";
-	}
+	document.querySelector(".getReservationDisplay").style.display = "block";
+	document.querySelector(".createReservationDisplay").style.display = "none";
+	document.querySelector(".updateReservationDisplay").style.display = "none";
+	document.querySelector(".deleteReservationDisplay").style.display = "none";
 }
 
 function toggleCreateReservation(){
-	document.querySelector(".createReservationDisplay").style.visibility = "visible";
+	document.querySelector(".getReservationDisplay").style.display = "none";
+	document.querySelector(".createReservationDisplay").style.display = "block";
+	document.querySelector(".updateReservationDisplay").style.display = "none";
+	document.querySelector(".deleteReservationDisplay").style.display = "none";
 }
 function toggleUpdateReservation(){
-	document.querySelector(".updateReservationDisplay").style.visibility = "visible";
+	document.querySelector(".getReservationDisplay").style.display = "none";
+	document.querySelector(".createReservationDisplay").style.display = "none";
+	document.querySelector(".updateReservationDisplay").style.display = "block";
+	document.querySelector(".deleteReservationDisplay").style.display = "none";
 }
 function toggleDeleteReservation(){
-	document.querySelector(".deleteReservationDisplay").style.visibility = "visible";
+	document.querySelector(".getReservationDisplay").style.display = "none";
+	document.querySelector(".createReservationDisplay").style.display = "none";
+	document.querySelector(".updateReservationDisplay").style.display = "none";
+	document.querySelector(".deleteReservationDisplay").style.display = "block";
 }
 
 function toggleAccountMenu(){

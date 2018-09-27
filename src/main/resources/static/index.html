@@ -8,80 +8,72 @@
 <body>
 
 <form id="mainForm" action="">
-
-<!--<form action="">-->
     <button type="button" name="toggleReservationMenu">Reservation</button>
     <button type="button" name="toggleAccountMenu">Account</button>
-<!--</form>-->
 
-<h1>Staff</h1>
+<h1>Reservations</h1>
+    <span class="menuButtons">
+        <button type="button" class="toggleBtn" name="toggleGetReservation">Get res</button>
+        <button type="button" class="toggleBtn" name="toggleCreateReservation">Create</button>
+        <button type="button" class="toggleBtn" name="toggleUpdateReservation">Update</button>
+        <button type="button" class="toggleBtn" name="toggleDeleteReservation">Delete</button>
+    </span>
 
-<form id="reservationBtnForm" action="">
-    <button type="button" name="toggleGetReservation">Get res</button>
-    <button type="button" name="toggleCreateReservation">Create</button>
-    <button type="button" name="toggleUpdateReservation">Update</button>
-    <button type="button" name="toggleDeleteReservation">Delete</button>
-</form>
+<div id="genericDisplay">
+    <span class="getReservationDisplay">
+        <input type="text" placeholder="ID or name">
+        <div id="reservationDisplayText">
+    		text
+        </div>
+        <button type="button" name="getSingleReservation">Submit</button>
+    </span>
 
-<form class="getReservation" action="">
-    <input type="text" placeholder="ID or name">
-    <div id="reservationDisplay">
-text
-    </div>
-    <button type="button">Submit</button>
-</form>
+    <span class="createReservationDisplay">
+        <input type="text" placeholder="How many persons?">
+        <input type="text" placeholder="Start date">
+        <input type="text" placeholder="End date">
+        <label class="container">Single bed
+            <input type="radio" checked="checked" name="radio">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Double bed
+            <input type="radio" name="radio">
+            <span class="checkmark"></span>
+        </label>
+        <button type="button" name="createReservation">Submit</button>
+    </span>
 
-<form class="createReservation" action="">
-    <input type="text" placeholder="How many persons?">
-    <input type="text" placeholder="Start date">
-    <input type="text" placeholder="End date">
-    <label class="container">Single bed
-        <input type="radio" checked="checked" name="radio">
-        <span class="checkmark"></span>
-    </label>
-    <label class="container">Double bed
-        <input type="radio" name="radio">
-        <span class="checkmark"></span>
-    </label>
-    <button type="button">Submit</button>
-</form>
+    <span class="updateReservationDisplay">
+        <input type="text" placeholder="How many persons?">
+        <input type="text" placeholder="Start date">
+        <input type="text" placeholder="End date">
+        <label class="container">Single bed
+            <input type="radio" checked="checked" name="radio">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Double bed
+            <input type="radio" name="radio">
+            <span class="checkmark"></span>
+        </label>
 
-<form class="updateReservation" action="">
-    <input type="text" placeholder="How many persons?">
-    <input type="text" placeholder="Start date">
-    <input type="text" placeholder="End date">
-    <label class="container">Single bed
-        <input type="radio" checked="checked" name="radio">
-        <span class="checkmark"></span>
-    </label>
-    <label class="container">Double bed
-        <input type="radio" name="radio">
-        <span class="checkmark"></span>
-    </label>
+        <button type="button" name="updateReservation">Submit</button>
+    </span>
 
-    <button type="button">Submit</button>
-</form>
-
-<form class="deleteReservation" action="">
-    <input type="text" placeholder="ID or name">
-    <button type="button">Submit</button>
-</form>
-
+    <span class="deleteReservationDisplay">
+        <input type="text" placeholder="ID or name">
+        <button type="button" name="deleteReservation">Submit</button>
+    </span>
+</div>
 
 <h1>Guest</h1>
-<form action="">
     <button type="button">Vies res</button>
     <button type="button">Create</button>
     <button type="button">Update</button>
     <button type="button">Delete</button>
-</form>
 
-<form action="">
     <input type="text" placeholder="ID or name">
     <button type="button">Submit</button>
-</form>
 
-<form action="">
     <input type="text" placeholder="How many persons?">
     <input type="text" placeholder="Start date">
     <input type="text" placeholder="End date">
@@ -94,9 +86,7 @@ text
         <span class="checkmark"></span>
     </label>
     <button type="button">Submit</button>
-</form>
 
-<form action="">
     <input type="text" placeholder="How many persons?">
     <input type="text" placeholder="Start date">
     <input type="text" placeholder="End date">
@@ -110,15 +100,13 @@ text
     </label>
 
     <button type="button">Submit</button>
-</form>
-
-<form action="">
     <input type="text" placeholder="ID or name">
     <button type="button">Submit</button>
-</form>
 </form>
 
 
 </body>
 </html>
 <script src="js/script.js"></script>
+<script src="js/backend.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

@@ -3,5 +3,5 @@
 }
 
 .getReservationDisplay, .createReservationDisplay, .updateReservationDisplay, .deleteReservationDisplay{
-	visibility: hidden;
+	/*display: none;*/
 }
