@@ -2,11 +2,9 @@ package com.capgemini.service;
 
 import com.capgemini.data.RegistrationRepository;
 import com.capgemini.domain.Guest;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
-@Component
 public class RegistrationService {
 
     private RegistrationRepository registrationRepository;
@@ -21,5 +19,9 @@ public class RegistrationService {
 
     public void AddRegistration(Guest guest) {
             registrationRepository.addRegistration(guest);
+    }
+
+    public Guest getRegistrationByName(String name) {
+        return(registrationRepository.getRegistrationByName(name));
     }
 }
