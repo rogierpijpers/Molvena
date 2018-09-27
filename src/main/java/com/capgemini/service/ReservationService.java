@@ -5,13 +5,19 @@ import com.capgemini.data.RoomRepository;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.InvalidObjectException;
 import java.util.*;
+import java.util.stream.Collectors;
 
+@Service
 public class ReservationService {
 
+    @Autowired
     private RoomRepository roomRepository;
+    @Autowired
     private ReservationRepository reservationRepository;
 
     public void setRoomRepository(RoomRepository roomRepository) { this.roomRepository = roomRepository;
@@ -21,9 +27,8 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
-    public ReservationService() {
-        roomRepository = new RoomRepository();
-        reservationRepository = new ReservationRepository();
+    public List<Reservation> getAllReservations(){
+        return reservationRepository.getAllReservations();
     }
 
     public List<Room> getAllAvailableRooms(Date startDate, Date endDate) {
@@ -90,6 +95,14 @@ public class ReservationService {
         return null;
     }
 
+    public Reservation getReservationByIdForGuest(int id, String username){
+        return getReservationsByUsername(username).stream().filter(x -> x.getReservationID() == id).findFirst().orElse(null);
+    }
+
+    public List<Reservation> getReservationsByUsername(String username){
+        return reservationRepository.getAllReservations().stream().filter(x -> x.getGuest().getMail().equals(username)).collect(Collectors.toList());
+    }
+
     public Reservation getReservationByName(String lastName) {
         for (Reservation reservation : reservationRepository.getAllReservations()) {
             if (reservation.getGuest().getLastName() == lastName) {
@@ -101,5 +114,9 @@ public class ReservationService {
 
     public void addReservation(Reservation reservation){
         reservationRepository.addReservation(reservation);
+    }
+
+    public void updateReservation(int id, Reservation reservation){
+        reservationRepository.updateReservation(id, reservation);
     }
 }

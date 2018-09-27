@@ -27,6 +27,7 @@ public class Reservation {
         isDeleted = deleted;
     }
 
+    public Reservation(){}
 
     public Reservation(Date startDate, Date endDate, Guest guest,
                        int amountOfGuests, Room room, RoomType roomType){
@@ -76,7 +77,7 @@ public class Reservation {
         return amountOfGuests;
     }
 
-    public void setAmountOfGuests(byte amountOfGuests) {
+    public void setAmountOfGuests(int amountOfGuests) {
         this.amountOfGuests = amountOfGuests;
     }
 
