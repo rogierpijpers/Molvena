@@ -1,5 +1,11 @@
 package com.capgemini.web;
 
+import com.capgemini.domain.Reservation;
+import com.capgemini.service.ReservationService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
+import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -11,8 +17,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.TimeZone;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -20,15 +33,33 @@ import org.springframework.test.web.servlet.MockMvc;
 public class ReservationControllerTest {
 
     @Autowired
+    private WebApplicationContext wac;
+
+    @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ReservationService reservationService;
+
+    @Before
+    public void setup() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    }
+
     @Test
+    @WithMockUser(username="Jan@vandijk.nl", roles={"GUEST"})
     public void testGetReservationsForGuest() throws Exception{
+        List<Reservation> myReservations = reservationService.getReservationsByUsername("Jan@vandijk.nl");
 
-//        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
-//                .andExpect(content().string(containsString("Hello World")));
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(df);
+        String reservationsJson = objectMapper.writeValueAsString(myReservations);
 
-        //TODO: get all reservations for a logged in guest
+        this.mockMvc.perform(get("/reservation/")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().json(reservationsJson));
     }
 
     @Test
