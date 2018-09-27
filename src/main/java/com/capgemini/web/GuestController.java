@@ -22,7 +22,7 @@ public class GuestController {
         return guestRepository.getAllGuests();
     }
 
-    @Secured({"ROLE_GUEST", "ADMIN"})
+    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
     @RequestMapping("/guest/{username}")
     public Guest getGuestByUsername(@PathVariable("username") String username) throws UnauthorizedException {
         if(AuthenticationHelper.userIsGuest()) {
@@ -36,13 +36,13 @@ public class GuestController {
         }
     }
 
-    @Secured({"ROLE_GUEST", "ADMIN"})
+    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
     @RequestMapping(value="/guest/{id}", method= RequestMethod.PUT)
     public void updateGuest(@PathVariable("id") int id, @RequestBody Guest guest){
         // TODO: a guest can only update his own information
     }
 
-    @Secured({"ROLE_GUEST", "ADMIN"})
+    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
     @RequestMapping(value="/guest/", method= RequestMethod.POST)
     public void createGuest(@RequestBody Guest guest){
         // TODO: this is redundant with /registration controller...
