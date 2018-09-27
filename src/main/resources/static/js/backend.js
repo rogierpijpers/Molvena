@@ -15,11 +15,12 @@
 // }
 
 //var urlReservation = "http://localhost:8080/reservation/";
-var urlReservation = "http://demo7061046.mockable.io/";
+var urlReservation = "http://www.mocky.io/v2/5bacb9003100006900654978";
 var urlAccount = "http://localhost:8080/account/";
 
 function getSingleReservation(){
-	console.log("Getting reservation");
+	var id = document.querySelector("#askedResId").value;
+	console.log("Getting reservation for id " + id);
 	fetch(urlReservation)
 	//fetch(urlReservation + reservationInput)
 	.then(function(response){
@@ -33,7 +34,9 @@ function getSingleReservation(){
 }
 
 function getAllReservations(){
-fetch(urlReservation + "/all")
+	console.log("Getting all reservations");
+//fetch(urlReservation + "/all")
+	fetch(urlReservation)
 	.then(function(response){
 		return response.json();
 	})
