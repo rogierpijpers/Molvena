@@ -11,7 +11,7 @@
 <h1>Reservations</h1>
     <span class="menuButtons">
         <button type="button" class="toggleBtn" name="toggleGetReservation">Get reservation by name or id</button>
-        <button type="button" class="toggleBtn" name="getAllReservations">Get all reservations</button>
+        <button type="button" class="toggleBtn" name="toggleAllReservations">Get all reservations</button>
         <button type="button" class="toggleBtn" name="toggleCreateReservation">Create</button>
         <button type="button" class="toggleBtn" name="toggleUpdateReservation">Update</button>
         <button type="button" class="toggleBtn" name="toggleDeleteReservation">Delete</button>
@@ -24,6 +24,12 @@
     		text
         </div>
         <button type="button" name="getSingleReservation">Submit</button>
+    </span>
+
+    <span class="getAllReservationsDisplay">
+    <div id="allReservationDisplayText">
+                text
+            </div>
     </span>
 
     <span class="createReservationDisplay">
@@ -45,7 +51,7 @@
     </span>
 
     <span class="updateReservationDisplay">
-        <input name="inputIdUpdate" type="text" placeholder="Guest ID">
+        <input name="inputIdUpdate" type="text" placeholder="Reservation ID">
         <input type="text" placeholder="How many persons?" name="inputAmountOfGuestsUpdate">
         <input type="text" placeholder="Start date" name="inputStartDateUpdate">
         <input type="text" placeholder="End date" name="inputLastDateUpdate">
