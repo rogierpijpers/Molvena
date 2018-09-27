@@ -4,36 +4,17 @@ import com.capgemini.domain.Guest;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class ReservationRepository {
 
-    private List<Reservation> reservations = new ArrayList<>();
-
-    // TODO: Remove after testing
-    private static Date addDays(Date date, int days) {
-        GregorianCalendar cal = new GregorianCalendar();
-        cal.setTime(date);
-        cal.add(Calendar.DATE, days);
-
-        return cal.getTime();
-    }
+    private List<Reservation> reservations;
 
     public ReservationRepository(){
-        Date startDate = new Date();
-        Date endDate = addDays(startDate, 1);
-        RoomType roomType1 = new RoomType((byte) 0, (byte) 2);
-        Room room1 = new Room();
-        room1.setRoomType(roomType1);
-        RoomType roomType = room1.getRoomType();
-
-        PersonRepository personRepository = new PersonRepository();
-        personRepository.addInitialAccounts();
-
-        Reservation myReservation = new Reservation(startDate, endDate, (Guest) personRepository.getSinglePerson("Jan@vandijk.nl"), 6, room1, roomType);
-
-        addReservation(myReservation);
+        reservations = new ArrayList<>();
     }
 
     public void addReservation(Reservation reservation) {
@@ -55,9 +36,7 @@ public class ReservationRepository {
     }
     public List<Reservation> getAllSoftDeletedReservations() {
         List<Reservation> SoftDeletedReservations = new ArrayList<>();
-        for (Reservation reservation :
-                reservations) {
-
+        for (Reservation reservation : reservations) {
             if (reservation.isDeleted()) {
                 SoftDeletedReservations.add(reservation);
             }
