@@ -17,7 +17,7 @@ function callRelevantFunction(e){
 
 // Button functions
 function login(mail, password){
-	console.log("function login calld");
+	console.log("function login called");
 }
 
 function logout(){
