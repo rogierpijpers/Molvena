@@ -2,6 +2,8 @@ package com.capgemini.web.util;
 
 import com.capgemini.data.*;
 import com.capgemini.domain.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,7 @@ import java.util.GregorianCalendar;
 
 @Component
 public class DummyDataSeeder {
+    private Logger logger = LoggerFactory.getLogger(DummyDataSeeder.class);
 
     @Autowired
     private GuestRepository guestRepository;
@@ -28,6 +31,8 @@ public class DummyDataSeeder {
 
     @PostConstruct
     public void seedTestData(){
+        logger.info("Seeding repositories with dummy data.");
+        
         seedPersonRepository();
         seedRoomTypeRepository();
         seedRoomRepository();

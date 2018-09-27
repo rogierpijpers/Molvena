@@ -5,6 +5,7 @@ import com.capgemini.data.RoomRepository;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.InvalidObjectException;
@@ -14,7 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class ReservationService {
 
+    @Autowired
     private RoomRepository roomRepository;
+    @Autowired
     private ReservationRepository reservationRepository;
 
     public void setRoomRepository(RoomRepository roomRepository) {
@@ -23,11 +26,6 @@ public class ReservationService {
 
     public void setReservationRepository(ReservationRepository reservationRepository) {
         this.reservationRepository = reservationRepository;
-    }
-
-    public ReservationService() {
-        roomRepository = new RoomRepository();
-        reservationRepository = new ReservationRepository();
     }
 
     public List<Reservation> getAllReservations(){
