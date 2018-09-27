@@ -40,18 +40,30 @@ function postData() {
         data: validJsonBook,
         contentType: "application/json",
         success: function(result) {
-            // On successful post, reload data to get the added one as well.
-            console.log("success post data!");
+            console.log("het registreren van de gast is gelukt");
+            console.log(validJsonBook);
         }
     });
 }
         $(document).ready(function () {
         $("#register").click(function() {
+
+        if (firstname == '' || lastname == '' || password == '' || cpassword == '' || dateofbirth == '' || mail == '' || phone == '' || address == '' || city == '' || zipcode == '' || country == '' ) {
+        alert("Please fill all fields");
+        console.log("Please fill all fields")
+        } else if ((password.length) < 8) {
+        alert("Password should atleast 8 character in length");
+        console.log("Password should atleast 8 character in length")
+        } else if (password.value != cpassword.value) {
+        alert("Your passwords don't match. Try again?");
+        console.log("Your passwords don't match. Try again?")
+        }
+        else {
                 console.log("Post request send");
-                // Post the data from the modal.
                 postData();
-            });
+            };
         });
+    });
 
 
 
