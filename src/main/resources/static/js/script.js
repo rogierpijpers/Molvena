@@ -16,7 +16,7 @@ function callRelevantFunction(e){
 
 // Button functions
 function login(mail, password){
-console.log("function login calld");
+	console.log("function login calld");
 }
 
 function logout(){
@@ -39,7 +39,6 @@ function toggleItems(){
 }
 
 function toggleReservationMenu(){
-	 document.querySelector("#reservationBtnForm").style.visibility = "visible";
 	// document.querySelector(".getReservationBtn").style.visibility = "visible"
 	// document.querySelector(".createReservationBtn").style.visibility = "visible";
 	// document.querySelector(".updateReservationBtn").style.visibility = "visible";
@@ -47,16 +46,25 @@ function toggleReservationMenu(){
 }
 
 function toggleGetReservation(){
-	document.querySelector(".getReservation").style.visibility = "visible"
+	if(document.querySelector(".getReservationDisplay").style.visibility = "visible"){
+		console.log("toggling to hidden");
+		document.querySelector(".getReservationDisplay").style.visibility = "hidden";
+	}
+	else if (document.querySelector(".getReservationDisplay").style.visibility = "hidden")
+	{
+		console.log("toggling to visible");
+		document.querySelector(".getReservationDisplay").style.visibility = "visible";
+	}
 }
+
 function toggleCreateReservation(){
-	document.querySelector(".createReservation").style.visibility = "visible"
+	document.querySelector(".createReservationDisplay").style.visibility = "visible";
 }
 function toggleUpdateReservation(){
-	document.querySelector(".updateReservation").style.visibility = "visible"
+	document.querySelector(".updateReservationDisplay").style.visibility = "visible";
 }
 function toggleDeleteReservation(){
-	document.querySelector(".deleteReservation").style.visibility = "visible"
+	document.querySelector(".deleteReservationDisplay").style.visibility = "visible";
 }
 
 function toggleAccountMenu(){

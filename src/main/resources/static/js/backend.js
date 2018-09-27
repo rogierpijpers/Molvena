@@ -1,14 +1,33 @@
-var urlReservation = "http://localhost:8080/reservation/";
+// window.onload=console.log("ready");
+// //window.onload=toggleItems();
+// var parentForm = document.querySelector("#mainForm");
+// parentForm.addEventListener("click", callRelevantFunction, false);
+
+// // Calls the button function related to the clicked button.
+// // The name is retrieved from the 'name' of the input field, so make sure that name and the function name is equal.
+// function callRelevantFunction(e){
+// 	if(e.target !== e.currentTarget){
+// 		var clickedItem = e.target.name;
+// 		console.log(clickedItem + " has been clicked");
+// 		window[clickedItem]();
+// 	}
+// 	e.stopPropagation();
+// }
+
+//var urlReservation = "http://localhost:8080/reservation/";
+var urlReservation = "http://demo7061046.mockable.io/";
 var urlAccount = "http://localhost:8080/account/";
 
-function getSingleReservation(reservationInput){
-	fetch(urlReservation + reservationInput)
+function getSingleReservation(){
+	console.log("Getting reservation");
+	fetch(urlReservation)
+	//fetch(urlReservation + reservationInput)
 	.then(function(response){
 		return response.json();
 	})
 	.then(function(json){
 		console.log(JSON.stringify(json));
-		document.getElementById("reservationDisplay").innerHTML = json;
+		document.getElementById("reservationDisplayText").innerHTML = json;
 		// TODO: display in html
 	});
 }
