@@ -16,6 +16,15 @@ public class GuestController {
     @Autowired
     private GuestRepository guestRepository;
 
+    // public
+
+    @RequestMapping(value="/guest/", method= RequestMethod.POST)
+    public void createGuest(@RequestBody Guest guest){
+        // TODO: this is redundant with /registration controller...
+    }
+
+    // secured
+
     @Secured({"ROLE_ADMIN"})
     @RequestMapping("/guest/")
     public List<Guest> getAllGuests(){
@@ -40,12 +49,6 @@ public class GuestController {
     @RequestMapping(value="/guest/{id}", method= RequestMethod.PUT)
     public void updateGuest(@PathVariable("id") int id, @RequestBody Guest guest){
         // TODO: a guest can only update his own information
-    }
-
-    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
-    @RequestMapping(value="/guest/", method= RequestMethod.POST)
-    public void createGuest(@RequestBody Guest guest){
-        // TODO: this is redundant with /registration controller...
     }
 
 }

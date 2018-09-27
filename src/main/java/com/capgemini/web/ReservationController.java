@@ -1,6 +1,7 @@
 package com.capgemini.web;
 
 import com.capgemini.domain.Reservation;
+import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
 import com.capgemini.web.authentication.AuthenticationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
