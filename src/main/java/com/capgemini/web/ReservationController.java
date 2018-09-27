@@ -50,7 +50,7 @@ public class ReservationController {
 
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value="/reservation/{id}", method=RequestMethod.PUT)
-    public void editReservationById(@PathVariable("id") int id) throws Exception {
+    public void editReservationById(@PathVariable("id") int id, @RequestBody Reservation reservation) throws Exception {
         throw new Exception("I don't exist yet.");
     }
 
