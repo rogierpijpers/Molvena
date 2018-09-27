@@ -34,7 +34,7 @@ public class ReservationController {
     }
 
     @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
-    @RequestMapping("/reservation/{username}")
+    @RequestMapping("/reservation/user/{username}")
     public List<Reservation> getReservationsByUsername(@PathVariable("username") String username) throws UnauthorizedException {
         if(AuthenticationHelper.userIsGuest()) {
             String loggedInUsername = AuthenticationHelper.getCurrentUsername();
