@@ -9,9 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.InvalidObjectException;
 import java.util.List;
@@ -24,7 +22,7 @@ public class ReservationController {
 
     @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
     @RequestMapping("/reservation/{id}")
-    public Reservation getReservationById(int id){
+    public Reservation getReservationById(@PathVariable("id") int id){
         if(AuthenticationHelper.userIsGuest()){
             String username = AuthenticationHelper.getCurrentUsername();
             return service.getReservationByIdForGuest(id, username);
@@ -45,20 +43,20 @@ public class ReservationController {
     }
 
     @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
-    @RequestMapping(value="/reservation/{id}", method=RequestMethod.POST)
-    public void createReservation(Reservation reservation) {
+    @RequestMapping(value="/reservation/", method=RequestMethod.POST)
+    public void createReservation(@RequestBody Reservation reservation) {
         service.addReservation(reservation);
     }
 
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value="/reservation/{id}", method=RequestMethod.PUT)
-    public void editReservationById(int id) throws Exception {
+    public void editReservationById(@PathVariable("id") int id) throws Exception {
         throw new Exception("I don't exist yet.");
     }
 
     @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
     @RequestMapping(value="/reservation/{id}", method=RequestMethod.DELETE)
-    public void deleteReservation(int id) throws InvalidObjectException {
+    public void deleteReservation(@PathVariable("id") int id) throws InvalidObjectException {
         service.softDelete(service.getReservationByID(id));
     }
 }
