@@ -19,9 +19,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
         return mapPersonToUser(person);
     }
 
-    // TODO: Add roles
     private User mapPersonToUser(Person person){
-        User user = new User(person.getMail(), person.getPassword(), Arrays.asList(new SimpleGrantedAuthority("USER")));
+        User user;
+            user = new User(person.getMail(), person.getPassword(), Arrays.asList(new SimpleGrantedAuthority(person.getRole())));
+
         return user;
     }
 }
