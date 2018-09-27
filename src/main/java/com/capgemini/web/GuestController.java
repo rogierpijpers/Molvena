@@ -2,6 +2,8 @@ package com.capgemini.web;
 
 import com.capgemini.data.GuestRepository;
 import com.capgemini.domain.Guest;
+import com.capgemini.web.authentication.AuthenticationHelper;
+import com.capgemini.web.util.exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +23,17 @@ public class GuestController {
     }
 
     @Secured({"ROLE_GUEST", "ADMIN"})
-    @RequestMapping("/guest/{id}")
-    public Guest getGuestById(@PathVariable("id") int id){
-        // TODO: a guest can only get his own ID
-        return null;
+    @RequestMapping("/guest/{username}")
+    public Guest getGuestByUsername(@PathVariable("username") String username) throws UnauthorizedException {
+        if(AuthenticationHelper.userIsGuest()) {
+            String loggedInUsername = AuthenticationHelper.getCurrentUsername();
+            if(username.equals(loggedInUsername))
+                return guestRepository.getGuestByUsername(username);
+            else
+                throw new UnauthorizedException();
+        }else{
+            return guestRepository.getGuestByUsername(username);
+        }
     }
 
     @Secured({"ROLE_GUEST", "ADMIN"})
