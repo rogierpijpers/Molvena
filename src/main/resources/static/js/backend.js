@@ -1,41 +1,24 @@
-// window.onload=console.log("ready");
-// //window.onload=toggleItems();
-// var parentForm = document.querySelector("#mainForm");
-// parentForm.addEventListener("click", callRelevantFunction, false);
-
-// // Calls the button function related to the clicked button.
-// // The name is retrieved from the 'name' of the input field, so make sure that name and the function name is equal.
-// function callRelevantFunction(e){
-// 	if(e.target !== e.currentTarget){
-// 		var clickedItem = e.target.name;
-// 		console.log(clickedItem + " has been clicked");
-// 		window[clickedItem]();
-// 	}
-// 	e.stopPropagation();
-// }
-
 //var urlReservation = "http://localhost:8080/reservation/";
-var urlReservation = "http://www.mocky.io/v2/5bacb9003100006900654978";
+var urlReservation = "http://www.mocky.io/v2/5bacbc4633000075000eb2f0";
 var urlAccount = "http://localhost:8080/account/";
 
 function getSingleReservation(){
-	var id = document.querySelector("#askedResId").value;
+	var id = document.querySelector("#inputResId").value;
 	console.log("Getting reservation for id " + id);
-	fetch(urlReservation)
+	fetch(urlReservation + id)
 	//fetch(urlReservation + reservationInput)
 	.then(function(response){
 		return response.json();
 	})
 	.then(function(json){
 		console.log(JSON.stringify(json));
-		document.getElementById("reservationDisplayText").innerHTML = json;
+		document.getElementById("reservationDisplayText").innerHTML = JSON.stringify(json);
 		// TODO: display in html
 	});
 }
 
 function getAllReservations(){
 	console.log("Getting all reservations");
-//fetch(urlReservation + "/all")
 	fetch(urlReservation)
 	.then(function(response){
 		return response.json();
@@ -43,14 +26,24 @@ function getAllReservations(){
 	.then(function(json){
 		console.log(JSON.stringify(json));
 		// TODO: display in html
-		document.getElementById("reservationDisplay").innerHTML = json;
+		document.querySelector("#reservationDisplayText").innerHTML = JSON.stringify(json);
 	});
 }
 
-function createReservation(startDate, endDate, guest, amountOfGuests, room, roomType){
-	// TODO: add guestid, room, roomtype
-	var reservationJSON = "{startDate: " + startDate + ", endDate: " + endDate + ", guest: " +  guest 
-	+ ", amountOfGuests: " + amountOfGuests + ", room: " + room + ", roomType: " + roomType + "}";
+function createReservation(){
+	var firstName = document.querySelector("#inputFirstNameCreate").value;
+	var lastName = document.querySelector("#inputFirstNameCreate").value;
+	var mail = document.querySelector("#inputMailCreate").value;
+	var startDate = document.querySelector("#inputStartDateCreate").value;
+	var endDate = document.querySelector("#inputEndDateCreate").value;
+	var amountOfGuests = document.querySelector("#inputAmountOfGuestsCreate").value;
+	
+	// TODO: guest, room and roomtype objects
+	//var guest = document.querySelector("").value;
+	//var room = document.querySelector("#inputRoomCreate").value;
+	//var roomType = document.querySelector("#inputRoomTypeCreate").value;
+
+	var reservationJSON = "{startDate: " + startDate + ", endDate: " + endDate + ", amountOfGuests: " + amountOfGuests + "}";
 
 	console.log("Creating reservation with json: " + reservationJSON);
 	var newReservation = JSON.parse(reservationJSON);
@@ -66,16 +59,34 @@ function createReservation(startDate, endDate, guest, amountOfGuests, room, room
 		.catch(error => console.error('Error:', error));
 }
 
-function updateReservation(reservationId){
-	fetch(urlReservation + reservationId, {
+function updateReservation(){
+	var id = document.querySelector("#inputIdUpdate").value;
+	var startDate = document.querySelector("#inputStartDateUpdate").value;
+	var endDate = document.querySelector("#inputEndDateUpdate").value;
+	var amountOfGuests = document.querySelector("#inputAmountOfGuestsUpdate").value;
+
+	// TODO: guest, room and roomtype objects
+	var guest = document.querySelector("").value;
+	var room = document.querySelector("#inputRoomUpdate").value;
+	var roomType = document.querySelector("#inputRoomTypeUpdate").value;
+
+	var reservationJSON = "{ id: " + id + ", startDate: " + startDate + ", endDate: " + endDate + ", amountOfGuests: " + amountOfGuests + "}";
+
+	console.log("Updating reservation with id " + id);
+	fetch(urlReservation + id, {
 		method: "PUT",
+		body: JSON.stringify(reservationJSON),
+		headers:{
+		    'Content-Type': 'application/json'
+		  }
 	})
 	.then(response => response.json());
 }
 
-function deleteReservation(reservationId){
-	console.log("Deleting reservation with id " + reservationId);
-	fetch(urlReservation + reservationId, {
+function deleteReservation(){
+	var id = document.querySelector("#inputResId").value;
+	console.log("Deleting reservation with id " + id);
+	fetch(urlReservation + id, {
 	    method: "DELETE",
 	  })
 	  .then(response => response.json());
