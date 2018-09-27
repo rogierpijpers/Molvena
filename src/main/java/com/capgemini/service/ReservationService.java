@@ -116,4 +116,8 @@ public class ReservationService {
     public void addReservation(Reservation reservation){
         reservationRepository.addReservation(reservation);
     }
+
+    public void updateReservation(int id, Reservation reservation){
+        reservationRepository.updateReservation(id, reservation);
+    }
 }
