@@ -38,4 +38,10 @@ public class PersonRepository {
     public void addPerson(Person person){
         persons.add(person);
     }
+
+    public void updatePerson(String username, Person person){
+        Person toReplace = getSinglePerson(username);
+        int index = persons.indexOf(toReplace);
+        persons.set(index, person);
+    }
 }

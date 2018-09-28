@@ -16,8 +16,6 @@ public class GuestController {
     @Autowired
     private GuestRepository guestRepository;
 
-    // secured
-
     @Secured({"ROLE_ADMIN"})
     @RequestMapping("/guest/")
     public List<Guest> getAllGuests(){
@@ -39,9 +37,18 @@ public class GuestController {
     }
 
     @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
-    @RequestMapping(value="/guest/{id}", method= RequestMethod.PUT)
-    public void updateGuest(@PathVariable("id") int id, @RequestBody Guest guest){
-        // TODO: a guest can only update his own information
+    @RequestMapping(value="/guest/{username}", method= RequestMethod.PUT)
+    public void updateGuest(@PathVariable("username") String username, @RequestBody Guest guest) throws UnauthorizedException {
+        if(AuthenticationHelper.userIsGuest()){
+            String loggedInUsername = AuthenticationHelper.getCurrentUsername();
+            if(guest.getMail().equals(loggedInUsername)){
+                guestRepository.updateGuest(username, guest);
+            }else{
+                throw new UnauthorizedException();
+            }
+        }else{
+            guestRepository.updateGuest(username, guest);
+        }
     }
 
 }
