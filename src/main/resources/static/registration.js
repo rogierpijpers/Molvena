@@ -41,8 +41,7 @@ function postData() {
         contentType: "application/json",
         success: function(result) {
             console.log("het registreren van de gast is gelukt");
-            console.log("het volgende object is lokaal opgeslagen:");
-            console.log(validJsonBook);
+            console.log(result);
         }
     });
 }
