@@ -148,39 +148,4 @@ function updateReservation(){
 	})
 	.then(response => console.log('Succes:', JSON.stringify(response)))
 	.catch(error => console.error('Error:', error));
-
 }
-
-function deleteReservation(){
-	var id = document.querySelector("input[name=inputIdDelete]").value;
-	console.log("Deleting reservation with id " + id);
-	fetch(urlReservation + id, {
-		method: "DELETE",
-	});
-}
-
-
-
-
-function getGuestById(){
-}
-
-function getGuestByName(){
-
-}
-
-function getAllGuests(){
-}
-
-function createGuest(){
-
-}
-
-function updateGuest(){
-
-}
-
-function deleteGuest(){
-
-}
-

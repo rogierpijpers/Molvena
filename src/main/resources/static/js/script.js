@@ -3,7 +3,6 @@ window.onload=console.log("ready");
 var parentForm = document.querySelector("#mainForm");
 parentForm.addEventListener("click", callRelevantFunction, false);
 
-
 // Calls the button function related to the clicked button.
 // The name is retrieved from the 'name' of the input field, so make sure that name and the function name is equal.
 function callRelevantFunction(e){
