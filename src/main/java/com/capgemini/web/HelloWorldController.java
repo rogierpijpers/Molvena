@@ -1,4 +1,4 @@
-package com.capgemini.web.molvenolakeresort;
+package com.capgemini.web;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloWorldController {
     @RequestMapping("/")
     public String sayHello() {
-        return "Hello Spring Boot!!";
+        return "Welcome to Molveno Lake Resort";
     }
 }
-

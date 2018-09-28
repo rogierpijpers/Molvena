@@ -18,8 +18,8 @@ public class RegisterController {
         return guest;
     }
 
-    @RequestMapping(value = "/getRegistrations/{name}", method = RequestMethod.GET)
-    public Guest getRegistration(@PathVariable("name") String name) {
-        return(this.registrationService.getRegistrationByName(name));
+    @RequestMapping(value = "/getRegistrations/{username}", method = RequestMethod.GET)
+    public Guest getRegistration(@PathVariable("username") String username) {
+        return(this.registrationService.getRegistrationByName(username));
     }
 }

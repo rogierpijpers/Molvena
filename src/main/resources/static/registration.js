@@ -41,6 +41,7 @@ function postData() {
         contentType: "application/json",
         success: function(result) {
             console.log("het registreren van de gast is gelukt");
+            console.log("het volgende object is lokaal opgeslagen:");
             console.log(validJsonBook);
         }
     });
@@ -48,13 +49,18 @@ function postData() {
         $(document).ready(function () {
         $("#register").click(function() {
 
-        if (firstname == '' || lastname == '' || password == '' || cpassword == '' || dateofbirth == '' || mail == '' || phone == '' || address == '' || city == '' || zipcode == '' || country == '' ) {
+        if ($("#firstname").val() == '' || $("#lastname").val() == '' || $("#password").val() == ''
+        || $("#cpassword").val() == '' || $("#dateofbirth").val() == '' || $("#mail").val() == '' || $("#phone").val() == ''
+        || $("#address").val() == '' || $("#city").val() == '' || $("#zipcode").val() == '' || $("#country").val() == '')
+        {
         alert("Please fill all fields");
         console.log("Please fill all fields")
-        } else if ((password.length) < 8) {
+        }
+        else if ($("#cpassword").val().length < 8) {
         alert("Password should atleast 8 character in length");
         console.log("Password should atleast 8 character in length")
-        } else if (password.value != cpassword.value) {
+        }
+        else if (password.value != cpassword.value) {
         alert("Your passwords don't match. Try again?");
         console.log("Your passwords don't match. Try again?")
         }
