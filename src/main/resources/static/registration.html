@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Please register</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="registration.js"></script>
+</head>
+<body>
+<div class="container">
+    <form method="post" action="#" style="width: 500px; margin: auto;">
+        <h2 class="form-signin-heading">Register as Guest</h2>
+        <div class="row" style="margin-top: 20px;">
+            <p class="col-sm-6">
+                <label for="firstname" class="sr-only">Firstname</label>
+                <input type="text" id="firstname" name="firstname" class="form-control" placeholder="Firstname" required="" autofocus="">
+            </p>
+
+            <p class="col-sm-6">
+                <label for="lastname" class="sr-only">Lastname</label>
+                <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Lastname" required="" autofocus="">
+            </p>
+        </div>
+        <div class="row">
+            <p class="col-sm-12">
+                <label for="mail" class="sr-only">Email</label>
+                <input type="text" id="mail" name="mail" class="form-control" placeholder="Email" required="" autofocus="">
+            </p>
+        </div>
+        <div class="row">
+            <p class="col-sm-6">
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+            </p>
+            <p class="col-sm-6">
+                <label for="cpassword" class="sr-only">Confirm Password</label>
+                <input type="password" id="cpassword" name="cpassword" class="form-control" placeholder="Confirm Password" required="">
+            </p>
+        </div>
+        <div class="row">
+            <p class="col-sm-6">
+                <label for="dateofbirth" class="sr-only">Date of birth</label>
+                <input type="text" id="dateofbirth" name="dateofbirth" class="form-control" placeholder="Date of Birth" required="" autofocus="">
+            </p>
+            <p class="col-sm-6">
+                <label for="phone" class="sr-only">Phone</label>
+                <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" required="" autofocus="">
+            </p>
+        </div>
+        <div class="row">
+            <p class="col-sm-6">
+                <label for="address" class="sr-only">Address</label>
+                <input type="text" id="address" name="address" class="form-control" placeholder="Address" required="" autofocus="">
+            </p>
+            <p class="col-sm-6">
+                <label for="city" class="sr-only">City</label>
+                <input type="text" id="city" name="city" class="form-control" placeholder="City" required="" autofocus="">
+            </p>
+        </div>
+        <div class="row">
+            <p class="col-sm-6">
+                <label for="zipcode" class="sr-only">Zipcode</label>
+                <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="Zipcode" required="" autofocus="">
+            </p>
+            <p class="col-sm-6">
+                <label for="country" class="sr-only">Country</label>
+                <input type="text" id="country" name="country" class="form-control" placeholder="Country" required="" autofocus="">
+            </p>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="button" name="register" id="register">Register</button>
+        <p class="col-sm-6">
+
+        </p>
+        <button class="btn btn-lg btn-primary btn-block" type="button" onclick="location.href = 'http://localhost:8080/login';" name="login" id="login">Login</button>
+    </form>
+</div></body>
+</html>

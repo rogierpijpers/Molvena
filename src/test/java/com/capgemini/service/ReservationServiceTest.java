@@ -42,6 +42,7 @@ public class ReservationServiceTest {
         reservationRepository = new ReservationRepository();
         Date startDateReservation1 = null;
         Date endDateReservation1 = null;
+
         try {
             startDateReservation1 = dateFormat.parse("19-04-2018");
             endDateReservation1 = dateFormat.parse("25-04-2018");

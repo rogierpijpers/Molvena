@@ -32,7 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .anyRequest().fullyAuthenticated()
         .and()
         .formLogin();
-
         auth.csrf().disable();
     }
 
@@ -55,5 +54,3 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
-
-

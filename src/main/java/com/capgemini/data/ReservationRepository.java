@@ -6,7 +6,8 @@ import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class ReservationRepository {
@@ -27,9 +28,7 @@ public class ReservationRepository {
     }
 
     public void updateReservation(int id, Reservation reservation){
-        Reservation replace = getReservationById(id);
-        reservations.remove(replace);
-        reservations.add(reservation);
+        reservations.set(id, reservation);
     }
 
     public List<Reservation> getAllReservations() {
