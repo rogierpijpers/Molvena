@@ -2,6 +2,7 @@ package com.capgemini.data;
 
 import com.capgemini.domain.Guest;
 import com.capgemini.domain.Person;
+import com.capgemini.domain.Receptionist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,22 +11,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class GuestRepository {
+public class ReceptionistRepository {
     @Autowired
     private PersonRepository personRepository;
 
-    public List<Guest> getAllGuests(){
+    public List<Receptionist> getAllReceptionists(){
         return personRepository.getPersons()
-                .stream().filter(x -> x instanceof Guest)
-                .map(x-> (Guest) x)
+                .stream().filter(x -> x instanceof Receptionist)
+                .map(x-> (Receptionist) x)
                 .collect(Collectors.toList());
     }
 
-    public void addGuest(Guest guest){
-        personRepository.addPerson((Person) guest);
-    }
-
-    public Guest getGuestByUsername(String username){
-        return getAllGuests().stream().filter(x -> x.getMail().equals(username)).findFirst().orElse(null);
+    public void addReceptionist(Receptionist receptionist){
+        personRepository.addPerson((Person) receptionist);
     }
 }

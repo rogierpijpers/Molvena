@@ -2,15 +2,18 @@ package com.capgemini.data;
 
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class RoomRepository {
 
     private List<Room> rooms;
 
     public RoomRepository() {
+
         rooms = new ArrayList();
     }
 
@@ -19,6 +22,7 @@ public class RoomRepository {
     }
 
     public void addRoom(Room room){
+
         rooms.add(room);
     }
 

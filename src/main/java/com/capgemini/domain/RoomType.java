@@ -4,6 +4,8 @@ public class RoomType {
     private byte singleBeds;
     private byte doubleBeds;
 
+    public RoomType(){}
+
     public RoomType(byte singleBeds, byte doubleBeds){
         this.singleBeds = singleBeds;
         this.doubleBeds = doubleBeds;
