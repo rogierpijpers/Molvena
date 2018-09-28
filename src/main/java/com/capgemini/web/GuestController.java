@@ -16,6 +16,13 @@ public class GuestController {
     @Autowired
     private GuestRepository guestRepository;
 
+    // public
+
+    @RequestMapping(value="/guest/", method= RequestMethod.POST)
+    public void createGuest(@RequestBody Guest guest){
+        // TODO: this is redundant with /registration controller...
+    }
+
     // secured
 
     @Secured({"ROLE_ADMIN"})

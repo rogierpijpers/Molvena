@@ -1,0 +1,7 @@
+.menuButtons{
+	/*visibility: hidden;*/
+}
+
+.getReservationDisplay, .createReservationDisplay, .updateReservationDisplay, .deleteReservationDisplay{
+	/*display: none;*/
+}

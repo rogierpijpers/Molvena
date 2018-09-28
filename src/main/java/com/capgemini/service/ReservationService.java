@@ -20,7 +20,8 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    public void setRoomRepository(RoomRepository roomRepository) { this.roomRepository = roomRepository;
+    public void setRoomRepository(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
     }
 
     public void setReservationRepository(ReservationRepository reservationRepository) {
@@ -115,7 +116,6 @@ public class ReservationService {
     public void addReservation(Reservation reservation){
         reservationRepository.addReservation(reservation);
     }
-
 
     public void updateReservation(int id, Reservation reservation){
         reservationRepository.updateReservation(id, reservation);
