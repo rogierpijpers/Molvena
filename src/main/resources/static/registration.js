@@ -40,7 +40,8 @@ function postData() {
         data: validJsonBook,
         contentType: "application/json",
         success: function(result) {
-            console.log("het registreren van de gast is gelukt");
+            alert("Het registreren van de gast is gelukt");
+            console.log("Het registreren van de gast is gelukt");
             console.log(result);
         }
     });
