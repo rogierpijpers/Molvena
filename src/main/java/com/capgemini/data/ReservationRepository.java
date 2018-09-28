@@ -6,7 +6,8 @@ import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class ReservationRepository {
