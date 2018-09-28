@@ -9,25 +9,14 @@ parentForm.addEventListener("click", callRelevantFunction, false);
 function callRelevantFunction(e){
 	if(e.target !== e.currentTarget){
 		var clickedItem = e.target.name;
-		console.log(clickedItem + " has been clicked");
-		window[clickedItem]();
+		if (e.target.type == "button"){
+			window[clickedItem]();
+		}
 	}
 	e.stopPropagation();
 }
 
-// Button functions
-function login(mail, password){
-	console.log("function login called");
-}
-
-function logout(){
-
-}
-
-function register(firstName, lastName, mail, password, dob, number, address, city, zip, country){
-
-}
-
+// If this toggling functionality stays, clean everything up in 1 neat function
 function toggleItems(){
 	document.querySelector(".getReservation").style.visibility = "hidden"
 	document.querySelector(".updateReservation").style.visibility = "hidden"
