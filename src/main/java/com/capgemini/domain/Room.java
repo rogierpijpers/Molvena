@@ -25,4 +25,3 @@ public class Room {
         return roomID + " " + roomType.getDoubleBeds() + " - " + roomType.getSingleBeds();
     }
 }
-
