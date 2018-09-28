@@ -32,6 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .anyRequest().fullyAuthenticated()
         .and()
         .formLogin();
+
+        auth.csrf().disable();
     }
 
     @Override

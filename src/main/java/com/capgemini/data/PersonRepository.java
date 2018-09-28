@@ -20,33 +20,6 @@ public class PersonRepository {
 
     public PersonRepository(){
         persons = new ArrayList<>();
-        addInitialAccounts();
-    }
-
-    public void addInitialAccounts(){
-        Person person1 = new Guest();
-        person1.setFirstName("Thom");
-        person1.setLastName("vd Moosdijk");
-        person1.setPhone("123456789");
-        person1.setPassword("$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2");
-        person1.setMail("Thom@moosjes.nl");
-        person1.setAddress("Straat 1");
-        person1.setZipCode("5555LL");
-        person1.setCountry("NL");
-        person1.setDateOfBirth(new Date(31-8-1994));
-        persons.add(person1);
-
-        Person receptionist1 = new Receptionist();
-        receptionist1.setFirstName("Henk");
-        receptionist1.setLastName("van Vliet");
-        receptionist1.setPhone("123456789");
-        receptionist1.setPassword("$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2");
-        receptionist1.setMail("Henk@vanvliet.nl");
-        receptionist1.setAddress("Straat 1");
-        receptionist1.setZipCode("5555LL");
-        receptionist1.setCountry("NL");
-        receptionist1.setDateOfBirth(new Date(31-8-1994));
-        persons.add(receptionist1);
     }
 
     public List<Person> getPersons() {
@@ -60,5 +33,9 @@ public class PersonRepository {
             }
         }
         return null;
+    }
+
+    public void addPerson(Person person){
+        persons.add(person);
     }
 }
