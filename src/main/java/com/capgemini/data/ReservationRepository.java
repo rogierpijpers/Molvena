@@ -27,9 +27,7 @@ public class ReservationRepository {
     }
 
     public void updateReservation(int id, Reservation reservation){
-        Reservation replace = getReservationById(id);
-        reservations.remove(replace);
-        reservations.add(reservation);
+        reservations.set(id, reservation);
     }
 
     public List<Reservation> getAllReservations() {
