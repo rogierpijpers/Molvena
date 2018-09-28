@@ -52,4 +52,24 @@ public class ReservationRepository {
         }
         return SoftDeletedReservations;
     }
+
+    //Get a reservation by id
+    public Reservation getReservationById(int reservationID) {
+        List<Reservation> allReservations = getAllReservations();
+        for (Reservation reservation :  allReservations) {
+            if (reservation.getReservationID() == reservationID)
+                return reservation;
+        }
+        return null;
+    }
+
+    //Give the id of the reservation you wan to update and the new reservation object you want to update
+    public void updateReservation(int reservationID, Reservation currentReservations){
+        //find the reservation by its ID
+        Reservation reservation = getReservationById(reservationID);
+        //find the index of the reservation in the list
+        int reservationIndex = reservations.indexOf(reservation);
+        //update the reservation
+        reservations.set(reservationIndex , currentReservations);
+    }
 }

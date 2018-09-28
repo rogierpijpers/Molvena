@@ -116,6 +116,7 @@ public class ReservationService {
         reservationRepository.addReservation(reservation);
     }
 
+
     public void updateReservation(int id, Reservation reservation){
         reservationRepository.updateReservation(id, reservation);
     }
