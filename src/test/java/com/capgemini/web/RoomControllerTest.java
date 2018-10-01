@@ -2,6 +2,7 @@ package com.capgemini.web;
 
 import com.capgemini.domain.Guest;
 import com.capgemini.domain.Room;
+import com.capgemini.domain.RoomType;
 import com.capgemini.service.RoomService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -24,6 +25,7 @@ import java.util.TimeZone;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -47,8 +49,17 @@ public class RoomControllerTest {
     }
 
     @Test
-    public void testCreateRoom(){
+    @WithMockUser(username="Henk@vanvliet.nl", roles={"ADMIN"})
+    public void testCreateRoom() throws Exception {
+        Room room = new Room();
+        room.setRoomID((short) 5432);
+        room.setRoomType(new RoomType((byte) 2, (byte) 2));
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonExpected = objectMapper.writeValueAsString(room);
+
+        this.mockMvc.perform(post("/room/").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonExpected)).andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(get("/room/5432")).andDo(print()).andExpect(status().isOk()).andExpect(content().json(jsonExpected));
     }
 
     @Test
@@ -67,6 +78,6 @@ public class RoomControllerTest {
         this.mockMvc.perform(put("/room/0").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonExpected)).andDo(print()).andExpect(status().isOk());
 
         this.mockMvc.perform(get("/room/99")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().json(jsonExpected));;
+                .andExpect(content().json(jsonExpected));
     }
 }
