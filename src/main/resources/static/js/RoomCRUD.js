@@ -1,4 +1,5 @@
-var urlRoom = "http://localhost:8080/guest/";
+var urlRoom = "http://localhost:8080/room/";
+var urlRoomType = "http://localhost:8080/roomtype/";
 function getRoom(){
 
 }

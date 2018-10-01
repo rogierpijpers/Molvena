@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div class=row">
+<div class="row">
 <div class="column">
 <form id="mainForm" action="">
 <h1>Reservations</h1>
@@ -19,19 +19,19 @@
     </span>
 
 <div class="genericDisplay">
-    <span class="getReservationDisplay">
+    <span class="invis getReservationDisplay">
         <input type="text" placeholder="ID or name" id="inputResId">
         <div id="reservationDisplayText"></div>
         <button type="button" name="getSingleReservation">Submit</button>
     </span>
 
-    <span class="getAllReservationsDisplay">
+    <span class="invis getAllReservationsDisplay">
     <div id="allReservationDisplayText">
                 
             </div>
     </span>
 
-    <span class="createReservationDisplay">
+    <span class="invis createReservationDisplay">
         <input name="inputFirstNameCreate" type="text" placeholder="First Name"><br />
         <input name="inputLastNameCreate"  type="text" placeholder="Last Name"><br />
         <input name="inputMailCreate" type="text" placeholder="Email"><br />
@@ -49,7 +49,7 @@
         <button type="button" name="createReservation">Submit</button>
     </span>
 
-    <span class="updateReservationDisplay">
+    <span class="invis updateReservationDisplay">
         <input name="inputIdUpdate" type="text" placeholder="Reservation ID"><br />
         <input type="text" placeholder="How many persons?" name="inputAmountOfGuestsUpdate"><br />
         <input type="text" placeholder="Start date" name="inputStartDateUpdate"><br />
@@ -66,18 +66,19 @@
         <button type="button" name="updateReservation">Submit</button>
     </span>
 
-    <span class="deleteReservationDisplay">
+    <span class="invis deleteReservationDisplay">
         <input type="text" placeholder="ID or name" name="inputIdDelete"><br />
         <button type="button" name="deleteReservation">Submit</button>
     </span>
-</div></div>
+</div>
 <div class="column">
-<h1>Accounts</h1>
-    <span class="menuButtons">
-        <button type="button" name="toggleAllAccount">Get all accounts</button>
-    </span>
 
+<h1>Accounts</h1>
 <div class="genericDisplay">
+        <span class="menuButtons">
+            <button type="button" name="toggleAllAccount">Get all accounts</button>
+        </span>
+
     <span class="getAccountDisplay">
         <h2>Get accounts:</h2>
         <input type="text" placeholder="ID or name" id="inputAccountId">
@@ -135,7 +136,7 @@
 </div>
 <div class="column">
 <h1>Rooms</h1>
-    <span class="menuButtons">
+    <!--<span class="menuButtons">
         <button type="button" name="toggleAllRooms">Get all accounts</button>
     </span>
 
@@ -193,9 +194,10 @@
         <input type="text" placeholder="ID or name" name="inputIdDelete"><br />
         <button type="button" name="deleteAccount">Submit</button>
     </span>
+</div>-->
 </div>
 </form>
-</div>
+</div></div>
 
 <script src="js/script.js"></script>
 <script src="js/ReservationCRUD.js"></script>

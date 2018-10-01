@@ -29,6 +29,7 @@ function getSingleAccount(){
 }
 
 function getAllAccounts(){
+	console.log("get all acc3");
 	fetch(urlAccount)
 	.then(function(response){
 		return response.json();
