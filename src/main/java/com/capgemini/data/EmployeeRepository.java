@@ -5,6 +5,7 @@ import com.capgemini.domain.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,5 +23,13 @@ public class EmployeeRepository {
 
     public void addEmployee(Employee employee){
         personRepository.addPerson((Person) employee);
+    }
+
+    public Employee getEmployeeByUsername(String username){
+        return getAllEmployees().stream().filter(x -> x.getMail().equals(username)).findFirst().orElse(null);
+    }
+
+    public void updateEmployee(int id, Employee employee){
+        personRepository.updatePerson(id, employee);
     }
 }

@@ -35,4 +35,8 @@ public class PersonRepository {
     public void addPerson(Person person){
         persons.add(person);
     }
+
+    public void updatePerson(int id, Person person) {
+        persons.set(id,person);
+    }
 }

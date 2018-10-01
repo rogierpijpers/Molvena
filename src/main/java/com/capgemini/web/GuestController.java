@@ -47,7 +47,6 @@ public class GuestController {
         // TODO: a guest can only update his own information
     }
 
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -60,5 +59,4 @@ public class GuestController {
         this.registrationService.AddRegistration(guest);
         return guest;
     }
-
 }
