@@ -96,6 +96,7 @@ public class DummyDataSeeder {
         employee.setZipCode("5555LL");
         employee.setCountry("NL");
         employee.setDateOfBirth(new Date(31-8-1994));
+        employee.setRole("ROLE_ADMIN");
         employeeRepository.addEmployee(employee);
     }
 
