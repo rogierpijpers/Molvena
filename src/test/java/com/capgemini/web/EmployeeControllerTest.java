@@ -64,4 +64,14 @@ public class EmployeeControllerTest {
         this.mockMvc.perform(get("/employee/Henk@vanvliet.nl")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().json(jsonExpected));
     }
+
+
+    @Test
+    @WithMockUser(username="Henk@vanvliet.nl", roles={"ADMIN"})
+    public void testUpdateEmployeeInvalidInput() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonExpected = objectMapper.writeValueAsString("");
+
+        this.mockMvc.perform(put("/employee/Henk@vanvliet.nl").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonExpected)).andDo(print()).andExpect(status().isBadRequest());
+    }
 }
