@@ -29,7 +29,7 @@ public class EmployeeRepository {
         return getAllEmployees().stream().filter(x -> x.getMail().equals(username)).findFirst().orElse(null);
     }
 
-    public void updateEmployee(int id, Employee employee){
-        personRepository.updatePerson(id, employee);
+    public void updateEmployee(String username, Employee employee){
+        personRepository.updatePerson(username, employee);
     }
 }

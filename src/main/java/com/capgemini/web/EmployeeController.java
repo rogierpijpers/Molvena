@@ -1,9 +1,7 @@
 package com.capgemini.web;
 
 import com.capgemini.data.EmployeeRepository;
-import com.capgemini.data.GuestRepository;
 import com.capgemini.domain.Employee;
-import com.capgemini.domain.Guest;
 import com.capgemini.service.RegistrationService;
 import com.capgemini.web.authentication.AuthenticationHelper;
 import com.capgemini.web.util.exception.UnauthorizedException;
@@ -42,25 +40,20 @@ public class EmployeeController {
     }
 
     @Secured({"ROLE_RECEPTIONIST", "ROLE_ADMIN"})
-    @RequestMapping(value="/employee/{id}", method= RequestMethod.PUT)
-    public void updateEmployee(@PathVariable("id") int id, @RequestBody Employee employee) throws UnauthorizedException{
+    @RequestMapping(value="/employee/{username}", method= RequestMethod.PUT)
+    public void updateEmployee(@PathVariable("username") String username, @RequestBody Employee employee) throws UnauthorizedException{
 
         if(AuthenticationHelper.userIsReceptionist()) {
             String loggedInUsername = AuthenticationHelper.getCurrentUsername();
 
             if(employee.getMail().equals(loggedInUsername))
-                employeeRepository.updateEmployee(id, employee);
+                employeeRepository.updateEmployee(username, employee);
 
         } else if (AuthenticationHelper.userIsAdmin()){
-            employeeRepository.updateEmployee(id, employee);
+            employeeRepository.updateEmployee(username, employee);
         } else {
             throw new UnauthorizedException();
         }
-
-        // TODO: an receptionist can only update his own information
-
-
-        // TODO: an admin can update his own information, as well as others
     }
 
     @Autowired
