@@ -51,7 +51,7 @@ public class ReservationDemo extends Demo {
         if(inputReader.nextLine().toLowerCase().equals("n"))
             return;
 
-        if(currentUser instanceof Receptionist)
+        if(currentUser instanceof Employee)
             makeReservationAsReceptionist(noPersons, startDate, endDate, selectedRoom);
         else
             makeReservationAsGuest(noPersons, startDate, endDate, selectedRoom);
