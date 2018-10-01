@@ -6,203 +6,193 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div class="row">
-<div class="column">
-<form id="mainForm" action="">
-<h1>Reservations</h1>
-    <span class="menuButtons">
-        <button type="button" name="toggleGetReservation">Get reservation by name or id</button>
-        <button type="button" name="toggleAllReservations">Get all reservations</button>
-        <button type="button" name="toggleCreateReservation">Create</button>
-        <button type="button" name="toggleUpdateReservation">Update</button>
-        <button type="button" name="toggleDeleteReservation">Delete</button>
-    </span>
+    <div class="row">
+        <form id="mainForm" action="">
+            <div class="column">
+                <h1>Reservations</h1>
+                <span class="menuButtons">
+                    <button type="button" name="toggleGetReservation">Get reservation by name or id</button>
+                    <button type="button" name="toggleAllReservations">Get all reservations</button>
+                    <button type="button" name="toggleCreateReservation">Create</button>
+                    <button type="button" name="toggleUpdateReservation">Update</button>
+                    <button type="button" name="toggleDeleteReservation">Delete</button>
+                </span>
 
-<div class="genericDisplay">
-    <span class="invis getReservationDisplay">
-        <input type="text" placeholder="ID or name" id="inputResId">
-        <div id="reservationDisplayText"></div>
-        <button type="button" name="getSingleReservation">Submit</button>
-    </span>
+                <div class="genericDisplay">
+                    <span class="invis getReservationDisplay">
+                        <input type="text" placeholder="ID or name" id="inputResId">
+                        <div id="reservationDisplayText"></div>
+                        <button type="button" name="getSingleReservation">Submit</button>
+                    </span>
 
-    <span class="invis getAllReservationsDisplay">
-    <div id="allReservationDisplayText">
-                
+                    <span class="invis getAllReservationsDisplay">
+                        <div id="allReservationDisplayText">
+
+                        </div>
+                    </span>
+
+                    <span class="invis createReservationDisplay">
+                        <input name="inputFirstNameCreate" type="text" placeholder="First Name"><br />
+                        <input name="inputLastNameCreate"  type="text" placeholder="Last Name"><br />
+                        <input name="inputMailCreate" type="text" placeholder="Email"><br />
+                        <input type="text" placeholder="How many persons?" name="inputAmountOfGuestsCreate"><br />
+                        <input type="text" placeholder="Start date" name="inputStartDateCreate"><br />
+                        <input type="text" placeholder="End date" name="inputEndDateCreate"><br />
+                        <label class="container">Single bed
+                            <input type="radio" checked="checked" name="radio">
+                            <span class="checkmark"></span>
+                        </label><br />
+                        <label class="container">Double bed
+                            <input type="radio" name="radio">
+                            <span class="checkmark"></span>
+                        </label><br />
+                        <button type="button" name="createReservation">Submit</button>
+                    </span>
+
+                    <span class="invis updateReservationDisplay">
+                        <input name="inputIdUpdate" type="text" placeholder="Reservation ID"><br />
+                        <input type="text" placeholder="How many persons?" name="inputAmountOfGuestsUpdate"><br />
+                        <input type="text" placeholder="Start date" name="inputStartDateUpdate"><br />
+                        <input type="text" placeholder="End date" name="inputLastDateUpdate"><br />
+                        <label class="container">Single bed
+                            <input type="radio" checked="checked" name="radio">
+                            <span class="checkmark"></span>
+                        </label><br />
+                        <label class="container">Double bed
+                            <input type="radio" name="radio">
+                            <span class="checkmark"></span><br />
+                        </label>
+
+                        <button type="button" name="updateReservation">Submit</button>
+                    </span>
+
+                    <span class="invis deleteReservationDisplay">
+                        <input type="text" placeholder="ID or name" name="inputIdDelete"><br />
+                        <button type="button" name="deleteReservation">Submit</button>
+                    </span>
+                </div>
             </div>
-    </span>
+            <div class="column">
 
-    <span class="invis createReservationDisplay">
-        <input name="inputFirstNameCreate" type="text" placeholder="First Name"><br />
-        <input name="inputLastNameCreate"  type="text" placeholder="Last Name"><br />
-        <input name="inputMailCreate" type="text" placeholder="Email"><br />
-        <input type="text" placeholder="How many persons?" name="inputAmountOfGuestsCreate"><br />
-        <input type="text" placeholder="Start date" name="inputStartDateCreate"><br />
-        <input type="text" placeholder="End date" name="inputEndDateCreate"><br />
-        <label class="container">Single bed
-            <input type="radio" checked="checked" name="radio">
-            <span class="checkmark"></span>
-        </label><br />
-        <label class="container">Double bed
-            <input type="radio" name="radio">
-            <span class="checkmark"></span>
-        </label><br />
-        <button type="button" name="createReservation">Submit</button>
-    </span>
+                <h1>Accounts</h1>
+                <div class="genericDisplay">
+                    <span class="menuButtons">
+                        <button type="button" name="toggleAllAccount">Get all accounts</button>
+                    </span>
 
-    <span class="invis updateReservationDisplay">
-        <input name="inputIdUpdate" type="text" placeholder="Reservation ID"><br />
-        <input type="text" placeholder="How many persons?" name="inputAmountOfGuestsUpdate"><br />
-        <input type="text" placeholder="Start date" name="inputStartDateUpdate"><br />
-        <input type="text" placeholder="End date" name="inputLastDateUpdate"><br />
-        <label class="container">Single bed
-            <input type="radio" checked="checked" name="radio">
-            <span class="checkmark"></span>
-        </label><br />
-        <label class="container">Double bed
-            <input type="radio" name="radio">
-            <span class="checkmark"></span><br />
-        </label>
+                    <span class="getAccountDisplay">
+                        <h2>Get accounts:</h2>
+                        <input type="text" placeholder="ID or name" id="inputAccountId">
+                        <div id="accountDisplayText"></div>
+                        <button type="button" name="getSingleAccount">Submit</button>
+                    </span>
 
-        <button type="button" name="updateReservation">Submit</button>
-    </span>
+                    <span class="getAllAccountsDisplay">
+                        <h2>Get all accounts:</h2>
+                        <div id="allAccountDisplayText"></div>
+                    </span>
 
-    <span class="invis deleteReservationDisplay">
-        <input type="text" placeholder="ID or name" name="inputIdDelete"><br />
-        <button type="button" name="deleteReservation">Submit</button>
-    </span>
-</div>
-<div class="column">
+                    <span class="createAccountDisplay">
+                        <h2>Create account:</h2>
+                        <input name="inputFirstNameCreateAccount" type="text" placeholder="First Name"><br />
+                        <input name="inputLastNameCreateAccount"  type="text" placeholder="Last Name"><br />
+                        <input name="inputMailCreateAccount" type="text" placeholder="Email"><br />
 
-<h1>Accounts</h1>
-<div class="genericDisplay">
-        <span class="menuButtons">
-            <button type="button" name="toggleAllAccount">Get all accounts</button>
-        </span>
+                        <input name="inputPasswordCreateAccount" type="text" placeholder="Password"><br />
+                        <input name="inputDobCreateAccount"  type="date" placeholder="Date of Birth"><br />
+                        <input name="inputPhoneCreateAccount"  type="text" placeholder="Phone"><br />
+                        <input name="inputAddressCreateAccount"  type="text" placeholder="Address"><br />
+                        <input name="inputCityCreateAccount"  type="text" placeholder="City"><br />
+                        <input name="inputZipCreateAccount"  type="text" placeholder="zipCode"><br />
+                        <input name="inputCountryCreateAccount"  type="text" placeholder="Country"><br />
 
-    <span class="getAccountDisplay">
-        <h2>Get accounts:</h2>
-        <input type="text" placeholder="ID or name" id="inputAccountId">
-        <div id="accountDisplayText"></div>
-        <button type="button" name="getSingleAccount">Submit</button>
-    </span>
+                        <button type="button" name="createAccount">Submit</button>
+                    </span>
 
-    <span class="getAllAccountsDisplay">
-        <h2>Get all accounts:</h2>
-    <div id="allAccountDisplayText"></div>
-    </span>
+                    <span class="updateAccountDisplay">
+                        <h2>Update account:</h2>
+                        <h3>Retrieve account</h3>
+                        <input name="inputMailRetrieveAccount" type="text" placeholder="Account mail"><br />
+                        <input name="inputFirstNameUpdateAccount" type="text" placeholder="First Name"><br />
+                        <input name="inputLastNameUpdateAccount"  type="text" placeholder="Last Name"><br />
+                        <input name="inputMailUpdateAccount" type="text" placeholder="Email"><br />
 
-    <span class="createAccountDisplay">
-        <h2>Create account:</h2>
-        <input name="inputFirstNameCreateAccount" type="text" placeholder="First Name"><br />
-        <input name="inputLastNameCreateAccount"  type="text" placeholder="Last Name"><br />
-        <input name="inputMailCreateAccount" type="text" placeholder="Email"><br />
+                        <input name="inputPasswordUpdateAccount" type="text" placeholder="Password"><br />
+                        <input name="inputDobUpdateAccount"  type="date" placeholder="Date of Birth"><br />
+                        <input name="inputPhoneUpdateAccount"  type="text" placeholder="Phone"><br />
+                        <input name="inputAddressUpdateAccount"  type="text" placeholder="Address"><br />
+                        <input name="inputCityUpdateAccount"  type="text" placeholder="City"><br />
+                        <input name="inputZipUpdateAccount"  type="text" placeholder="zipCode"><br />
+                        <input name="inputCountryUpdateAccount"  type="text" placeholder="Country"><br />
 
-        <input name="inputPasswordCreateAccount" type="text" placeholder="Password"><br />
-        <input name="inputDobCreateAccount"  type="text" placeholder="Date of Birth"><br />
-        <input name="inputPhoneCreateAccount"  type="text" placeholder="Phone"><br />
-        <input name="inputAddressCreateAccount"  type="text" placeholder="Address"><br />
-        <input name="inputCityCreateAccount"  type="text" placeholder="City"><br />
-        <input name="inputZipCreateAccount"  type="text" placeholder="zipCode"><br />
-        <input name="inputCountryCreateAccount"  type="text" placeholder="Country"><br />
-        
-        <button type="button" name="createAccount">Submit</button>
-    </span>
+                        <button type="button" name="updateAccount">Submit</button>
+                    </span>
 
-    <span class="updateAccountDisplay">
-        <h2>Update account:</h2>
-        <h3>Retrieve account</h3>
-        <input name="inputMailRetrieveAccount" type="text" placeholder="Account mail"><br />
-        <input name="inputFirstNameUpdateAccount" type="text" placeholder="First Name"><br />
-        <input name="inputLastNameUpdateAccount"  type="text" placeholder="Last Name"><br />
-        <input name="inputMailUpdateAccount" type="text" placeholder="Email"><br />
+                    <span class="deleteAccountDisplay">
+                        <h2>Delete account:</h2>
+                        <input type="text" placeholder="ID or name" name="inputIdDelete"><br />
+                        <button type="button" name="deleteAccount">Submit</button>
+                    </span>
+                </div>
+            </div>
+            <div class="column">
+                <h1>Rooms</h1>
+                <span class="menuButtons">
+                    <button type="button" name="getAllRooms">Get all rooms</button>
+                </span>
 
-        <input name="inputPasswordUpdateAccount" type="text" placeholder="Password"><br />
-        <input name="inputDobUpdateAccount"  type="text" placeholder="Date of Birth"><br />
-        <input name="inputPhoneUpdateAccount"  type="text" placeholder="Phone"><br />
-        <input name="inputAddressUpdateAccount"  type="text" placeholder="Address"><br />
-        <input name="inputCityUpdateAccount"  type="text" placeholder="City"><br />
-        <input name="inputZipUpdateAccount"  type="text" placeholder="zipCode"><br />
-        <input name="inputCountryUpdateAccount"  type="text" placeholder="Country"><br />
+                <div class="genericDisplay">
+                    <span class="getRoomsDisplay">
+                        <h2>Get Available RoomTypes:</h2>
+                        <input type="date" placeholder="Start Date" name="inputRoomTypeStartDate">
+                        <input type="date" placeholder="End Date" name="inputRoomTypeEndDate"> 
+                        <div id="roomDisplayText"></div>
+                        <button type="button" name="getAvailableRoomTypes">Submit</button>
+                    </span>
 
-        <button type="button" name="updateAccount">Submit</button>
-    </span>
+                    <span class="getRoomsDisplay">
+                        <h2>Get All Available Rooms (Employee function):</h2>
+                        <input type="date" placeholder="Start Date" name="inputRoomStartDate">
+                        <input type="date" placeholder="End Date" name="inputRoomEndDate"> 
+                        <div id="roomDisplayText"></div>
+                        <button type="button" name="getAvailableRooms">Submit</button>
+                    </span>
 
-    <span class="deleteAccountDisplay">
-        <h2>Delete account:</h2>
-        <input type="text" placeholder="ID or name" name="inputIdDelete"><br />
-        <button type="button" name="deleteAccount">Submit</button>
-    </span>
-</div>
-</div>
-<div class="column">
-<h1>Rooms</h1>
-    <!--<span class="menuButtons">
-        <button type="button" name="toggleAllRooms">Get all accounts</button>
-    </span>
+                    <span class="createRoomDisplay">
+                        <h2>Create rooms:</h2>
+                        <input name="inputRoomIdCreateRoom" type="text" placeholder="Room ID"><br />
+                        <input name="inputRoomTypeCreateRoom"  type="text" placeholder="Room Type"><br />
+                        <button type="button" name="createRoom">Submit</button>
+                    </span>
 
-<div class="genericDisplay">
-    <span class="getRoomsDisplay">
-        <h2>Get Rooms:</h2>
-        <input type="text" placeholder="ID or name" id="inputRoomsId">
-        <div id="roomDisplayText"></div>
-        <button type="button" name="getSingleRoom">Submit</button>
-    </span>
+                    <span class="updateRoomDisplay">
+                        <h2>Update Room:</h2>
+                        <h3>Retrieve Room</h3>
+                        <input name="inputRetrieveRoom" type="text" placeholder="Room ID"><br />
+                        <h3>Update Rooms</h3><br />
+                        <input name="inputRoomIdUpdate" type="text" placeholder="Room ID"><br />
+                        <input name="inputRoomType" type="text" placeholder="Room Type"><br />
+                        <button type="button" name="updateRoom">Submit</button>
+                    </span>
 
-    <span class="getAllRoomsDisplay">
-        <h2>Get all accounts:</h2>
-    <div id="allRoomDisplayText"></div>
-    </span>
+                    <span class="deleteRoomDisplay">
+                        <h2>Delete room:</h2>
+                        <input type="text" placeholder="Room ID" name="inputRoomIdDelete"><br />
+                        <button type="button" name="deleteRoom">Submit</button>
+                    </span>
+                </div>
+            </div>
 
-    <span class="createRoomDisplay">
-        <h2>Create account:</h2>
-        <input name="inputFirstNameCreateAccount" type="text" placeholder="First Name"><br />
-        <input name="inputLastNameCreateAccount"  type="text" placeholder="Last Name"><br />
-        <input name="inputMailCreateAccount" type="text" placeholder="Email"><br />
-
-        <input name="inputPasswordCreateAccount" type="text" placeholder="Password"><br />
-        <input name="inputDobCreateAccount"  type="text" placeholder="Date of Birth"><br />
-        <input name="inputPhoneCreateAccount"  type="text" placeholder="Phone"><br />
-        <input name="inputAddressCreateAccount"  type="text" placeholder="Address"><br />
-        <input name="inputCityCreateAccount"  type="text" placeholder="City"><br />
-        <input name="inputZipCreateAccount"  type="text" placeholder="zipCode"><br />
-        <input name="inputCountryCreateAccount"  type="text" placeholder="Country"><br />
-        
-        <button type="button" name="createAccount">Submit</button>
-    </span>
-
-    <span class="updateAccountDisplay">
-        <h2>Update account:</h2>
-        <h3>Retrieve account</h3>
-        <input name="inputMailRetrieveAccount" type="text" placeholder="Account mail"><br />
-        <input name="inputFirstNameUpdateAccount" type="text" placeholder="First Name"><br />
-        <input name="inputLastNameUpdateAccount"  type="text" placeholder="Last Name"><br />
-        <input name="inputMailUpdateAccount" type="text" placeholder="Email"><br />
-
-        <input name="inputPasswordUpdateAccount" type="text" placeholder="Password"><br />
-        <input name="inputDobUpdateAccount"  type="text" placeholder="Date of Birth"><br />
-        <input name="inputPhoneUpdateAccount"  type="text" placeholder="Phone"><br />
-        <input name="inputAddressUpdateAccount"  type="text" placeholder="Address"><br />
-        <input name="inputCityUpdateAccount"  type="text" placeholder="City"><br />
-        <input name="inputZipUpdateAccount"  type="text" placeholder="zipCode"><br />
-        <input name="inputCountryUpdateAccount"  type="text" placeholder="Country"><br />
-
-        <button type="button" name="updateAccount">Submit</button>
-    </span>
-
-    <span class="deleteAccountDisplay">
-        <h2>Delete account:</h2>
-        <input type="text" placeholder="ID or name" name="inputIdDelete"><br />
-        <button type="button" name="deleteAccount">Submit</button>
-    </span>
-</div>-->
-</div>
+        </div>
+    </div>
 </form>
-</div></div>
+</div>
 
 <script src="js/script.js"></script>
 <script src="js/ReservationCRUD.js"></script>
 <script src="js/AccountCRUD.js"></script>
 <script src="js/RoomCRUD.js"></script>
+<script src="js/GuestCRUD.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </body>

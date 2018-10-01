@@ -1,8 +1,10 @@
 /* GUEST CRUD
 	- Get own user details
+	- Find available rooms at date x.
 */
 
 var userDetailsEndPoint = "localhost:8080";
+var urlRoomTypeAvailable = "http://localhost:8080/roomtype/available/";
 
 function getOwnUsername(){
 	fetch(userDetailsEndPoint)
@@ -14,4 +16,20 @@ function getOwnUsername(){
 			return response.json();
 		})
 		.catch(error => console.error("Error: " + error));
+}
+
+function getAvailableRoomTypes(){
+	// TODO: get input values.
+	var startDate = document.querySelector("input[name='inputRoomTypeStartDate']").value;
+	var endDate = document.querySelector("input[name='inputRoomTypeEndDate']").value;
+
+	fetch(urlRoomTypeAvailable + startDate + "/" + endDate)
+	.then(function(response){
+		return response.json();
+	})
+	.then(function(json){
+		console.log("Available roomtypes: " + JSON.stringify(json));
+		document.querySelector("#roomDisplayText").innerHTML = "";
+		document.querySelector("#roomDisplayText").innerHTML = JSON.stringify(json);
+	});
 }

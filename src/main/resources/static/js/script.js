@@ -5,9 +5,7 @@ parentForm.addEventListener("click", callRelevantFunction, false);
 // Calls the button function related to the clicked button.
 // The name is retrieved from the 'name' of the input field, so make sure that name and the function name is equal.
 function callRelevantFunction(e){
-	console.log(e.target.name);
 	if(e.target !== e.currentTarget){
-			console.log(e.target.name);
 		var clickedItem = e.target.name;
 		if (e.target.type == "button"){
 			window[clickedItem]();
@@ -32,6 +30,7 @@ function toggleAllReservations(){
 	document.querySelector(".createReservationDisplay").style.display = "none";
 	document.querySelector(".updateReservationDisplay").style.display = "none";
 	document.querySelector(".deleteReservationDisplay").style.display = "none";
+
 	getAllReservations();
 }
 
@@ -59,6 +58,5 @@ function toggleDeleteReservation(){
 }
 
 function toggleAllAccount(){
-		console.log("get all acc2");
 	getAllAccounts();
 }

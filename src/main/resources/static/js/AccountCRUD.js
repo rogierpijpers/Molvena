@@ -37,7 +37,6 @@ function getSingleAccount(){
 }
 
 function getAllAccounts(){
-	console.log("get all acc3");
 	fetch(urlAccount)
 	.then(function(response){
 		return response.json();
@@ -56,7 +55,8 @@ function createAccount(){
 	var lastName = document.querySelector("input[name='inputLastNameCreateAccount']").value;
 	var password = document.querySelector("input[name='inputPasswordCreateAccount']").value;
 	var mail = document.querySelector("input[name='inputMailCreateAccount']").value;
-	var dob = document.querySelector("input[name='inputDobCreateAccount']").value;
+	var dob = new Date(document.querySelector("input[name='inputDobCreateAccount']").value);
+	var dobYYMMDD = dob.getFullYear() + "/" + dob.getMonth() + "/" + dob.getDate();
 	var phone = document.querySelector("input[name='inputPhoneCreateAccount']").value;
 	var address = document.querySelector("input[name='inputAddressCreateAccount']").value;
 	var city = document.querySelector("input[name='inputCityCreateAccount']").value;
@@ -67,7 +67,7 @@ function createAccount(){
 		"firstName" : firstName,
 		"lastName" : lastName,
 		"password" : password,
-		"dateOfBirth" : dob,
+		"dateOfBirth" : dobYYMMDD,
 		"mail" : mail,
 		"phone" : phone,
 		"address" : address,
@@ -96,7 +96,8 @@ function updateAccount(){
 	var lastName = document.querySelector("input[name='inputLastNameUpdateAccount']").value;
 	var password = document.querySelector("input[name='inputPasswordUpdateAccount']").value;
 	var newMail = document.querySelector("input[name='inputMailUpdateAccount']").value;
-	var dob = document.querySelector("input[name='inputDobUpdateAccount']").value;
+	var dob = new Date(document.querySelector("input[name='inputDobUpdateAccount']").value);
+	var dobYYMMDD = dob.getFullYear() + "/" + dob.getMonth() + "/" + dob.getDate();
 	var phone = document.querySelector("input[name='inputPhoneUpdateAccount']").value;
 	var address = document.querySelector("input[name='inputAddressUpdateAccount']").value;
 	var city = document.querySelector("input[name='inputCityUpdateAccount']").value;
@@ -107,7 +108,7 @@ function updateAccount(){
 		"firstName" : firstName,
 		"lastName" : lastName,
 		"password" : password,
-		"dateOfBirth" : dob,
+		"dateOfBirth" : dobYYMMDD,
 		"mail" : newMail,
 		"phone" : phone,
 		"address" : address,
