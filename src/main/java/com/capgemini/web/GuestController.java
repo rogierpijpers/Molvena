@@ -65,8 +65,8 @@ public class GuestController {
     @Autowired
     private RegistrationService registrationService;
 
-    @RequestMapping(value = "/createRegistration", method = RequestMethod.POST)
-    public Guest createRegistration(@RequestBody Guest guest) {
+    @RequestMapping(value = "/guest/", method = RequestMethod.POST)
+    public Guest createGuest(@RequestBody Guest guest) {
         guest.setPassword(passwordEncoder.encode(guest.getPassword()));
         this.registrationService.AddRegistration(guest);
         return guest;

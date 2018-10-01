@@ -3,6 +3,7 @@ package com.capgemini.data;
 import com.capgemini.domain.Employee;
 import com.capgemini.domain.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

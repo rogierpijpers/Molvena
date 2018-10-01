@@ -67,6 +67,7 @@ public class EmployeeController {
     @Autowired
     private RegistrationService registrationService;
 
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/createEmployee", method = RequestMethod.POST)
     public Employee createRegistration(@RequestBody Employee employee) {
         //TODO: fix
