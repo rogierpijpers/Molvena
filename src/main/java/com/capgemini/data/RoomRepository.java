@@ -35,4 +35,10 @@ public class RoomRepository {
         }
         return null;
     }
+
+    public void updateRoom(int id, Room room) {
+        Room toReplace = getRoomByRoomNumber(room.getRoomID());
+        int index = rooms.indexOf(toReplace);
+        rooms.set(index, room);
+    }
 }

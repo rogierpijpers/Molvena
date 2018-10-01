@@ -1,14 +1,15 @@
 package com.capgemini.web;
 
 import com.capgemini.data.RoomRepository;
+import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
+import com.capgemini.service.RoomService;
+import com.capgemini.web.util.exception.InvalidInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,9 @@ public class RoomController {
 
     @Autowired
     private ReservationService reservationService;
+
+    @Autowired
+    private RoomService roomService;
 
     @Autowired
     private RoomRepository roomRepository;
@@ -43,7 +47,15 @@ public class RoomController {
         return roomRepository.getAllRooms();
     }
 
-    //TODO: for owner
-        // - add room
-        // - update room
+    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value="/reservation/", method=RequestMethod.POST)
+    public void createRoom(@RequestBody Room room) throws InvalidInputException {
+        roomService.createRoom(room);
+    }
+
+    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value="/reservarion/{id}", method=RequestMethod.PUT)
+    public void updateRoom(@PathVariable("id") int id, @RequestBody Room room){
+        roomService.updateRoom(id, room);
+    }
 }
