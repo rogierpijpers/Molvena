@@ -1,7 +1,3 @@
-function postData() {
-    console.log("posting data...");
-
-    // Get values from html.
 	var firstname = $("#firstname").val();
 	var lastname = $("#lastname").val();
 	var password = $("#password").val();
@@ -14,7 +10,9 @@ function postData() {
 	var zipcode = $("#zipcode").val();
 	var country = $("#country").val();
 
-    // Create JS object with data.
+function postData() {
+    console.log("posting data...");
+
     var postrequest = {
         firstName : firstname,
 		lastName : lastname,
@@ -47,11 +45,22 @@ function postData() {
     });
 }
         $(document).ready(function () {
+
+        $("#country").click(function() {
+        country = $( "#country option:selected" ).val();
+        console.log(country)
+
+        var newcode = $( "#country option:selected" ).attr("code");
+        $("#phone").attr("placeholder", newcode);
+
+        console.log("Opzoeken van landcode gelukt");
+        });
+
         $("#register").click(function() {
 
         if ($("#firstname").val() == '' || $("#lastname").val() == '' || $("#password").val() == ''
         || $("#cpassword").val() == '' || $("#dateofbirth").val() == '' || $("#mail").val() == '' || $("#phone").val() == ''
-        || $("#address").val() == '' || $("#city").val() == '' || $("#zipcode").val() == '' || $("#country").val() == '')
+        || $("#address").val() == '' || $("#city").val() == '' || $("#zipcode").val() == '' || country == '')
         {
         alert("Please fill all fields");
         console.log("Please fill all fields")
@@ -70,3 +79,6 @@ function postData() {
             };
         });
     });
+
+
+
