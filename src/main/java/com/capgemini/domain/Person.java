@@ -27,6 +27,8 @@ public abstract class Person {
     protected String address;
     protected String city;
     protected String zipCode;
+    protected String state;
+    protected String province;
     protected String country;
 
     public String getRole() {
@@ -38,7 +40,23 @@ public abstract class Person {
     }
 
     protected String role;
-    
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     public String getFirstName() {
         return firstName;
     }
