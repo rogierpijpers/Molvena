@@ -33,7 +33,7 @@ public class RoomController {
 
     @Secured({"ROLE_ADMIN"})
     @RequestMapping("/room/available/{startDate}/{endDate}")
-    public List<Room> getAvalailableRooms(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate){
+    public List<Room> getAvailableRooms(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate){
         return reservationService.getAllAvailableRooms(startDate, endDate);
     }
 
