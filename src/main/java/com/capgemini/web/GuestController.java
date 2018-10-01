@@ -3,6 +3,7 @@ package com.capgemini.web;
 import com.capgemini.data.GuestRepository;
 import com.capgemini.domain.Guest;
 import com.capgemini.web.authentication.AuthenticationHelper;
+import com.capgemini.web.util.exception.InvalidInputException;
 import com.capgemini.web.util.exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -38,7 +39,11 @@ public class GuestController {
 
     @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
     @RequestMapping(value="/guest/{username}", method= RequestMethod.PUT)
-    public void updateGuest(@PathVariable("username") String username, @RequestBody Guest guest) throws UnauthorizedException {
+    public void updateGuest(@PathVariable("username") String username, @RequestBody Guest guest) throws UnauthorizedException, InvalidInputException {
+        // Spring Boot returns a 400 error if PUT body is empty, but just in case...
+        if(username == null && username.equals("") && guest == null)
+            throw new InvalidInputException("Invalid input.");
+
         if(AuthenticationHelper.userIsGuest()){
             String loggedInUsername = AuthenticationHelper.getCurrentUsername();
             if(guest.getMail().equals(loggedInUsername)){

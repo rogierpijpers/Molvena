@@ -65,4 +65,13 @@ public class GuestControllerTest {
                 .andExpect(content().json(jsonExpected));;
     }
 
+    @Test
+    @WithMockUser(username="Jan@vandijk.nl", roles={"GUEST"})
+    public void testUpdateGuestInvalidInput() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonExpected = objectMapper.writeValueAsString("");
+
+        this.mockMvc.perform(put("/guest/Jan@vandijk.nl").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonExpected)).andDo(print()).andExpect(status().isBadRequest());
+    }
+
 }
