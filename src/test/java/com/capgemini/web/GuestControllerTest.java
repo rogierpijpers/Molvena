@@ -73,5 +73,4 @@ public class GuestControllerTest {
 
         this.mockMvc.perform(put("/guest/Jan@vandijk.nl").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonExpected)).andDo(print()).andExpect(status().isBadRequest());
     }
-
 }
