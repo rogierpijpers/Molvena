@@ -1,5 +1,4 @@
 window.onload=console.log("ready");
-//window.onload=toggleItems();
 var parentForm = document.querySelector("#mainForm");
 parentForm.addEventListener("click", callRelevantFunction, false);
 
@@ -16,17 +15,6 @@ function callRelevantFunction(e){
 }
 
 // If this toggling functionality stays, clean everything up in 1 neat function
-function toggleItems(){
-	document.querySelector(".getReservation").style.visibility = "hidden"
-	document.querySelector(".updateReservation").style.visibility = "hidden"
-	document.querySelector(".createReservation").style.visibility = "hidden"
-	document.querySelector(".deleteReservation").style.visibility = "hidden"
-	document.querySelector(".getReservationBtn").style.visibility = "hidden"
-	document.querySelector(".createReservationBtn").style.visibility = "hidden";
-	document.querySelector(".updateReservationBtn").style.visibility = "hidden";
-	document.querySelector(".deleteReservationBtn").style.visibility = "hidden";	
-}
-
 // TODO: Alles in 1 nette functie
 function toggleGetReservation(){
 	document.querySelector(".getReservationDisplay").style.display = "block";
@@ -42,7 +30,6 @@ function toggleAllReservations(){
 	document.querySelector(".createReservationDisplay").style.display = "none";
 	document.querySelector(".updateReservationDisplay").style.display = "none";
 	document.querySelector(".deleteReservationDisplay").style.display = "none";
-
 	getAllReservations();
 }
 
@@ -67,11 +54,4 @@ function toggleDeleteReservation(){
 	document.querySelector(".createReservationDisplay").style.display = "none";
 	document.querySelector(".updateReservationDisplay").style.display = "none";
 	document.querySelector(".deleteReservationDisplay").style.display = "block";
-}
-
-function toggleAccountMenu(){
-	document.querySelector(".getGuest").style.visibility = "visible";
-	document.querySelector(".createGuest").style.visibility = "visible";
-	document.querySelector(".updateGuest").style.visibility = "visible";
-	document.querySelector(".deleteGuest").style.visibility = "visible";
 }

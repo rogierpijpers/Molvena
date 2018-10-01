@@ -1,4 +1,3 @@
-//var urlReservation = "http://localhost:8080/reservation/";
 var urlReservation = "http://localhost:8080/reservation/";
 var urlAccount = "http://localhost:8080/account/";
 
@@ -7,13 +6,16 @@ function getSingleReservation(){
 	var id = document.querySelector("#inputResId").value;
 
 	if ($.isNumeric(id)){
-		console.log("is numeric");
+		console.log("input is numeric");
 		fetch(urlReservation + id)
 		.then(function(response){
 				return response.json();
 			})
-		.then(function(json){document.getElementById("reservationDisplayText").innerHTML = JSON.stringify(json);
-			});
+		.then(function(json){
+				document.querySelector("#reservationDisplayText").innerHTML = "";
+				document.querySelector("#reservationDisplayText").innerHTML = JSON.stringify(json);
+			})
+		.catch(error => console.error('Error:', error));
 		}
 
 	else if (typeof id === "string"){
@@ -27,26 +29,27 @@ function getSingleReservation(){
 				for (reservations in json){
 					if (id == json[reservations]["guest"]["mail"]){
 						// Display Reservation
-						document.getElementById("reservationDisplayText").innerHTML = JSON.stringify(json[reservations]);
+						document.querySelector("#allReservationDisplayText").innerHTML = "";
+						document.querySelector("#allReservationDisplayText").innerHTML = JSON.stringify(json[reservations]);
 						return json;
 					}
 				}			
-			});
+			})
+	.catch(error => console.error('Error:', error));
 	}
 }
 
 function getAllReservations(){
-	console.log("Getting all reservations");
 	fetch(urlReservation)
 	.then(function(response){
 		return response.json();
 	})
 	.then(function(json){
 		console.log(JSON.stringify(json));
-		// TODO: display in html
+		document.querySelector("#allReservationDisplayText").innerHTML = "";
 		document.querySelector("#allReservationDisplayText").innerHTML = JSON.stringify(json);
-		//prettifyJSON(json, "#");
-	});
+	})
+	.catch(error => console.error('Error:', error));
 }
 
 var demoRoom = {
