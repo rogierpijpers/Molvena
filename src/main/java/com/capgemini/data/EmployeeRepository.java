@@ -13,7 +13,7 @@ public class EmployeeRepository {
     @Autowired
     private PersonRepository personRepository;
 
-    public List<Employee> getAllEmployee(){
+    public List<Employee> getAllEmployees(){
         return personRepository.getPersons()
                 .stream().filter(x -> x instanceof Employee)
                 .map(x-> (Employee) x)
