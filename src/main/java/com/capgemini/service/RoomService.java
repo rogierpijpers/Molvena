@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.InvalidObjectException;
+import java.util.List;
 
 @Service
 public class RoomService {
@@ -21,13 +22,22 @@ public class RoomService {
     }
 
     private boolean validate(Room room){
-        return room.getRoomType() != null && room.getRoomID() > 0;
+        return room.getRoomType() != null && room.getRoomID() >= 0;
     }
 
-    public void updateRoom(int id, Room room) throws InvalidInputException {
+    public void updateRoom(short id, Room room) throws InvalidInputException {
         if(validate(room))
             roomRepository.updateRoom(id, room);
         else
             throw new InvalidInputException();
     }
+
+    public List<Room> getAllRooms(){
+        return roomRepository.getAllRooms();
+    }
+
+    public Room getRoomById(short roomId){
+        return roomRepository.getRoomByRoomNumber(roomId);
+    }
+
 }

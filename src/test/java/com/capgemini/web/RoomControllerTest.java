@@ -1,7 +1,8 @@
 package com.capgemini.web;
 
-import com.capgemini.data.GuestRepository;
 import com.capgemini.domain.Guest;
+import com.capgemini.domain.Room;
+import com.capgemini.service.RoomService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Assert;
@@ -30,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class GuestControllerTest {
+public class RoomControllerTest {
     @Autowired
     private WebApplicationContext wac;
 
@@ -38,7 +39,7 @@ public class GuestControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private GuestRepository guestRepository;
+    private RoomService roomService;
 
     @Before
     public void setup() {
@@ -46,32 +47,26 @@ public class GuestControllerTest {
     }
 
     @Test
-    @WithMockUser(username="Jan@vandijk.nl", roles={"GUEST"})
-    public void testUpdateGuest() throws Exception {
-        Guest guest = guestRepository.getGuestByUsername("Jan@vandijk.nl");
-        Assert.assertTrue(guest.getFirstName().equals("Jan"));
+    public void testCreateRoom(){
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        df.setTimeZone(TimeZone.getTimeZone("GMT"));
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        objectMapper.setDateFormat(df);
-        String jsonExpected = objectMapper.writeValueAsString(guest);
-
-        guest.setFirstName("Peter");
-        this.mockMvc.perform(put("/guest/Jan@vandijk.nl").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonExpected)).andDo(print()).andExpect(status().isOk());
-
-        this.mockMvc.perform(get("/guest/Jan@vandijk.nl")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().json(jsonExpected));
     }
 
     @Test
-    @WithMockUser(username="Jan@vandijk.nl", roles={"GUEST"})
-    public void testUpdateGuestInvalidInput() throws Exception {
+    @WithMockUser(username="Henk@vanvliet.nl", roles={"ADMIN"})
+    public void testUpdateRoom() throws Exception{
+        Room room = roomService.getAllRooms().get(0);
+        Assert.assertTrue(room.getRoomID() == 0);
+
+        Room newRoom = new Room();
+        newRoom.setRoomID((short) 99);
+        newRoom.setRoomType(room.getRoomType());
+
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonExpected = objectMapper.writeValueAsString("");
+        String jsonExpected = objectMapper.writeValueAsString(newRoom);
 
-        this.mockMvc.perform(put("/guest/Jan@vandijk.nl").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonExpected)).andDo(print()).andExpect(status().isBadRequest());
+        this.mockMvc.perform(put("/room/0").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonExpected)).andDo(print()).andExpect(status().isOk());
+
+        this.mockMvc.perform(get("/room/99")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().json(jsonExpected));;
     }
-
 }

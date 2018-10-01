@@ -24,9 +24,6 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
 
-    @Autowired
-    private RoomRepository roomRepository;
-
     // public
     @RequestMapping("/roomtype/available/{startDate}/{endDate}")
     public List<RoomType> getAvailableRoomTypes(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate){
@@ -44,18 +41,24 @@ public class RoomController {
     @Secured({"ROLE_ADMIN"})
     @RequestMapping("/room/")
     public List<Room> getAllRooms(){
-        return roomRepository.getAllRooms();
+        return roomService.getAllRooms();
+    }
+
+    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
+    @RequestMapping("/room/{id}")
+    public Room getRoomById(@PathVariable("id") short id){
+        return roomService.getRoomById(id);
     }
 
     @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value="/reservation/", method=RequestMethod.POST)
+    @RequestMapping(value="/room/", method=RequestMethod.POST)
     public void createRoom(@RequestBody Room room) throws InvalidInputException {
         roomService.createRoom(room);
     }
 
     @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value="/reservarion/{id}", method=RequestMethod.PUT)
-    public void updateRoom(@PathVariable("id") int id, @RequestBody Room room){
+    @RequestMapping(value="/room/{id}", method=RequestMethod.PUT)
+    public void updateRoom(@PathVariable("id") short id, @RequestBody Room room) throws InvalidInputException {
         roomService.updateRoom(id, room);
     }
 }
