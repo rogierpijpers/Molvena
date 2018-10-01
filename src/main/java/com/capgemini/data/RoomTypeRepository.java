@@ -10,6 +10,7 @@ import java.util.List;
 public class RoomTypeRepository {
 
     private ArrayList<RoomType> roomTypeList = new ArrayList<>();
+
     public void addRoomType(RoomType type) {
         roomTypeList.add(type);
     }

@@ -42,6 +42,7 @@ public class ReservationRepository {
         }
         return nonSoftDeletedReservations;
     }
+
     public List<Reservation> getAllSoftDeletedReservations() {
         List<Reservation> SoftDeletedReservations = new ArrayList<>();
         for (Reservation reservation : reservations) {
