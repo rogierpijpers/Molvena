@@ -41,4 +41,8 @@ public class RoomRepository {
         int index = rooms.indexOf(toReplace);
         rooms.set(index, room);
     }
+
+    public void deleteRoom(Room room) {
+        rooms.remove(room);
+    }
 }

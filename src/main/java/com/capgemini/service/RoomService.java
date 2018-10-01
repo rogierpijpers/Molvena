@@ -40,4 +40,11 @@ public class RoomService {
         return roomRepository.getRoomByRoomNumber(roomId);
     }
 
+    public void deleteRoom(short roomId) throws InvalidInputException {
+        Room room = roomRepository.getRoomByRoomNumber(roomId);
+        if(room == null)
+            throw new InvalidInputException();
+
+        roomRepository.deleteRoom(room);
+    }
 }

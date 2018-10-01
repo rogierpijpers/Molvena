@@ -23,9 +23,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -46,6 +44,25 @@ public class RoomControllerTest {
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    }
+
+    @Test
+    @WithMockUser(username="Henk@vanvliet.nl", roles={"ADMIN"})
+    public void testDeleteRoom() throws Exception {
+        Room room = roomService.getRoomById((short) 0);
+        if(room == null){
+            room = new Room();
+            room.setRoomID((short) 0);
+            room.setRoomType(new RoomType((byte) 2, (byte) 2));
+            roomService.createRoom(room);
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonExpected = objectMapper.writeValueAsString(room);
+
+        this.mockMvc.perform(get("/room/0")).andDo(print()).andExpect(status().isOk()).andExpect(content().json(jsonExpected));
+        this.mockMvc.perform(delete("/room/0")).andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(get("/room/0")).andExpect(status().isNotFound());
     }
 
     @Test

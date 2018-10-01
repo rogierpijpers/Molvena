@@ -7,6 +7,7 @@ import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
 import com.capgemini.service.RoomService;
 import com.capgemini.web.util.exception.InvalidInputException;
+import com.capgemini.web.util.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class RoomController {
 
     @Secured({"ROLE_ADMIN"})
     @RequestMapping("/room/available/{startDate}/{endDate}")
-    public List<Room> getAvalailableRooms(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate){
+    public List<Room> getAvailableRooms(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate){
         return reservationService.getAllAvailableRooms(startDate, endDate);
     }
 
@@ -46,8 +47,12 @@ public class RoomController {
 
     @Secured({"ROLE_ADMIN"})
     @RequestMapping("/room/{id}")
-    public Room getRoomById(@PathVariable("id") short id){
-        return roomService.getRoomById(id);
+    public Room getRoomById(@PathVariable("id") short id) throws ObjectNotFoundException {
+        Room room = roomService.getRoomById(id);
+        if(room == null)
+            throw new ObjectNotFoundException();
+        else
+            return room;
     }
 
     @Secured({"ROLE_ADMIN"})
@@ -60,5 +65,11 @@ public class RoomController {
     @RequestMapping(value="/room/{id}", method=RequestMethod.PUT)
     public void updateRoom(@PathVariable("id") short id, @RequestBody Room room) throws InvalidInputException {
         roomService.updateRoom(id, room);
+    }
+
+    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value="/room/{id}", method=RequestMethod.DELETE)
+    public void deleteRoom(@PathVariable("id") short id) throws InvalidInputException {
+        roomService.deleteRoom(id);
     }
 }
