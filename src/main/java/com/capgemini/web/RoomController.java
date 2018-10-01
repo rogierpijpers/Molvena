@@ -44,7 +44,7 @@ public class RoomController {
         return roomService.getAllRooms();
     }
 
-    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping("/room/{id}")
     public Room getRoomById(@PathVariable("id") short id){
         return roomService.getRoomById(id);
