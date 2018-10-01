@@ -6,7 +6,6 @@ function getSingleReservation(){
 	var id = document.querySelector("#inputResId").value;
 
 	if ($.isNumeric(id)){
-		console.log("input is numeric");
 		fetch(urlReservation + id)
 		.then(function(response){
 				return response.json();
@@ -19,7 +18,6 @@ function getSingleReservation(){
 		}
 
 	else if (typeof id === "string"){
-	console.log("input is string");
 	fetch(urlReservation)
 	.then(function(response){
 		return response.json();
@@ -45,7 +43,6 @@ function getAllReservations(){
 		return response.json();
 	})
 	.then(function(json){
-		console.log(JSON.stringify(json));
 		document.querySelector("#allReservationDisplayText").innerHTML = "";
 		document.querySelector("#allReservationDisplayText").innerHTML = JSON.stringify(json);
 	})
@@ -96,7 +93,6 @@ function createReservation(){
 	};
 
 	var postRequestStringifyd = JSON.stringify(postRequest);
-	console.log("Creating reservation with json: " + postRequestStringifyd);
 	fetch(urlReservation, {
 		method: "POST",
 		body: postRequestStringifyd,
@@ -104,7 +100,6 @@ function createReservation(){
 			'Content-Type': 'application/json'
 		}
 	})
-	.then(response => console.log('Succes:', JSON.stringify(response)))
 	.catch(error => console.error('Error:', error));
 }
 
@@ -140,7 +135,6 @@ function updateReservation(){
 	};
 
 	var postRequestStringifyd = JSON.stringify(postRequest);
-	console.log("Updating reservation with json: " + postRequestStringifyd);
 	fetch(urlReservation + id, {
 		method: "PUT",
 		body: postRequestStringifyd,
@@ -148,13 +142,11 @@ function updateReservation(){
 			'Content-Type': 'application/json'
 		}
 	})
-	.then(response => console.log('Succes:', JSON.stringify(response)))
 	.catch(error => console.error('Error:', error));
 }
 
 function deleteReservation(){
 	var id = document.querySelector("input[name='inputIdDelete']").value;
-	console.log("Deleting reservation with id " + id);
 	fetch(urlReservation + id, {
 		method: "DELETE",
 	})
