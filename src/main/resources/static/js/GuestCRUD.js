@@ -1,21 +1,20 @@
-/* GUEST CRUD
-	- Get own user details
-	- Find available rooms at date x.
-*/
 
 var userDetailsEndPoint = "localhost:8080";
 var urlRoomTypeAvailable = "http://localhost:8080/roomtype/available/";
 
 function getOwnUsername(){
-	fetch(userDetailsEndPoint)
-		.then(function(response){
-			console.log(response);
-			console.log(response.json);
-			console.log(JSON.stringify(response));			
-			console.log(JSON.stringify(response.json));
-			return response.json();
-		})
-		.catch(error => console.error("Error: " + error));
+	$.get(userDetailsEndPoint, function(data, status){
+		console.log(data);
+	});
+	// fetch(userDetailsEndPoint)
+	// 	.then(function(response){
+	// 		console.log(response);
+	// 		console.log(response.json);
+	// 		console.log(JSON.stringify(response));			
+	// 		console.log(JSON.stringify(response.json));
+	// 		return response.json();
+	// 	})
+	// 	.catch(error => console.error("Error: " + error));
 }
 
 function getAvailableRoomTypes(){

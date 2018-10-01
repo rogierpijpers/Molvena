@@ -22,6 +22,7 @@ function toggleGetReservation(){
 	document.querySelector(".createReservationDisplay").style.display = "none";
 	document.querySelector(".updateReservationDisplay").style.display = "none";
 	document.querySelector(".deleteReservationDisplay").style.display = "none";
+getOwnUsername();
 }
 
 function toggleAllReservations(){

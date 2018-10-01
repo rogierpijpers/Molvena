@@ -1,17 +1,32 @@
-/* RoomCRUD (Admin-only)
-	- createRoom
-	- deleteRoom
-*/
-
+var urlRoom = "http://localhost:8080/room/";
 
 function createRoom(){
+	var roomId = document.querySelector("input[name='inputRoomIdCreateRoom']").value;
+	var roomType = document.querySelector("input[name='inputRoomTypeCreateRoom']").value;
+	var postRequest = {
+		"roomId" : roomId,
+		"roomType" : roomType
+	};
 
+	var postRequestStringifyd = JSON.stringify(postRequest);
+
+	fetch(urlRoom, {
+		method: "POST",
+		body: postRequestStringifyd,
+		headers: {
+			"Content-Type": "application/json"
+		}
+	})	
+	.then(response => console.log("Succes: ", JSON.stringify(response)))
+	.catch(error => console.error('Error:', error));
 }
 
 function deleteRoom(){
 	var id = document.querySelector("input[name='inputRoomIdDelete']").value;
-	fetch(urlReservation + id, {
+	fetch(urlRoom + id, {
 		method: "DELETE",
 	})
+	.then(response => console.log("Succes: ", JSON.stringify(response)))
+	.catch(error => console.error('Error:', error));
 
 }

@@ -1,11 +1,3 @@
-/* AccountCRUD (Employee-only)
-	- getSingleAccount
-	- getAllAccounts
-	- createAccount
-	- updateAccount
-	- deleteAccount
-*/
-
 var urlAccount = "http://localhost:8080/guest/";
 
 function getSingleAccount(){	

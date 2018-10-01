@@ -1,10 +1,3 @@
-/* AccountCRUD (Employee-only)
-	- getSingleReservation of any guest.
-	- getAllReservations of all guests.
-	- createReservation for any guest.
-	- updateReservation for any guest.
-	- deleteReservation for any reservation.
-*/
 var urlReservation = "http://localhost:8080/reservation/";
 var urlAccount = "http://localhost:8080/account/";
 
