@@ -31,7 +31,7 @@ function postData() {
     console.log(validJsonBook);
 
     $.ajax({
-        url:"http://localhost:8080/createRegistration",
+        url:"http://localhost:8080/guest",
         type:"post",
         data: validJsonBook,
         contentType: "application/json",
@@ -67,20 +67,37 @@ function postData() {
         city = $("#city").val();
         zipcode = $("#zipcode").val();
 
-        if (firstname == '' || $("#lastname").val() == '' || $("#password").val() == ''
-        || $("#cpassword").val() == '' || $("#dateofbirth").val() == '' || $("#mail").val() == '' || $("#phone").val() == ''
-        || $("#address").val() == '' || $("#city").val() == '' || $("#zipcode").val() == '' || country == ''){
-        alert("Please fill all fields");
-        console.log("Please fill all fields")
-        }
-        else if ($("#cpassword").val().length < 8) {
-        alert("Password should atleast 8 character in length");
-        console.log("Password should atleast 8 character in length")
-        }
-        else if (password.value != cpassword.value) {
-        alert("Your passwords don't match. Try again?");
-        console.log("Your passwords don't match. Try again?")
-        }
+            if (firstname == '' || $("#lastname").val() == '' || $("#password").val() == ''
+            || $("#cpassword").val() == '' || $("#dateofbirth").val() == '' || $("#mail").val() == '' || $("#phone").val() == ''
+            || $("#address").val() == '' || $("#city").val() == '' || $("#zipcode").val() == '' || country == '')
+            {
+            alert("Please fill all fields");
+            console.log("Please fill all fields")
+            }
+            else if ($("#password").val().length < 8) {
+            alert("Password should atleast 8 character in length");
+            console.log("Password should atleast 8 character in length")
+            }
+            else if (password.value != cpassword.value) {
+            alert("Your passwords don't match. Try again?");
+            console.log("Your passwords don't match. Try again?")
+            }
+            else if(password.value.match(/[a-z]/g)){
+            alert("Your passwords don't match. Try again?");
+            console.log("Your passwords don't match. Try again?")
+            }
+            else if(password.value.match(/[a-z]/g)){
+            alert("Use lowercase in your password");
+            console.log("Use lowercase in your password")
+            }
+            else if(password.value.match(/[A-Z]/g)){
+            alert("Use uppercase in your password");
+            console.log("Use uppercase in your password")
+            }
+            else if(password.value.match(/[0-9]/g)){
+            alert("Use a number in your password");
+            console.log("Use a number in your password")
+            }
         else {
                 console.log("Post request send");
                 postData();
