@@ -55,3 +55,7 @@ function toggleDeleteReservation(){
 	document.querySelector(".updateReservationDisplay").style.display = "none";
 	document.querySelector(".deleteReservationDisplay").style.display = "block";
 }
+
+function toggleAllAccount(){
+	getAllAccounts();
+}

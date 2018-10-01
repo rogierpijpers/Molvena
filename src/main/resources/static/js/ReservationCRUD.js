@@ -9,33 +9,26 @@ function getSingleReservation(){
 		console.log("input is numeric");
 		fetch(urlReservation + id)
 		.then(function(response){
-				return response.json();
-			})
+			return response.json();
+		})
 		.then(function(json){
-				document.querySelector("#reservationDisplayText").innerHTML = "";
-				document.querySelector("#reservationDisplayText").innerHTML = JSON.stringify(json);
-			})
+			document.querySelector("#reservationDisplayText").innerHTML = "";
+			document.querySelector("#reservationDisplayText").innerHTML = JSON.stringify(json);
+		})
 		.catch(error => console.error('Error:', error));
-		}
+	}
 
 	else if (typeof id === "string"){
-	console.log("input is string");
-	fetch(urlReservation)
-	.then(function(response){
-		return response.json();
-	})
-	.then(function(json){
-				// Loop through JSON and find all reservations with name
-				for (reservations in json){
-					if (id == json[reservations]["guest"]["mail"]){
-						// Display Reservation
-						document.querySelector("#allReservationDisplayText").innerHTML = "";
-						document.querySelector("#allReservationDisplayText").innerHTML = JSON.stringify(json[reservations]);
-						return json;
-					}
-				}			
-			})
-	.catch(error => console.error('Error:', error));
+		console.log("input is string");
+		fetch(urlReservation + "user/" + id)
+		.then(function(response){
+			return response.json();
+		})
+		.then(function(json){
+			document.querySelector("#reservationDisplayText").innerHTML = "";
+			document.querySelector("#reservationDisplayText").innerHTML = JSON.stringify(json);		
+		})
+		.catch(error => console.error('Error:', error));
 	}
 }
 
@@ -53,17 +46,17 @@ function getAllReservations(){
 }
 
 var demoRoom = {
-			"roomID": 0,
-			"roomType": {
-				"singleBeds": 0,
-				"doubleBeds": 2
-			}
-		};
+	"roomID": 0,
+	"roomType": {
+		"singleBeds": 0,
+		"doubleBeds": 2
+	}
+};
 
 var demoRoomType = {
-			"singleBeds": 0,
-			"doubleBeds": 2
-		};
+	"singleBeds": 0,
+	"doubleBeds": 2
+};
 
 function createReservation(){
 	var firstName = document.querySelector("input[name='inputFirstNameCreate']").value;
