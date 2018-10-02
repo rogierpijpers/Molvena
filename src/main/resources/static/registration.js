@@ -63,7 +63,7 @@ function postData() {
         password = $("#password").val();
         cpassword = $("#cpassword").val();
         dateofbirth = $("#dateofbirth").val();
-        mail = $("#mail").val();
+        mail = ($("#mail").val()).toLowerCase();
         phone = $("#phone").val();
         address = $("#address").val();
         city = $("#city").val();
