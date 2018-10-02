@@ -70,7 +70,6 @@ function postData() {
         zipcode = $("#zipcode").val();
         state = $("#state").val();
 
-
             if (firstname == '' || $("#lastname").val() == '' || $("#password").val() == ''
             || $("#cpassword").val() == '' || $("#dateofbirth").val() == '' || $("#mail").val() == '' || $("#phone").val() == ''
             || $("#address").val() == '' || $("#city").val() == '' || $("#zipcode").val() == '' || country == '' || state == '')
@@ -78,7 +77,7 @@ function postData() {
             alert("Please fill all fields");
             console.log("Please fill all fields")
             }
-            else if ($("#password").val().length < 8) {
+            else if (password.length < 8) {
             alert("Password should atleast 8 character in length");
             console.log("Password should atleast 8 character in length")
             }
@@ -86,18 +85,18 @@ function postData() {
             alert("Your passwords don't match. Try again?");
             console.log("Your passwords don't match. Try again?")
             }
-//            else if(password.value.match(/[a-z]/g)){
-//            alert("Use lowercase in your password");
-//            console.log("Use lowercase in your password")
-//            }
-//            else if(password.value.match(/[A-Z]/g)){
-//            alert("Use uppercase in your password");
-//            console.log("Use uppercase in your password")
-//            }
-//            else if(password.value.match(/[0-9]/g)){
-//            alert("Use a number in your password");
-//            console.log("Use a number in your password")
-//            }
+            else if(!(/[a-z]/g).test(password)){
+            alert("Use lowercase in your password");
+            console.log("Use lowercase in your password")
+            }
+            else if(!(/[A-Z]/g).test(password)){
+            alert("Use uppercase in your password");
+            console.log("Use uppercase in your password")
+            }
+            else if(!(/[0-9]/g).test(password)){
+            alert("Use a number in your password");
+            console.log("Use a number in your password")
+            }
         else {
                 console.log("Post request send");
                 postData();
