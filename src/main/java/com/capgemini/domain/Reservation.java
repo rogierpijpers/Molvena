@@ -18,7 +18,7 @@ public class Reservation {
     @ManyToOne
     private Guest guest;
     private int amountOfGuests;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Room room;
     private boolean checkedIn;
     private boolean isDeleted;

@@ -10,6 +10,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import com.capgemini.data.RoomRepository;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.ParseException;
@@ -18,10 +21,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ReservationServiceTest {
-    @Autowired
+    @Mock
     private ReservationRepository reservationRepository;
-    @Autowired
+    @Mock
     private RoomRepository roomRepository;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 

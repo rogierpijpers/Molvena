@@ -8,9 +8,20 @@ import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
 import com.capgemini.service.RoomTypeService;
+import com.capgemini.web.MolvenolakeresortApplication;
+import com.capgemini.web.util.DummyDataSeeder;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,12 +30,13 @@ import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ReservationTests {
-    @Autowired
+    @Mock
     ReservationRepository reservationRepository;
-    @Autowired
+    @Mock
     ReservationService reservationService;
-    @Autowired
+    @Mock
     RoomTypeRepository roomTypeRepository;
     RoomTypeService roomTypeService;
     Guest guest;
@@ -34,9 +46,10 @@ public class ReservationTests {
     RoomType roomType;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-
     @Before
     public void initReservationData() {
+        MockitoAnnotations.initMocks(this);
+
         guest = new Guest();
 
         try {
@@ -60,9 +73,9 @@ public class ReservationTests {
     @Test
     public void testReservationConstructor() {
         Reservation myReservation = new Reservation(startDate, endDate, guest, 6, room, roomType);
-        reservationRepository.save(myReservation);
+        long reservationId = reservationRepository.save(myReservation).getReservationID();
 
-        Reservation reservation = reservationService.getReservationByID(1);
+        Reservation reservation = reservationService.getReservationByID(reservationId);
 
         // Test if the submitted parameters doesn't get corrupted along the way.
         assertEquals(myReservation, reservation);

@@ -7,7 +7,7 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long roomID;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private RoomType roomType;
 
     public long getRoomID() {

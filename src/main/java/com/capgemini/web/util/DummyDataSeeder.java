@@ -19,7 +19,7 @@ public class DummyDataSeeder {
     @Autowired
     private GuestRepository guestRepository;
     @Autowired
-    private PersonBaseRepository personBaseRepository;
+    private PersonRepository personRepository;
     @Autowired
     private ReservationRepository reservationRepository;
     @Autowired
@@ -34,9 +34,9 @@ public class DummyDataSeeder {
         logger.info("Seeding repositories with dummy data.");
         
         seedPersonRepository();
-        seedRoomTypeRepository();
-        seedRoomRepository();
-        seedReservationRepository();
+//        seedRoomTypeRepository();
+//        seedRoomRepository();
+//        seedReservationRepository();
     }
 
     private void seedRoomTypeRepository(){
@@ -54,10 +54,9 @@ public class DummyDataSeeder {
     private void seedReservationRepository(){
         Date startDate = new Date();
         Date endDate = addDays(startDate, 1);
-        RoomType roomType = roomTypeRepository.getAllRoomTypes().stream().findFirst().get();
         Room room = roomRepository.getAllRooms().stream().findFirst().get();
 
-        Reservation myReservation = new Reservation(startDate, endDate, (Guest) personBaseRepository.findByMail("Jan@vandijk.nl"), 6, room, roomType);
+        Reservation myReservation = new Reservation(startDate, endDate, (Guest) personRepository.findByMail("Jan@vandijk.nl"), 6, room, room.getRoomType());
         reservationRepository.save(myReservation);
     }
 

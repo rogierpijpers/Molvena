@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Inheritance
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class Person {
     public long getPersonId() {
         return personId;
