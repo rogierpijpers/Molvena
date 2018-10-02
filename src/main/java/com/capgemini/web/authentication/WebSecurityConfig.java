@@ -27,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService());
         auth.
         authorizeRequests()
+        .antMatchers("/account").fullyAuthenticated()
         .antMatchers("/").permitAll()
         .antMatchers("/*").permitAll()
         .anyRequest().fullyAuthenticated()
