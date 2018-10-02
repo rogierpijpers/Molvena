@@ -9,6 +9,7 @@
 	var city;
 	var zipcode;
 	var country;
+	var state;
 
 function postData() {
     console.log("posting data...");
@@ -23,7 +24,8 @@ function postData() {
 		address : address,
 		city : city,
 		zipCode : zipcode,
-		country : country
+		country : country,
+		state : state
     };
     console.log(postrequest);
 
@@ -31,7 +33,7 @@ function postData() {
     console.log(validJsonBook);
 
     $.ajax({
-        url:"http://localhost:8080/guest",
+        url:"http://localhost:8080/guest/",
         type:"post",
         data: validJsonBook,
         contentType: "application/json",
@@ -66,10 +68,12 @@ function postData() {
         address = $("#address").val();
         city = $("#city").val();
         zipcode = $("#zipcode").val();
+        state = $("#state").val();
+
 
             if (firstname == '' || $("#lastname").val() == '' || $("#password").val() == ''
             || $("#cpassword").val() == '' || $("#dateofbirth").val() == '' || $("#mail").val() == '' || $("#phone").val() == ''
-            || $("#address").val() == '' || $("#city").val() == '' || $("#zipcode").val() == '' || country == '')
+            || $("#address").val() == '' || $("#city").val() == '' || $("#zipcode").val() == '' || country == '' || state == '')
             {
             alert("Please fill all fields");
             console.log("Please fill all fields")
