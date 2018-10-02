@@ -11,6 +11,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,7 @@ public class GuestController {
         return guestRepository.getAllGuests();
     }
 
-    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
+    @Secured({"ROLE_GUEST", "ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/guest/{username}")
     public Guest getGuestByUsername(@PathVariable("username") String username) throws UnauthorizedException {
         if(AuthenticationHelper.userIsGuest()) {
@@ -35,12 +36,14 @@ public class GuestController {
                 return guestRepository.getGuestByUsername(username);
             else
                 throw new UnauthorizedException();
-        }else{
+        }else if(AuthenticationHelper.userIsAdmin() || AuthenticationHelper.userIsReceptionist()){
             return guestRepository.getGuestByUsername(username);
+        } else {
+            throw new UnauthorizedException("You are not logged in");
         }
     }
 
-    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
+    @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST","ROLE_ADMIN"})
     @RequestMapping(value="/guest/{username}", method= RequestMethod.PUT)
     public void updateGuest(@PathVariable("username") String username, @RequestBody Guest guest) throws UnauthorizedException, InvalidInputException {
         // Spring Boot returns a 400 error if PUT body is empty, but just in case...
