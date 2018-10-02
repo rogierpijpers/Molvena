@@ -45,7 +45,7 @@ public class EmployeeController {
     @RequestMapping(value="/employee/{username}", method= RequestMethod.PUT)
     public void updateEmployee(@PathVariable("username") String username, @RequestBody Employee employee) throws UnauthorizedException, InvalidInputException {
         // Spring Boot returns a 400 error if PUT body is empty, but just in case...
-        if(username == null && username.equals("") && employee == null)
+        if(username == null || username.equals("") || employee == null)
             throw new InvalidInputException("Invalid input.");
 
         if(AuthenticationHelper.userIsReceptionist()) {
