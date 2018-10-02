@@ -1,7 +1,7 @@
 package com.capgemini.demo;
 
 import com.capgemini.domain.Person;
-import com.capgemini.domain.Receptionist;
+import com.capgemini.domain.Employee;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +31,14 @@ public class CmdDemo extends Demo{
 
         List<Person> persons = new ArrayList<>();
         //TODO: Get users from mock repo
-        Person receptionist = new Receptionist();
-        receptionist.setLastName("Hendrikson");
-        receptionist.setFirstName("Hendrik");
-        persons.add(receptionist);
+        Person employee = new Employee();
+        employee.setLastName("Hendrikson");
+        employee.setFirstName("Hendrik");
+        persons.add(employee);
 
         for(int i = 0; i < persons.size(); i++){
             Person person = persons.get(i);
-            String role = person instanceof Receptionist ? "receptionist" : "guest";
+            String role = person instanceof Employee ? "employee" : "guest";
             System.out.println(i + ". " + person.getFirstName() + " " + person.getLastName() + " - " + role);
         }
 

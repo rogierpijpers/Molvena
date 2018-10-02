@@ -1,15 +1,11 @@
 package com.capgemini.data;
 
-import com.capgemini.domain.Guest;
 import com.capgemini.domain.Person;
-import com.capgemini.domain.Receptionist;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -37,5 +33,11 @@ public class PersonRepository {
 
     public void addPerson(Person person){
         persons.add(person);
+    }
+
+    public void updatePerson(String username, Person person){
+        Person toReplace = getSinglePerson(username);
+        int index = persons.indexOf(toReplace);
+        persons.set(index, person);
     }
 }

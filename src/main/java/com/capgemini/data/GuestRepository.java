@@ -28,4 +28,8 @@ public class GuestRepository {
     public Guest getGuestByUsername(String username){
         return getAllGuests().stream().filter(x -> x.getMail().equals(username)).findFirst().orElse(null);
     }
+
+    public void updateGuest(String username, Guest guest){
+        personRepository.updatePerson(username, guest);
+    }
 }
