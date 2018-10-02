@@ -37,7 +37,6 @@ function getAllAccounts(){
 		document.querySelector("#allAccountDisplayText").innerHTML = JSON.stringify(json);
 	})
 	.catch(error => console.error("Error:", error));
-
 }
 
 function createAccount(){
@@ -115,7 +114,6 @@ function updateAccount(){
 		}
 	})
 	.catch(error => console.error('Error:', error));
-
 }
 
 function deleteAccount(){

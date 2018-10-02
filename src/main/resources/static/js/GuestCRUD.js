@@ -4,13 +4,11 @@ var urlRoomTypeAvailable = "http://localhost:8080/roomtype/available/";
 
 function getOwnUsername(){
 	$.get(userDetailsEndPoint, function(data, status){
-		//console.log(data);
 		// TODO
 	});
 }
 
 function getAvailableRoomTypes(){
-	// TODO: get input values.
 	var startDate = new Date(document.querySelector("input[name='inputRoomTypeStartDate']").value);
 	var endDate = new Date(document.querySelector("input[name='inputRoomTypeEndDate']").value);
 
