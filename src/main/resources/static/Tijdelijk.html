@@ -1,0 +1,55 @@
+<html><body><head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+</head>
+
+<table id="table_id" class="display">
+    <thead>
+    <tr>
+        <th>Room ID</th>
+        <th>Room Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Row 1 Data 1</td>
+        <td>Row 1 Data 2</td>
+    </tr>
+    <tr>
+        <td>Row 2 Data 1</td>
+        <td>Row 2 Data 2</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Room Id</th>
+        <th>Room Type</th>
+    </tr>
+    </tfoot>
+</table>
+
+<span class="GetRoom">
+                    <input type="text" placeholder="Room Id">
+                    <button type="button" name="getSingleRoom">Get room</button>
+                   <button type="button" name="getAllRooms">Get all rooms</button>
+                </span><br>
+
+<span class="createRoomDisplay">
+                     <input type="text" placeholder="Room id">
+                    <input type="text" placeholder="Room type">
+                    <button type="button" name="CreateRoom">Create room</button>
+                </span><br>
+
+<span class="updateRoomDisplay">
+                    <input type="text" placeholder="Room id">
+                    <input type="text" placeholder="Room type">
+                    <button type="button" name="updateRoom">Update room</button>
+                </span> <br>
+
+<span class="deleteRoomDisplay">
+                    <input type="text" placeholder="Room Id">
+                    <button type="button" name="deleteRoom">Delete room</button>
+                </span>
+
+<script src="javascript.js"></script></body></html>
