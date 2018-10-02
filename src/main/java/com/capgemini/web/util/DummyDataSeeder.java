@@ -70,7 +70,6 @@ public class DummyDataSeeder {
         guest.setMail("Thom@moosjes.nl");
         guest.setAddress("Straat 1");
         guest.setState("");
-        guest.setProvince("Brabant");
         guest.setZipCode("5555LL");
         guest.setCountry("NL");
         guest.setDateOfBirth(new Date(31-8-1994));
@@ -85,7 +84,6 @@ public class DummyDataSeeder {
         guest2.setAddress("Straat 1");
         guest2.setZipCode("5555LL");
         guest2.setState("");
-        guest2.setProvince("Friesland");
         guest2.setCountry("NL");
         guest2.setDateOfBirth(new Date(31-8-1994));
         guestRepository.addGuest(guest2);
@@ -99,7 +97,6 @@ public class DummyDataSeeder {
         employee.setAddress("Straat 1");
         employee.setZipCode("5555LL");
         employee.setState("");
-        employee.setProvince("Limburg");
         employee.setCountry("NL");
         employee.setDateOfBirth(new Date(31-8-1994));
         employee.setRole("ROLE_ADMIN");
