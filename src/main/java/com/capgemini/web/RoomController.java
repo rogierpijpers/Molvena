@@ -1,7 +1,5 @@
 package com.capgemini.web;
 
-import com.capgemini.data.RoomRepository;
-import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
@@ -32,20 +30,19 @@ public class RoomController {
     }
 
     // secured
-
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/room/available/{startDate}/{endDate}")
     public List<Room> getAvailableRooms(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate){
         return reservationService.getAllAvailableRooms(startDate, endDate);
     }
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/room/")
     public List<Room> getAllRooms(){
         return roomService.getAllRooms();
     }
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/room/{id}")
     public Room getRoomById(@PathVariable("id") short id) throws ObjectNotFoundException {
         Room room = roomService.getRoomById(id);
