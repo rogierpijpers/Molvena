@@ -11,7 +11,6 @@ function getAvailableRooms(){
 		return response.json();
 	})
 	.then(function(json){
-		console.log("Available rooms: " + JSON.stringify(json));
 		document.querySelector("#roomDisplayText").innerHTML = "";
 		document.querySelector("#roomDisplayText").innerHTML = JSON.stringify(json);
 	})
@@ -23,8 +22,7 @@ function getAllRooms(){
 	.then(function(response){
 		return response.json();
 	})
-	.then(function(json){
-		console.log("All Rooms: " + JSON.stringify(json));
+	.then(function(json){	
 		document.querySelector("#roomDisplayText").innerHTML = "";
 		document.querySelector("#roomDisplayText").innerHTML = JSON.stringify(json);
 	})
@@ -48,7 +46,6 @@ function updateRoom(){
 		headers: {
 			"Content-Type": "application/json"
 		}
-	})	
-	.then(response => console.log("Succes: ", JSON.stringify(response)))
+	})
 	.catch(error => console.error('Error:', error));
 }

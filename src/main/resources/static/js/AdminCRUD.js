@@ -1,4 +1,5 @@
 var urlRoom = "http://localhost:8080/room/";
+
 function createRoom(){
 	var roomId = document.querySelector("input[name='inputRoomIdCreateRoom']").value;
 	var roomType = document.querySelector("input[name='inputRoomTypeCreateRoom']").value;
@@ -19,7 +20,6 @@ function createRoom(){
 			"Content-Type": "application/json"
 		}
 	})	
-	.then(response => console.log("Succes: ", JSON.stringify(response)))
 	.catch(error => console.error('Error:', error));
 }
 
@@ -28,7 +28,6 @@ function deleteRoom(){
 	fetch(urlRoom + id, {
 		method: "DELETE",
 	})
-	.then(response => console.log("Succes: ", JSON.stringify(response)))
 	.catch(error => console.error('Error:', error));
 
 }

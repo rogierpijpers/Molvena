@@ -42,17 +42,13 @@ function getAllReservations(){
 	.catch(error => console.error('Error:', error));
 }
 
+// TODO: Replace with actual rooms
 var demoRoom = {
 	"roomID": 0,
 	"roomType": {
 		"singleBeds": 0,
 		"doubleBeds": 2
 	}
-};
-
-var demoRoomType = {
-	"singleBeds": 0,
-	"doubleBeds": 2
 };
 
 function createReservation(){
@@ -79,12 +75,10 @@ function createReservation(){
 			"country": "NL",
 			"role": "ROLE_GUEST"
 		},
-		"room": demoRoom,
-		"roomType": demoRoomType
+		"room": demoRoom
 	};
 
 	var postRequestStringifyd = JSON.stringify(postRequest);
-	console.log(postRequestStringifyd);
 	fetch(urlReservation, {
 		method: "POST",
 		body: postRequestStringifyd,
@@ -117,8 +111,7 @@ function updateReservation(){
 			"country": "NL",
 			"role": "ROLE_GUEST"
 		},
-		"room": demoRoom,
-		"roomType": demoRoomType
+		"room": demoRoom
 	};
 
 	var postRequestStringifyd = JSON.stringify(postRequest);

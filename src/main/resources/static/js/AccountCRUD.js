@@ -15,7 +15,6 @@ function getSingleAccount(){
 		.catch(error => console.error("Error: " + error));
 	}
 	else{
-		console.log(urlAccount + id);
 		fetch(urlAccount + id)
 		.then(function(response){
 			return response.json();
@@ -69,7 +68,6 @@ function createAccount(){
 	};
 
 	var postRequestStringifyd = JSON.stringify(postRequest);
-	console.log("Creating account with json: " + postRequestStringifyd);
 	fetch(urlAccount, {
 		method: "POST",
 		body: postRequestStringifyd,
@@ -77,7 +75,6 @@ function createAccount(){
 			"Content-Type": "application/json"
 		}
 	})
-	.then(response => console.log("Succes: ", JSON.stringify(response)))
 	.catch(error => console.error('Error:', error));
 }
 
@@ -110,7 +107,6 @@ function updateAccount(){
 	};
 
 	var postRequestStringifyd = JSON.stringify(postRequest);
-	console.log("Updating account with json: " + postRequestStringifyd);
 	fetch(urlAccount + originalMail, {
 		method: "PUT",
 		body: postRequestStringifyd,
@@ -118,7 +114,6 @@ function updateAccount(){
 			"Content-Type": "application/json"
 		}
 	})
-	.then(response => console.log("Succes: ", JSON.stringify(response)))
 	.catch(error => console.error('Error:', error));
 
 }
@@ -126,7 +121,7 @@ function updateAccount(){
 function deleteAccount(){
 	var id = document.querySelector("input[name='inputDeleteAccount']").value;
 // NOTE: no delete account function in backend yet
-	fetch(urlAccount + id, {
-		method: "DELETE",
-	})
+fetch(urlAccount + id, {
+	method: "DELETE",
+})
 }
