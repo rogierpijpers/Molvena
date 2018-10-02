@@ -52,21 +52,4 @@ public class EmployeeController {
             throw new UnauthorizedException();
         }
     }
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private RegistrationService registrationService;
-
-    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/createEmployee", method = RequestMethod.POST)
-    public Employee createRegistration(@RequestBody Employee employee) {
-        //TODO: fix
-        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
-
-        return employee;
-    }
-
-
 }
