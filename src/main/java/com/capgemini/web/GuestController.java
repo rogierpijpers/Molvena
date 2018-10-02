@@ -47,7 +47,7 @@ public class GuestController {
     @RequestMapping(value="/guest/{username}", method= RequestMethod.PUT)
     public void updateGuest(@PathVariable("username") String username, @RequestBody Guest guest) throws UnauthorizedException, InvalidInputException {
         // Spring Boot returns a 400 error if PUT body is empty, but just in case...
-        if(username == null && username.equals("") && guest == null)
+        if(username == null || username.equals("") || guest == null)
             throw new InvalidInputException("Invalid input.");
 
         if(AuthenticationHelper.userIsGuest()){
@@ -55,10 +55,12 @@ public class GuestController {
             if(guest.getMail().equals(loggedInUsername)){
                 guestRepository.updateGuest(username, guest);
             }else{
-                throw new UnauthorizedException();
+                throw new UnauthorizedException("You are trying to update someone else's account");
             }
-        }else{
+        }else if(AuthenticationHelper.userIsAdmin() || AuthenticationHelper.userIsReceptionist()){
             guestRepository.updateGuest(username, guest);
+        } else {
+            throw new UnauthorizedException("This role is not allowed to update guests");
         }
     }
 
