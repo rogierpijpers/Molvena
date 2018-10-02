@@ -27,7 +27,7 @@ public class DummyDataSeeder {
     @Autowired
     private RoomTypeRepository roomTypeRepository;
     @Autowired
-    private ReceptionistRepository receptionistRepository;
+    private EmployeeRepository employeeRepository;
 
     @PostConstruct
     public void seedTestData(){
@@ -69,6 +69,7 @@ public class DummyDataSeeder {
         guest.setPassword("$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2");
         guest.setMail("Thom@moosjes.nl");
         guest.setAddress("Straat 1");
+        guest.setState("");
         guest.setZipCode("5555LL");
         guest.setCountry("NL");
         guest.setDateOfBirth(new Date(31-8-1994));
@@ -82,21 +83,24 @@ public class DummyDataSeeder {
         guest2.setMail("Jan@vandijk.nl");
         guest2.setAddress("Straat 1");
         guest2.setZipCode("5555LL");
+        guest2.setState("");
         guest2.setCountry("NL");
         guest2.setDateOfBirth(new Date(31-8-1994));
         guestRepository.addGuest(guest2);
 
-        Receptionist receptionist = new Receptionist();
-        receptionist.setFirstName("Henk");
-        receptionist.setLastName("van Vliet");
-        receptionist.setPhone("123456789");
-        receptionist.setPassword("$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2");
-        receptionist.setMail("Henk@vanvliet.nl");
-        receptionist.setAddress("Straat 1");
-        receptionist.setZipCode("5555LL");
-        receptionist.setCountry("NL");
-        receptionist.setDateOfBirth(new Date(31-8-1994));
-        receptionistRepository.addReceptionist(receptionist);
+        Employee employee = new Employee();
+        employee.setFirstName("Henk");
+        employee.setLastName("van Vliet");
+        employee.setPhone("123456789");
+        employee.setPassword("$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2");
+        employee.setMail("Henk@vanvliet.nl");
+        employee.setAddress("Straat 1");
+        employee.setZipCode("5555LL");
+        employee.setState("");
+        employee.setCountry("NL");
+        employee.setDateOfBirth(new Date(31-8-1994));
+        employee.setRole("ROLE_ADMIN");
+        employeeRepository.addEmployee(employee);
     }
 
     private static Date addDays(Date date, int days) {
@@ -106,5 +110,4 @@ public class DummyDataSeeder {
 
         return cal.getTime();
     }
-
 }

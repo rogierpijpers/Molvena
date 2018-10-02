@@ -14,7 +14,6 @@ public class Reservation {
     private Guest guest;
     private int amountOfGuests;
     private Room room;
-    private RoomType roomType;
     private boolean checkedIn;
     private boolean isDeleted;
 
@@ -36,7 +35,6 @@ public class Reservation {
         this.guest = guest;
         this.amountOfGuests = amountOfGuests;
         this.room = room;
-        this.roomType = roomType;
         this.checkedIn = false;
         this.isDeleted = false;
     }
@@ -96,14 +94,6 @@ public class Reservation {
         } else {
             this.checkedIn = true;
         }
-    }
-
-    public RoomType getRoomType() {
-        return roomType;
-    }
-
-    public void setRoomType(RoomType roomType) {
-        this.roomType = roomType;
     }
 
     @Override
