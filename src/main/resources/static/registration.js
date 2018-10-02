@@ -82,22 +82,18 @@ function postData() {
             alert("Your passwords don't match. Try again?");
             console.log("Your passwords don't match. Try again?")
             }
-            else if(password.value.match(/[a-z]/g)){
-            alert("Your passwords don't match. Try again?");
-            console.log("Your passwords don't match. Try again?")
-            }
-            else if(password.value.match(/[a-z]/g)){
-            alert("Use lowercase in your password");
-            console.log("Use lowercase in your password")
-            }
-            else if(password.value.match(/[A-Z]/g)){
-            alert("Use uppercase in your password");
-            console.log("Use uppercase in your password")
-            }
-            else if(password.value.match(/[0-9]/g)){
-            alert("Use a number in your password");
-            console.log("Use a number in your password")
-            }
+//            else if(password.value.match(/[a-z]/g)){
+//            alert("Use lowercase in your password");
+//            console.log("Use lowercase in your password")
+//            }
+//            else if(password.value.match(/[A-Z]/g)){
+//            alert("Use uppercase in your password");
+//            console.log("Use uppercase in your password")
+//            }
+//            else if(password.value.match(/[0-9]/g)){
+//            alert("Use a number in your password");
+//            console.log("Use a number in your password")
+//            }
         else {
                 console.log("Post request send");
                 postData();
