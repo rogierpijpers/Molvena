@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.InvalidObjectException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ReservationController {
@@ -69,7 +70,9 @@ public class ReservationController {
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value="/reservation/{id}", method=RequestMethod.PUT)
     public void editReservationById(@PathVariable("id") int id, @RequestBody Reservation reservation) throws Exception {
-        service.updateReservation(id, reservation);
+        Reservation foundReservation = service.getReservationByID(id);
+        if(reservation != null)
+            service.updateReservation(reservation);
     }
 
     @Secured({"ROLE_GUEST", "ROLE_ADMIN"})

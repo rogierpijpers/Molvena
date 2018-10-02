@@ -1,10 +1,25 @@
 package com.capgemini.domain;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@Entity
+@Inheritance
 public abstract class Person {
+    public long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(long personId) {
+        this.personId = personId;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long personId;
+
     @NotNull
     @NotEmpty
     protected String firstName;

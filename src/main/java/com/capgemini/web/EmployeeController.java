@@ -24,7 +24,7 @@ public class EmployeeController {
     @Secured({"ROLE_RECEPTIONIST","ROLE_ADMIN"})
     @RequestMapping("/employee/")
     public List<Employee> getAllEmployees(){
-        return employeeRepository.getAllEmployees();
+        return employeeRepository.findAll();
     }
 
     @Secured({"ROLE_RECEPTIONIST", "ROLE_ADMIN"})
@@ -33,11 +33,11 @@ public class EmployeeController {
         if(AuthenticationHelper.userIsReceptionist() || AuthenticationHelper.userIsAdmin()) {
             String loggedInUsername = AuthenticationHelper.getCurrentUsername();
             if(username.equals(loggedInUsername))
-                return employeeRepository.getEmployeeByUsername(username);
+                return employeeRepository.findByMail(username);
             else
                 throw new UnauthorizedException();
         } else {
-            return employeeRepository.getEmployeeByUsername(username);
+            return employeeRepository.findByMail(username);
         }
     }
 
@@ -52,10 +52,10 @@ public class EmployeeController {
             String loggedInUsername = AuthenticationHelper.getCurrentUsername();
 
             if(employee.getMail().equals(loggedInUsername))
-                employeeRepository.updateEmployee(username, employee);
+                employeeRepository.save(employee);
 
         } else if (AuthenticationHelper.userIsAdmin()){
-            employeeRepository.updateEmployee(username, employee);
+            employeeRepository.save(employee);
         } else {
             throw new UnauthorizedException();
         }

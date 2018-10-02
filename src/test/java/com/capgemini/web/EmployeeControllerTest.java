@@ -48,7 +48,7 @@ public class EmployeeControllerTest {
     @Test
     @WithMockUser(username="Henk@vanvliet.nl", roles={"ADMIN"})
     public void testUpdateEmployee() throws Exception {
-        Employee employee = employeeRepository.getEmployeeByUsername("Henk@vanvliet.nl");
+        Employee employee = employeeRepository.findByMail("Henk@vanvliet.nl");
         Assert.assertTrue(employee.getFirstName().equals("Henk"));
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");

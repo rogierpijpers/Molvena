@@ -48,7 +48,7 @@ public class GuestControllerTest {
     @Test
     @WithMockUser(username="Jan@vandijk.nl", roles={"GUEST"})
     public void testUpdateGuest() throws Exception {
-        Guest guest = guestRepository.getGuestByUsername("Jan@vandijk.nl");
+        Guest guest = guestRepository.findByMail("Jan@vandijk.nl");
         Assert.assertTrue(guest.getFirstName().equals("Jan"));
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");

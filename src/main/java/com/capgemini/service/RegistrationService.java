@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
-@Component
 public class RegistrationService {
 
     @Autowired
@@ -17,15 +16,11 @@ public class RegistrationService {
         this.guestRepository = guestRepository;
     }
 
-    public RegistrationService() {
-        guestRepository = new GuestRepository();
-    }
-
     public void AddRegistration(Guest guest) {
-            guestRepository.addGuest(guest);
+            guestRepository.save(guest);
     }
 
     public Guest getRegistrationByName(String username) {
-        return(guestRepository.getGuestByUsername(username));
+        return(guestRepository.findByMail(username));
     }
 }

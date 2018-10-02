@@ -10,6 +10,7 @@ import com.capgemini.service.ReservationService;
 import com.capgemini.service.RoomTypeService;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,8 +20,11 @@ import java.util.Date;
 import static org.junit.Assert.assertEquals;
 
 public class ReservationTests {
+    @Autowired
     ReservationRepository reservationRepository;
+    @Autowired
     ReservationService reservationService;
+    @Autowired
     RoomTypeRepository roomTypeRepository;
     RoomTypeService roomTypeService;
     Guest guest;
@@ -33,11 +37,6 @@ public class ReservationTests {
 
     @Before
     public void initReservationData() {
-        reservationRepository = new ReservationRepository();
-        roomTypeRepository = new RoomTypeRepository();
-        reservationService = new ReservationService();
-        reservationService.setReservationRepository(reservationRepository);
-
         guest = new Guest();
 
         try {
@@ -61,7 +60,7 @@ public class ReservationTests {
     @Test
     public void testReservationConstructor() {
         Reservation myReservation = new Reservation(startDate, endDate, guest, 6, room, roomType);
-        reservationRepository.addReservation(myReservation);
+        reservationRepository.save(myReservation);
 
         Reservation reservation = reservationService.getReservationByID(1);
 
@@ -72,7 +71,7 @@ public class ReservationTests {
     @Test
     public void testGetReservationByID() {
         Reservation myReservation = new Reservation(startDate, endDate, guest, 6, room, roomType);
-        reservationRepository.addReservation(myReservation);
+        reservationRepository.save(myReservation);
 
         Reservation reservation = reservationService.getReservationByID(1);
         // if(myReservation.equals(reservation))
@@ -84,9 +83,9 @@ public class ReservationTests {
     public void testGetReservationByName() {
         guest.setLastName("van de Moosdijk");
         Reservation myReservation = new Reservation(startDate, endDate, guest, 6, room, roomType);
-        reservationRepository.addReservation(myReservation);
+        reservationRepository.save(myReservation);
 
-        reservationRepository.addReservation(myReservation);
+        reservationRepository.save(myReservation);
 
         Reservation reservation = reservationService.getReservationByName("van de Moosdijk");
         // Tests if the right reservation returns when using GetReservationByName();
@@ -98,16 +97,16 @@ public class ReservationTests {
         Reservation myReservation1 = new Reservation(startDate, endDate, guest, 6, room, roomType);
         Reservation myReservation2 = new Reservation(startDate, endDate, guest, 6, room, roomType);
 
-        reservationRepository.addReservation(myReservation1);
-        reservationRepository.addReservation(myReservation2);
+        reservationRepository.save(myReservation1);
+        reservationRepository.save(myReservation2);
 
         ArrayList<Reservation> reservationArrayList = new ArrayList<>();
         reservationArrayList.add(myReservation1);
         reservationArrayList.add(myReservation2);
 
         // Test if the array object itself is equal.
-        assertEquals(reservationArrayList, reservationRepository.getAllReservations());
+        assertEquals(reservationArrayList, reservationRepository.findAll());
         // Test if the size of the arrays are equal (is this necessary?)
-        assertEquals((reservationArrayList.size()), reservationRepository.getAllReservations().size());
+        assertEquals((reservationArrayList.size()), reservationRepository.findAll().size());
     }
 }

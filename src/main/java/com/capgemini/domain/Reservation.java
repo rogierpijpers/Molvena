@@ -2,17 +2,23 @@ package com.capgemini.domain;
 
 import com.capgemini.exceptions.InvalidDateException;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Entity
 public class Reservation {
-    private int reservationID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long reservationID;
     private Date startDate;
     private Date endDate;
+    @ManyToOne
     private Guest guest;
     private int amountOfGuests;
+    @ManyToOne
     private Room room;
     private boolean checkedIn;
     private boolean isDeleted;
@@ -39,7 +45,7 @@ public class Reservation {
         this.isDeleted = false;
     }
 
-    public int getReservationID() {
+    public long getReservationID() {
         return reservationID;
     }
 

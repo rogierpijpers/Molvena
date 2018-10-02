@@ -3,11 +3,12 @@ package com.capgemini.data;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
 public class RoomRepository {
 
     private List<Room> rooms;

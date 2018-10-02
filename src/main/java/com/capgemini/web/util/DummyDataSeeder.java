@@ -19,7 +19,7 @@ public class DummyDataSeeder {
     @Autowired
     private GuestRepository guestRepository;
     @Autowired
-    private PersonRepository personRepository;
+    private PersonBaseRepository personBaseRepository;
     @Autowired
     private ReservationRepository reservationRepository;
     @Autowired
@@ -57,8 +57,8 @@ public class DummyDataSeeder {
         RoomType roomType = roomTypeRepository.getAllRoomTypes().stream().findFirst().get();
         Room room = roomRepository.getAllRooms().stream().findFirst().get();
 
-        Reservation myReservation = new Reservation(startDate, endDate, (Guest) personRepository.getSinglePerson("Jan@vandijk.nl"), 6, room, roomType);
-        reservationRepository.addReservation(myReservation);
+        Reservation myReservation = new Reservation(startDate, endDate, (Guest) personBaseRepository.findByMail("Jan@vandijk.nl"), 6, room, roomType);
+        reservationRepository.save(myReservation);
     }
 
     private void seedPersonRepository(){
@@ -72,7 +72,7 @@ public class DummyDataSeeder {
         guest.setZipCode("5555LL");
         guest.setCountry("NL");
         guest.setDateOfBirth(new Date(31-8-1994));
-        guestRepository.addGuest(guest);
+        guestRepository.save(guest);
 
         Guest guest2 = new Guest();
         guest2.setFirstName("Jan");
@@ -84,7 +84,7 @@ public class DummyDataSeeder {
         guest2.setZipCode("5555LL");
         guest2.setCountry("NL");
         guest2.setDateOfBirth(new Date(31-8-1994));
-        guestRepository.addGuest(guest2);
+        guestRepository.save(guest2);
 
         Employee employee = new Employee();
         employee.setFirstName("Henk");
@@ -97,7 +97,7 @@ public class DummyDataSeeder {
         employee.setCountry("NL");
         employee.setDateOfBirth(new Date(31-8-1994));
         employee.setRole("ROLE_ADMIN");
-        employeeRepository.addEmployee(employee);
+        employeeRepository.save(employee);
     }
 
     private static Date addDays(Date date, int days) {

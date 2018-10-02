@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import com.capgemini.data.RoomRepository;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,8 +19,9 @@ import java.util.Date;
 import java.util.List;
 
 public class ReservationServiceTest {
-
+    @Autowired
     private ReservationRepository reservationRepository;
+    @Autowired
     private RoomRepository roomRepository;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -39,7 +41,6 @@ public class ReservationServiceTest {
 
     @Before
     public void setupReservation() {
-        reservationRepository = new ReservationRepository();
         Date startDateReservation1 = null;
         Date endDateReservation1 = null;
 
@@ -50,7 +51,7 @@ public class ReservationServiceTest {
 
             Reservation reservation = new Reservation(startDateReservation1, endDateReservation1, guest, 6, room1, roomType1);
 
-            reservationRepository.addReservation(reservation);
+            reservationRepository.save(reservation);
         }
          catch(ParseException e){
                 e.printStackTrace();
@@ -189,7 +190,7 @@ public class ReservationServiceTest {
         try {
             ReservationService reservationService = new ReservationService();
             reservationService.setReservationRepository(reservationRepository);
-            Reservation reservation = reservationRepository.getAllReservations().get(0);
+            Reservation reservation = reservationRepository.findAll().get(0);
             reservationService.softDelete(reservation);
             Assert.assertSame(true, reservation.isDeleted());
         } catch(Exception e){

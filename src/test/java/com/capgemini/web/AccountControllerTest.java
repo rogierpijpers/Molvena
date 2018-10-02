@@ -1,8 +1,8 @@
 package com.capgemini.web;
 
+import com.capgemini.data.PersonBaseRepository;
 import com.capgemini.data.PersonRepository;
 import com.capgemini.domain.Person;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Test;
@@ -39,7 +39,7 @@ public class AccountControllerTest {
     @Test
     @WithMockUser(username="Jan@vandijk.nl", roles={"GUEST"})
     public void testGetCurrentUser() throws Exception {
-        Person person = personRepository.getSinglePerson("Jan@vandijk.nl");
+        Person person = personRepository.findByMail("Jan@vandijk.nl");
         person.setPassword("");
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");

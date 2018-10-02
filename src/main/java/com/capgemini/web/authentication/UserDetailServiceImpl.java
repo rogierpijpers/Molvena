@@ -1,6 +1,6 @@
 package com.capgemini.web.authentication;
 
-import com.capgemini.data.PersonRepository;
+import com.capgemini.data.PersonBaseRepository;
 import com.capgemini.domain.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,11 +12,11 @@ import java.util.Arrays;
 
 public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
-    private PersonRepository personRepository;
+    private PersonBaseRepository personBaseRepository;
 
     @Override
     public User loadUserByUsername(String username) {
-        Person person = personRepository.getSinglePerson(username);
+        Person person = personBaseRepository.findByMail(username);
         if(person == null){
             throw new BadCredentialsException("Bad credentials");
         }

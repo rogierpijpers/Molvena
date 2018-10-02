@@ -22,8 +22,8 @@ public class GuestController {
 
     @Secured({"ROLE_ADMIN"})
     @RequestMapping("/guest/")
-    public List<Guest> getAllGuests(){
-        return guestRepository.getAllGuests();
+    public Iterable<Guest> getAllGuests(){
+        return guestRepository.findAll();
     }
 
     @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
@@ -32,11 +32,11 @@ public class GuestController {
         if(AuthenticationHelper.userIsGuest()) {
             String loggedInUsername = AuthenticationHelper.getCurrentUsername();
             if(username.equals(loggedInUsername))
-                return guestRepository.getGuestByUsername(username);
+                return guestRepository.findByMail(username);
             else
                 throw new UnauthorizedException();
         }else{
-            return guestRepository.getGuestByUsername(username);
+            return guestRepository.findByMail(username);
         }
     }
 
@@ -50,12 +50,12 @@ public class GuestController {
         if(AuthenticationHelper.userIsGuest()){
             String loggedInUsername = AuthenticationHelper.getCurrentUsername();
             if(guest.getMail().equals(loggedInUsername)){
-                guestRepository.updateGuest(username, guest);
+                guestRepository.save(guest);
             }else{
                 throw new UnauthorizedException();
             }
         }else{
-            guestRepository.updateGuest(username, guest);
+            guestRepository.save(guest);
         }
     }
 
