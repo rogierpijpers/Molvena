@@ -20,7 +20,7 @@ public class GuestController {
     @Autowired
     private GuestRepository guestRepository;
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/guest/")
     public List<Guest> getAllGuests(){
         return guestRepository.getAllGuests();
