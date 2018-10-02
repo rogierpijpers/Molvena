@@ -34,7 +34,6 @@ function getAllAccounts(){
 		return response.json();
 	})
 	.then(function(json){
-		console.log(JSON.stringify(json));
 		document.querySelector("#allAccountDisplayText").innerHTML = "";
 		document.querySelector("#allAccountDisplayText").innerHTML = JSON.stringify(json);
 	})
@@ -48,7 +47,7 @@ function createAccount(){
 	var password = document.querySelector("input[name='inputPasswordCreateAccount']").value;
 	var mail = document.querySelector("input[name='inputMailCreateAccount']").value;
 	var dob = new Date(document.querySelector("input[name='inputDobCreateAccount']").value);
-	var dobYYMMDD = dob.getFullYear() + "/" + dob.getMonth() + "/" + dob.getDate();
+	//var dobYYMMDD = dob.getFullYear() + "/" + dob.getMonth() + "/" + dob.getDate();
 	var phone = document.querySelector("input[name='inputPhoneCreateAccount']").value;
 	var address = document.querySelector("input[name='inputAddressCreateAccount']").value;
 	var city = document.querySelector("input[name='inputCityCreateAccount']").value;
@@ -59,7 +58,7 @@ function createAccount(){
 		"firstName" : firstName,
 		"lastName" : lastName,
 		"password" : password,
-		"dateOfBirth" : dobYYMMDD,
+		"dateOfBirth" : dob.toISOString(),
 		"mail" : mail,
 		"phone" : phone,
 		"address" : address,
@@ -89,7 +88,7 @@ function updateAccount(){
 	var password = document.querySelector("input[name='inputPasswordUpdateAccount']").value;
 	var newMail = document.querySelector("input[name='inputMailUpdateAccount']").value;
 	var dob = new Date(document.querySelector("input[name='inputDobUpdateAccount']").value);
-	var dobYYMMDD = dob.getFullYear() + "/" + dob.getMonth() + "/" + dob.getDate();
+	//var dobYYMMDD = dob.getFullYear() + "/" + dob.getMonth() + "/" + dob.getDate();
 	var phone = document.querySelector("input[name='inputPhoneUpdateAccount']").value;
 	var address = document.querySelector("input[name='inputAddressUpdateAccount']").value;
 	var city = document.querySelector("input[name='inputCityUpdateAccount']").value;
@@ -100,7 +99,7 @@ function updateAccount(){
 		"firstName" : firstName,
 		"lastName" : lastName,
 		"password" : password,
-		"dateOfBirth" : dobYYMMDD,
+		"dateOfBirth" : dob.toISOString(),
 		"mail" : newMail,
 		"phone" : phone,
 		"address" : address,
@@ -126,7 +125,7 @@ function updateAccount(){
 
 function deleteAccount(){
 	var id = document.querySelector("input[name='inputDeleteAccount']").value;
-	console.log("Deleting account" + id);
+// NOTE: no delete account function in backend yet
 	fetch(urlAccount + id, {
 		method: "DELETE",
 	})

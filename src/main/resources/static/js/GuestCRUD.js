@@ -19,10 +19,10 @@ function getOwnUsername(){
 
 function getAvailableRoomTypes(){
 	// TODO: get input values.
-	var startDate = document.querySelector("input[name='inputRoomTypeStartDate']").value;
-	var endDate = document.querySelector("input[name='inputRoomTypeEndDate']").value;
+	var startDate = new Date(document.querySelector("input[name='inputRoomTypeStartDate']").value);
+	var endDate = new Date(document.querySelector("input[name='inputRoomTypeEndDate']").value);
 
-	fetch(urlRoomTypeAvailable + startDate + "/" + endDate)
+	fetch(urlRoomTypeAvailable + startDate.toISOString() + "/" + endDate.toISOString())
 	.then(function(response){
 		return response.json();
 	})

@@ -59,10 +59,8 @@ function createReservation(){
 	var firstName = document.querySelector("input[name='inputFirstNameCreate']").value;
 	var lastName = document.querySelector("input[name='inputLastNameCreate']").value;
 	var mail = document.querySelector("input[name='inputMailCreate']").value;
-	//var startDate = document.querySelector("input[name='inputStartDateCreate']").value;
-	//var endDate = document.querySelector("input[name='inputEndDateCreate']").value;
-	var startDate = "1969-12-31T23:59:58.029+0000"; 
-	var endDate = "1979-12-31T23:59:58.029+0000";
+	var startDate = new Date(document.querySelector("input[name='inputStartDateCreate']").value);
+	var endDate = new Date(document.querySelector("input[name='inputEndDateCreate']").value);
 	var amountOfGuests = document.querySelector("input[name='inputAmountOfGuestsCreate']").value;
 	var postRequest = { 
 		"startDate" : startDate,
@@ -86,6 +84,7 @@ function createReservation(){
 	};
 
 	var postRequestStringifyd = JSON.stringify(postRequest);
+	console.log(postRequestStringifyd);
 	fetch(urlReservation, {
 		method: "POST",
 		body: postRequestStringifyd,
@@ -98,13 +97,8 @@ function createReservation(){
 
 function updateReservation(){
 	var id = document.querySelector("input[name='inputIdUpdate']").value;
-	//var firstName = document.querySelector("input[name='inputFirstNameUpdate']").value;
-	//var lastName = document.querySelector("input[name='inputLastNameUpdate']").value;
-	//var mail = document.querySelector("input[name='inputMailUpdate']").value;
-	//var startDate = document.querySelector("input[name='inputStartDateCreate']").value;
-	//var endDate = document.querySelector("input[name='inputEndDateCreate']").value;
-	startDate = "1969-12-31T23:59:58.029+0000"; 
-	endDate = "1979-12-31T23:59:58.029+0000";
+	var startDate = new Date(document.querySelector("input[name='inputStartDateCreate']").value);
+	var endDate = new Date(document.querySelector("input[name='inputEndDateCreate']").value);
 	var amountOfGuests = document.querySelector("input[name='inputAmountOfGuestsUpdate']").value;
 	var postRequest = { 
 		"startDate" : startDate,

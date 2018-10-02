@@ -1,11 +1,13 @@
 var urlRoom = "http://localhost:8080/room/";
-
 function createRoom(){
 	var roomId = document.querySelector("input[name='inputRoomIdCreateRoom']").value;
 	var roomType = document.querySelector("input[name='inputRoomTypeCreateRoom']").value;
 	var postRequest = {
 		"roomId" : roomId,
-		"roomType" : roomType
+		"roomType": {
+			"singleBeds": 0,
+			"doubleBeds": 2
+		}
 	};
 
 	var postRequestStringifyd = JSON.stringify(postRequest);

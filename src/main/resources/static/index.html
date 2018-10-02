@@ -36,33 +36,34 @@
                         <input name="inputLastNameCreate"  type="text" placeholder="Last Name"><br />
                         <input name="inputMailCreate" type="text" placeholder="Email"><br />
                         <input type="text" placeholder="How many persons?" name="inputAmountOfGuestsCreate"><br />
-                        <input type="text" placeholder="Start date" name="inputStartDateCreate"><br />
-                        <input type="text" placeholder="End date" name="inputEndDateCreate"><br />
-                        <label class="container">Single bed
+                        <input type="date" placeholder="Start date" name="inputStartDateCreate"><br />
+                        <input type="date" placeholder="End date" name="inputEndDateCreate"><br />
+                        <input type="text" placeholder="*ROOMTYPE OBJECT*" name="inputRoomTypeCreate"><br />
+                        <!--<label class="container">Single bed
                             <input type="radio" checked="checked" name="radio">
                             <span class="checkmark"></span>
                         </label><br />
                         <label class="container">Double bed
                             <input type="radio" name="radio">
                             <span class="checkmark"></span>
-                        </label><br />
+                        </label><br />-->
                         <button type="button" name="createReservation">Submit</button>
                     </span>
 
                     <span class="invis updateReservationDisplay">
                         <input name="inputIdUpdate" type="text" placeholder="Reservation ID"><br />
                         <input type="text" placeholder="How many persons?" name="inputAmountOfGuestsUpdate"><br />
-                        <input type="text" placeholder="Start date" name="inputStartDateUpdate"><br />
-                        <input type="text" placeholder="End date" name="inputLastDateUpdate"><br />
-                        <label class="container">Single bed
+                        <input type="date" placeholder="Start date" name="inputStartDateUpdate"><br />
+                        <input type="date" placeholder="End date" name="inputLastDateUpdate"><br />
+                       <!-- <label class="container">Single bed
                             <input type="radio" checked="checked" name="radio">
                             <span class="checkmark"></span>
                         </label><br />
                         <label class="container">Double bed
                             <input type="radio" name="radio">
                             <span class="checkmark"></span><br />
-                        </label>
-
+                        </label>-->
+                          <input type="text" placeholder="*ROOMTYPE OBJECT*" name="inputRoomTypeUpdate"><br />
                         <button type="button" name="updateReservation">Submit</button>
                     </span>
 
@@ -130,7 +131,7 @@
 
                     <span class="deleteAccountDisplay">
                         <h2>Delete account:</h2>
-                        <input type="text" placeholder="ID or name" name="inputIdDelete"><br />
+                        <input type="text" placeholder="ID or name" name="inputDeleteAccount"><br />
                         <button type="button" name="deleteAccount">Submit</button>
                     </span>
                 </div>
@@ -195,6 +196,7 @@
 <script src="js/AccountCRUD.js"></script>
 <script src="js/RoomCRUD.js"></script>
 <script src="js/GuestCRUD.js"></script>
+<script src="js/AdminCRUD.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </body>

@@ -1,4 +1,3 @@
-window.onload=console.log("ready");
 var parentForm = document.querySelector("#mainForm");
 parentForm.addEventListener("click", callRelevantFunction, false);
 
@@ -22,7 +21,6 @@ function toggleGetReservation(){
 	document.querySelector(".createReservationDisplay").style.display = "none";
 	document.querySelector(".updateReservationDisplay").style.display = "none";
 	document.querySelector(".deleteReservationDisplay").style.display = "none";
-getOwnUsername();
 }
 
 function toggleAllReservations(){
