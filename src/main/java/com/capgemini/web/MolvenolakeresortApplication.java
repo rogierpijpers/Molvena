@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan({"com.capgemini.service", "com.capgemini.data", "com.capgemini.web.util"})
+@ComponentScan({"com.capgemini.service", "com.capgemini.data", "com.capgemini.web.util", "com.capgemini.web"})
 @EnableJpaRepositories("com.capgemini.data")
 @EntityScan( basePackages = {"com.capgemini.domain"} )
 public class MolvenolakeresortApplication {
