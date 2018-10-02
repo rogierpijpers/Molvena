@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -62,10 +63,22 @@ public class ReservationControllerTest {
                 .andExpect(content().json(reservationsJson));
     }
 
-    @Test
-    public void testAddReservationAsGuest(){
-        //TODO: create new reservation as guest
-    }
+//    @Test
+//    @WithMockUser(username="Jan@vandijk.nl", roles={"GUEST"})
+//    public void testAddReservationAsGuest(){
+//        //TODO: create new reservation as guest
+//
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+//        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+//        objectMapper.setDateFormat(df);
+//        Reservation reservation = new Reservation();
+//        reservation.setGuest();
+//        String reservationJson = objectMapper.writeValueAsString(reservation);
+//
+//        this.mockMvc.perform(post("/reservation/")).andDo(print()).andExpect(status().isOk()).andExpect(content().json(reservationJson));
+//    }
 
     @Test
     public void testGetReservationsAsReceptionist(){

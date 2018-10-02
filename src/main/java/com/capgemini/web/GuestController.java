@@ -76,4 +76,19 @@ public class GuestController {
         this.registrationService.AddRegistration(guest);
         return guest;
     }
+
+    @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST","ROLE_ADMIN"})
+    @RequestMapping(value = "/guest/", method = RequestMethod.DELETE)
+    public Guest softDeleteGuest(@RequestBody Guest guest) throws UnauthorizedException {
+        if(AuthenticationHelper.userIsGuest()) {
+            if (AuthenticationHelper.getCurrentUsername() == guest.getMail()) {
+                guest.setPassword(passwordEncoder.encode(guest.getPassword()));
+                return guest;
+            } else {
+                throw new UnauthorizedException("You can not delete someone else on this role");
+            }
+        } else {
+            return guest;
+        }
+    }
 }
