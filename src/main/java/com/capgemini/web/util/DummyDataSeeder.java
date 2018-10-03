@@ -34,9 +34,9 @@ public class DummyDataSeeder {
         logger.info("Seeding repositories with dummy data.");
         
         seedPersonRepository();
-//        seedRoomTypeRepository();
-//        seedRoomRepository();
-//        seedReservationRepository();
+        seedRoomTypeRepository();
+        seedRoomRepository();
+        seedReservationRepository();
     }
 
     private void seedRoomTypeRepository(){
