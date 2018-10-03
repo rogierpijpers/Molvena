@@ -1,4 +1,3 @@
-window.onload=console.log("ready");
 var parentForm = document.querySelector("#mainForm");
 parentForm.addEventListener("click", callRelevantFunction, false);
 
@@ -30,6 +29,7 @@ function toggleAllReservations(){
 	document.querySelector(".createReservationDisplay").style.display = "none";
 	document.querySelector(".updateReservationDisplay").style.display = "none";
 	document.querySelector(".deleteReservationDisplay").style.display = "none";
+
 	getAllReservations();
 }
 
@@ -54,4 +54,8 @@ function toggleDeleteReservation(){
 	document.querySelector(".createReservationDisplay").style.display = "none";
 	document.querySelector(".updateReservationDisplay").style.display = "none";
 	document.querySelector(".deleteReservationDisplay").style.display = "block";
+}
+
+function toggleAllAccount(){
+	getAllAccounts();
 }
