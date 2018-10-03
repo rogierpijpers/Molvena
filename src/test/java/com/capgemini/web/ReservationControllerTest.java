@@ -1,34 +1,26 @@
 package com.capgemini.web;
 
 import com.capgemini.data.GuestRepository;
-import com.capgemini.data.ReservationRepository;
 import com.capgemini.domain.Guest;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
-import com.capgemini.service.RoomService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.Matchers.containsString;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -49,11 +41,12 @@ public class ReservationControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private ReservationRepository reservationRepository;
-
     @Autowired
     private ReservationService reservationService;
+
+    @Autowired
+    private GuestRepository guestRepository;
+
 
     @Before
     public void setup() {
@@ -93,10 +86,9 @@ public class ReservationControllerTest {
     @WithMockUser(username="Jan@vandijk.nl", roles={"GUEST"})
     public void testGetReservationsForGuest() throws Exception{
         Guest guest = createDummyGuest();
-        Reservation reservation = createDummyReservation(guest);
-        List<Reservation> myReservations = new ArrayList<>();
-        myReservations.add(reservation);
+        guestRepository.save(guest);
 
+        Reservation reservation = createDummyReservation(guest);
         reservationService.addReservation(reservation);
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
@@ -104,9 +96,7 @@ public class ReservationControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.setDateFormat(df);
-        String reservationsJson = objectMapper.writeValueAsString(myReservations);
-
-        Mockito.when(reservationRepository.findAll()).thenReturn(myReservations);
+        String reservationsJson = objectMapper.writeValueAsString(reservationService.getReservationsByUsername("Jan@vandijk.nl"));
 
         this.mockMvc.perform(get("/reservation/")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().json(reservationsJson));
