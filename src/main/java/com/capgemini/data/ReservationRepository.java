@@ -28,7 +28,7 @@ public class ReservationRepository {
     }
 
     public void updateReservation(int id, Reservation reservation){
-        reservations.set(id, reservation);
+        reservations.set((id-1), reservation);
     }
 
     public List<Reservation> getAllReservations() {

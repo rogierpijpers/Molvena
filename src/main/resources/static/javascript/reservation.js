@@ -74,9 +74,7 @@ $(document).ready(function () {
             data: JsonReservation,
             contentType: "application/json",
             success: function(result) {
-                alert('succes')
                 getData();
-                $('#newReservationModal').modal('hide');
                 $("#inputFirstName").val("");
                 $("#inputLastName").val("");
                 $("#inputEmail").val("");
@@ -146,8 +144,6 @@ $(document).ready(function () {
             data: JsonUpdate,
             contentType: "application/json",
             success: function(result) {
-                alert('success');
-                $('#newUpdateModal').modal('hide');
                 getData();
             }
         });
@@ -165,11 +161,11 @@ $(document).ready(function () {
         });
     }
 
-    $("#newReservationForm").on('submit', function(e) {
+    $("#submitReservation").click(function(e){
         postData();
     });
 
-    $("#newUpdateForm").on('submit', function(e) {
+    $("#submitUpdate").click(function(e){
         updateData();
     });
 
@@ -182,9 +178,23 @@ $(document).ready(function () {
                 "defaultContent": ''
             },
             {'data': 'reservationID'},
-            {'data': 'guest.firstName'},
-            {'data': 'startDate'},
-            {'data': 'endDate'},
+            {'data': 'guest',
+                render: function ( data, type, row ) {
+                    return data.firstName + " " + data.lastName;
+                }
+            },
+            {'data': 'startDate',
+                render: function ( data, type, row ) {
+                    return data.substring(0,10);
+                }
+            },
+            {'data': 'endDate',
+                render: function ( data, type, row ) {
+                    return data.substring(0,10);
+                }
+            },
+            {'data': 'guest.mail'},
+            {'data': 'guest.phone'},
             {
                 "defaultContent":
                 `
@@ -193,9 +203,10 @@ $(document).ready(function () {
                     <button id="deleteReservation" type="button"
                     class="btn btn-danger" data-toggle="modal" data-target="#newDeleteModal">X</button>
                 `
-            }
+            },
         ],
-        "order": [[0, 'asc']]
+        "order": [[0, 'asc']],
+
     });
 
     var data = null;
@@ -213,16 +224,12 @@ $(document).ready(function () {
             url:"http://localhost:8080/reservation/" + data.reservationID,
             type:"delete",
             success: function(data) {
-                $('#newDeleteModal').modal('hide');
                 getData();
             }
         });
     });
 
-    $('#deleteReservationFalse').click(function(){
-        $('#newDeleteModal').modal('hide');
-    });
-
     getData();
 
 });
+
