@@ -58,23 +58,26 @@ function createReservation(){
 	var startDate = new Date(document.querySelector("input[name='inputStartDateCreate']").value);
 	var endDate = new Date(document.querySelector("input[name='inputEndDateCreate']").value);
 	var amountOfGuests = document.querySelector("input[name='inputAmountOfGuestsCreate']").value;
+	var guest = getOwnUsername();
+
+	// Employee only. If GuestId is entered, var guest will become that Guest object.
+	var guestId = document.querySelector("input[name='inputGuestIdCreate']").value;
+	if (guestId != null){
+		fetch(urlAccount + guestId)
+		.then(function(response){
+			return response.json();
+		})
+		.then(function(json){
+			guest = json;
+		})
+		.catch(error => console.error("Error:", error));
+	}
+
 	var postRequest = { 
 		"startDate" : startDate,
 		"endDate" : endDate,
 		"amountOfGuests" : amountOfGuests,
-		"guest": {
-			"firstName": firstName,
-			"lastName": lastName,
-			"password": "$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
-			"dateOfBirth": "1969-12-31T23:59:58.029+0000",
-			"mail": mail,
-			"phone": "123456789",
-			"address": "Straat 1",
-			"city": "Veldhoven",
-			"zipCode": "5555LL",
-			"country": "NL",
-			"role": "ROLE_GUEST"
-		},
+		"guest": guest,
 		"room": demoRoom
 	};
 
@@ -94,23 +97,29 @@ function updateReservation(){
 	var startDate = new Date(document.querySelector("input[name='inputStartDateCreate']").value);
 	var endDate = new Date(document.querySelector("input[name='inputEndDateCreate']").value);
 	var amountOfGuests = document.querySelector("input[name='inputAmountOfGuestsUpdate']").value;
+	var guest = getOwnUsername();
+
+	// Employee only. If GuestId is entered, var guest will become that Guest object.
+	var guestId = document.querySelector("input[name='inputGuestIdInput']").value;
+	if (guestId != null){
+		fetch(urlAccount + guestId)
+		.then(function(response){
+			return response.json();
+		})
+		.then(function(json){
+			guest = json;
+		})
+		.catch(error => console.error("Error:", error));
+	}
+	// TODO: make it possible to choose between using current account for reservation
+	// or adding ID.
+	
+
 	var postRequest = { 
 		"startDate" : startDate,
 		"endDate" : endDate,
 		"amountOfGuests" : amountOfGuests,
-		"guest": {
-			"firstName": "Jan",
-			"lastName": "van Dijk",
-			"password": "$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
-			"dateOfBirth": "1969-12-31T23:59:58.029+0000",
-			"mail": "Jan@vandijk.nl",
-			"phone": "123456789",
-			"address": "Straat 1",
-			"city": "Veldhoven",
-			"zipCode": "5555LL",
-			"country": "NL",
-			"role": "ROLE_GUEST"
-		},
+		"guest": guest,
 		"room": demoRoom
 	};
 

@@ -1,0 +1,16 @@
+
+TODO notes:
+
+Delete Account won't work (back-end function is missing)
+
+Updating reservation and adding a room seem to have a bug with incrementing IDs and selecting by these IDs.
+
+Reservation still uses mock-guest data, should be replaced with logged in guest (needs to implement getOwnUsername(), but currently gives an error.
+
+No solid decision has been made yet about how we use Room Types.
+
+String input for countries should be replaced by the new implementation for it
+
+Role states
+
+Registration through Jeroens code instead of CreateAccount

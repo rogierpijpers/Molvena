@@ -1,11 +1,20 @@
 
-var userDetailsEndPoint = "localhost:8080";
+var userDetailsEndPoint = "http://localhost:8080/account";
 var urlRoomTypeAvailable = "http://localhost:8080/roomtype/available/";
+var currentUser;
 
 function getOwnUsername(){
-	$.get(userDetailsEndPoint, function(data, status){
-		// TODO
-	});
+	var guest;
+	fetch(userDetailsEndPoint)
+	.then(function(response){
+		return response.json();
+	})
+	.then(function(json){
+		currentUser = json;
+	})
+	.catch(error => console.log('Error', error));
+
+	return currentUser;
 }
 
 function getAvailableRoomTypes(){
