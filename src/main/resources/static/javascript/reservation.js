@@ -74,6 +74,9 @@ $(document).ready(function () {
             data: JsonReservation,
             contentType: "application/json",
             success: function(result) {
+                $("#newReservationModal").hide();
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
                 getData();
                 $("#inputFirstName").val("");
                 $("#inputLastName").val("");
@@ -94,7 +97,6 @@ $(document).ready(function () {
     }
 
     function updateData() {
-
         var firstName = $("#updateFirstName").val();
         var lastName = $("#updateLastName").val();
         var email = $("#updateEmail").val();
@@ -144,6 +146,9 @@ $(document).ready(function () {
             data: JsonUpdate,
             contentType: "application/json",
             success: function(result) {
+                $("#newUpdateModal").hide();
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
                 getData();
             }
         });
@@ -161,11 +166,11 @@ $(document).ready(function () {
         });
     }
 
-    $("#submitReservation").click(function(e){
+    $("#newReservationForm").on('submit', function(e) {
         postData();
     });
 
-    $("#submitUpdate").click(function(e){
+    $("#newUpdateForm").on('submit', function(e) {
         updateData();
     });
 
@@ -213,6 +218,20 @@ $(document).ready(function () {
 
     $('#table_id tbody ').on('click','#updateReservation',function () {
         data = table.row( $(this).parents('tr') ).data();
+                $("#updateFirstName").val(data.guest.firstName);
+                $("#updateLastName").val(data.guest.lastName);
+                $("#updateEmail").val(data.guest.mail);
+                $("#updateBirth").val(data.guest.birth);
+                $("#updatePhone").val(data.guest.phone);
+                $("#updateAddress").val(data.guest.address);
+                $("#updateCity").val(data.guest.city);
+                $("#updateZipCode").val(data.guest.zipCode);
+                $("#updateState").val(data.guest.state);
+                $("#updateCountry").val(data.guest.country);
+                $("#updateGuest").val(data.amountOfGuests);
+                $("#updateCheckIn").val(data.startDate);
+                $("#updateCheckOut").val(data.endDate);
+                $("#updateRoom").val(data.roomType);
     });
 
     $('#table_id tbody').on('click','#deleteReservation',function () {
