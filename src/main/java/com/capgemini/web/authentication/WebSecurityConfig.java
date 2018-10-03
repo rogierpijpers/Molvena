@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/account").fullyAuthenticated()
         .antMatchers("/").permitAll()
         .antMatchers("/*").permitAll()
+                .antMatchers("/guest/").permitAll()
         .anyRequest().fullyAuthenticated()
         .and()
         .formLogin();
