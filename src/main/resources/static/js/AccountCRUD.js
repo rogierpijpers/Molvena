@@ -2,20 +2,7 @@ var urlAccount = "http://localhost:8080/guest/";
 
 function getSingleAccount(){	
 	var id = document.querySelector("#inputAccountId").value;
-
-	if ($.isNumeric(id)){
-		fetch(urlAccount + id)
-		.then(function(response){
-			return response.json();
-		})
-		.then(function(json){
-			document.querySelector("#accountDisplayText").innerHTML = "";
-			document.querySelector("#accountDisplayText").innerHTML = JSON.stringify(json);
-		})
-		.catch(error => console.error("Error: " + error));
-	}
-	else{
-		fetch(urlAccount + id)
+	fetch(urlAccount + id)
 		.then(function(response){
 			return response.json();
 		})
@@ -24,7 +11,6 @@ function getSingleAccount(){
 			document.querySelector("#accountDisplayText").innerHTML = JSON.stringify(json);
 		})
 		.catch(error => console.error("Error:", error));
-	}
 }
 
 function getAllAccounts(){
