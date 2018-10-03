@@ -67,6 +67,8 @@ public class ReservationController {
         Reservation oldReservation = service.getReservationByID(id);
         if(AuthenticationHelper.userIsGuest()){
             if(reservation.getGuest().getMail() == AuthenticationHelper.getCurrentUsername()){
+
+                // TODO: waarom hier softdelete?
                 service.softDelete(service.getReservationByID(id));
             } else {
                 throw new UnauthorizedException("You can not edit the reservation of someone else");
