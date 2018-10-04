@@ -2,6 +2,7 @@ package com.capgemini.web;
 
 import com.capgemini.data.EmployeeRepository;
 import com.capgemini.domain.Employee;
+import com.capgemini.domain.Guest;
 import com.capgemini.service.RegistrationService;
 import com.capgemini.web.authentication.AuthenticationHelper;
 import com.capgemini.web.util.exception.InvalidInputException;
@@ -51,5 +52,19 @@ public class EmployeeController {
         } else {
             throw new UnauthorizedException();
         }
+    }
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RegistrationService registrationService;
+
+    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value = "/employee/", method = RequestMethod.POST)
+    public Employee createEmployee (@RequestBody Employee employee) {
+        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+        this.registrationService.AddRegistration(employee);
+        return employee;
     }
 }

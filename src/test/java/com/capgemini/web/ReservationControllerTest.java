@@ -177,7 +177,6 @@ public class ReservationControllerTest {
                 .andDo(print());
         } catch (Exception e) {
             Assert.assertTrue(e.getCause() instanceof AccessDeniedException);
-
         }
     }
 }
