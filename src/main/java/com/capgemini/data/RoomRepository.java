@@ -1,10 +1,11 @@
 package com.capgemini.data;
 
 import com.capgemini.domain.Room;
-import com.capgemini.domain.RoomType;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -13,8 +14,7 @@ public class RoomRepository {
     private List<Room> rooms;
 
     public RoomRepository() {
-
-        rooms = new ArrayList();
+        rooms = new ArrayList<>();
     }
 
     public List<Room> getAllRooms() {
@@ -22,6 +22,16 @@ public class RoomRepository {
     }
 
     public void addRoom(Room room){
+        List<Room> allRooms = getAllRooms();
+        int id;
+        int max = 0;
+        for (Room roomIndex : allRooms) {
+            id = roomIndex.getRoomID();
+            if (id > max) {
+                max = id;
+            }
+        }
+        room.setRoomID((short)(max + 1));
         rooms.add(room);
     }
 
