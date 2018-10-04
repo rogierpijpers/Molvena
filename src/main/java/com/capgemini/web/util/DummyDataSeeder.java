@@ -52,13 +52,13 @@ public class DummyDataSeeder {
     }
 
     private void seedReservationRepository(){
-        Date startDate = new Date();
-        Date endDate = addDays(startDate, 1);
-        RoomType roomType = roomTypeRepository.getAllRoomTypes().stream().findFirst().get();
-        Room room = roomRepository.getAllRooms().stream().findFirst().get();
-
-        Reservation myReservation = new Reservation(startDate, endDate, (Guest) personRepository.getSinglePerson("Jan@vandijk.nl"), 6, room, roomType);
-        reservationRepository.addReservation(myReservation);
+//        Date startDate = new Date();
+//        Date endDate = addDays(startDate, 1);
+//        RoomType roomType = roomTypeRepository.getAllRoomTypes().stream().findFirst().get();
+//        Room room = roomRepository.getAllRooms().stream().findFirst().get();
+//
+//        Reservation myReservation = new Reservation(startDate, endDate, (Guest) personRepository.getSinglePerson("Jan@vandijk.nl"), 6, room, roomType);
+//        reservationRepository.addReservation(myReservation);
     }
 
     private void seedPersonRepository(){
@@ -101,6 +101,20 @@ public class DummyDataSeeder {
         employee.setDateOfBirth(new Date(31-8-1994));
         employee.setRole("ROLE_ADMIN");
         employeeRepository.addEmployee(employee);
+
+        Employee employee2 = new Employee();
+        employee2.setFirstName("Corry");
+        employee2.setLastName("van Vliet");
+        employee2.setPhone("123456789");
+        employee2.setPassword("$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2");
+        employee2.setMail("Corry@vanvliet.nl");
+        employee2.setAddress("Straat 1");
+        employee2.setZipCode("5555LL");
+        employee2.setState("");
+        employee2.setCountry("NL");
+        employee2.setDateOfBirth(new Date(31-8-1994));
+        employee2.setRole("ROLE_RECEPTIONIST");
+        employeeRepository.addEmployee(employee2);
     }
 
     private static Date addDays(Date date, int days) {
