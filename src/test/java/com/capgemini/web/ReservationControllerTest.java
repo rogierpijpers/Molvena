@@ -63,6 +63,14 @@ public class ReservationControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ReservationService reservationService;
+
+    @Before
+    public void setup() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    }
+
     @Test
     @WithMockUser(username="Jan@vandijk.nl", roles={"GUEST"})
     public void testGetReservationsForGuest() throws Exception{
@@ -77,14 +85,6 @@ public class ReservationControllerTest {
 
         this.mockMvc.perform(get("/reservation/")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().json(reservationsJson));
-    }
-
-    @Autowired
-    private ReservationService reservationService;
-
-    @Before
-    public void setup() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     @Test
