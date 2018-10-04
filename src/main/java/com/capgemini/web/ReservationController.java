@@ -67,17 +67,13 @@ public class ReservationController {
         Reservation oldReservation = service.getReservationByID(id);
         if(AuthenticationHelper.userIsGuest()){
             if(reservation.getGuest().getMail() == AuthenticationHelper.getCurrentUsername()){
-
-                // TODO: waarom hier softdelete?
-                service.softDelete(service.getReservationByID(id));
+                service.updateReservation(id, reservation);
             } else {
                 throw new UnauthorizedException("You can not edit the reservation of someone else");
             }
         } else {
-            service.softDelete(service.getReservationByID(id));
+            service.updateReservation(id, reservation);
         }
-
-        service.updateReservation(id, reservation);
     }
 
     @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST", "ROLE_ADMIN"})
