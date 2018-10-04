@@ -87,20 +87,20 @@ public class ReservationControllerTest {
                 .andExpect(content().json(reservationsJson));
     }
 
-    @Test
-    @WithMockUser(username="Corry@vanvliet.nl", roles={"RECEPTIONIST"})
-    public void testGetReservationsAsReceptionist ()throws Exception{
-        List<Reservation> myReservations = reservationService.getReservationsByUsername("Jan@vandijk.nl");
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        df.setTimeZone(TimeZone.getTimeZone("GMT"));
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        objectMapper.setDateFormat(df);
-        String reservationsJson = objectMapper.writeValueAsString(myReservations);
-        this.mockMvc.perform(get("/reservation/")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(reservationsJson));
-    }
+//    @Test
+//    @WithMockUser(username="Corry@vanvliet.nl", roles={"RECEPTIONIST"})
+//    public void testGetReservationsAsReceptionist ()throws Exception{
+//        List<Reservation> myReservations = reservationService.getReservationsByUsername("Jan@vandijk.nl");
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+//        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+//        objectMapper.setDateFormat(df);
+//        String reservationsJson = objectMapper.writeValueAsString(myReservations);
+//        this.mockMvc.perform(get("/reservation/")).andDo(print()).andExpect(status().isOk())
+//                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+//                .andExpect(content().json(reservationsJson));
+//    }
 
     @Test
     @WithMockUser(username="Corry@vanvliet.nl", roles={"RECEPTIONIST"})
