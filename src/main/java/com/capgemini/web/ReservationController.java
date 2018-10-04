@@ -1,16 +1,11 @@
 package com.capgemini.web;
 
 import com.capgemini.domain.Reservation;
-import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
 import com.capgemini.web.authentication.AuthenticationHelper;
 import com.capgemini.web.util.exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.InvalidObjectException;
@@ -22,7 +17,7 @@ public class ReservationController {
     @Autowired
     private ReservationService service;
 
-    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
+    @Secured({"ROLE_GUEST", "ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/reservation/{id}")
     public Reservation getReservationById(@PathVariable("id") int id){
         if(AuthenticationHelper.userIsGuest()){
@@ -33,7 +28,7 @@ public class ReservationController {
         }
     }
 
-    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
+    @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST", "ROLE_ADMIN"})
     @RequestMapping("/reservation/user/{username}")
     public List<Reservation> getReservationsByUsername(@PathVariable("username") String username) throws UnauthorizedException {
         if(AuthenticationHelper.userIsGuest()) {
@@ -47,9 +42,7 @@ public class ReservationController {
         }
     }
 
-    // TODO: get reservation by name
-
-    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
+    @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST", "ROLE_ADMIN"})
     @RequestMapping("/reservation/")
     public List<Reservation> getAllReservations(){
         if(AuthenticationHelper.userIsGuest()){
@@ -60,21 +53,37 @@ public class ReservationController {
         }
     }
 
-    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
+    @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST", "ROLE_ADMIN"})
     @RequestMapping(value="/reservation/", method=RequestMethod.POST)
     public void createReservation(@RequestBody Reservation reservation) {
         service.addReservation(reservation);
     }
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST", "ROLE_ADMIN"})
     @RequestMapping(value="/reservation/{id}", method=RequestMethod.PUT)
     public void editReservationById(@PathVariable("id") int id, @RequestBody Reservation reservation) throws Exception {
-        service.updateReservation(id, reservation);
+        Reservation oldReservation = service.getReservationByID(id);
+        if(AuthenticationHelper.userIsGuest()){
+            if(reservation.getGuest().getMail() == AuthenticationHelper.getCurrentUsername()){
+                service.updateReservation(id, reservation);
+            } else {
+                throw new UnauthorizedException("You can not edit the reservation of someone else");
+            }
+        } else {
+            service.updateReservation(id, reservation);
+        }
     }
 
-    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
+    @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST", "ROLE_ADMIN"})
     @RequestMapping(value="/reservation/{id}", method=RequestMethod.DELETE)
     public void deleteReservation(@PathVariable("id") int id) throws InvalidObjectException {
-        service.softDelete(service.getReservationByID(id));
+        Reservation reservation = service.getReservationByID(id);
+        if(AuthenticationHelper.userIsGuest()){
+            if(reservation.getGuest().getMail() == AuthenticationHelper.getCurrentUsername()){
+                service.softDelete(service.getReservationByID(id));
+            }
+        } else {
+            service.softDelete(service.getReservationByID(id));
+        }
     }
 }

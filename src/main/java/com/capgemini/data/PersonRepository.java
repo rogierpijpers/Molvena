@@ -40,4 +40,7 @@ public class PersonRepository {
         int index = persons.indexOf(toReplace);
         persons.set(index, person);
     }
+    public void deletePerson(Person person){
+        persons.remove(person);
+    }
 }
