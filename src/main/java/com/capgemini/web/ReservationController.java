@@ -42,8 +42,6 @@ public class ReservationController {
         }
     }
 
-    // TODO: get reservation by name
-
     @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST", "ROLE_ADMIN"})
     @RequestMapping("/reservation/")
     public List<Reservation> getAllReservations(){
