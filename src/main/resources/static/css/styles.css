@@ -1,3 +1,7 @@
+.navbar-top-links{
+display: none;
+}
+
 body {
     height: 100%;
 }

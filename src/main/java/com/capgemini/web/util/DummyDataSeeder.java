@@ -40,8 +40,19 @@ public class DummyDataSeeder {
     }
 
     private void seedRoomTypeRepository(){
-        RoomType roomType = new RoomType((byte) 0, (byte) 2);
-        roomTypeRepository.addRoomType(roomType);
+        RoomType roomType1 = new RoomType((byte) 1, (byte) 0);
+        RoomType roomType2 = new RoomType((byte) 2, (byte) 0);
+        RoomType roomType3 = new RoomType((byte) 3, (byte) 0);
+        RoomType roomType4 = new RoomType((byte) 4, (byte) 0);
+        RoomType roomType5 = new RoomType((byte) 0, (byte) 1);
+        RoomType roomType6 = new RoomType((byte) 0, (byte) 2);
+
+        roomTypeRepository.addRoomType(roomType1);
+        roomTypeRepository.addRoomType(roomType2);
+        roomTypeRepository.addRoomType(roomType3);
+        roomTypeRepository.addRoomType(roomType4);
+        roomTypeRepository.addRoomType(roomType5);
+        roomTypeRepository.addRoomType(roomType6);
     }
 
     private void seedRoomRepository(){
@@ -57,7 +68,7 @@ public class DummyDataSeeder {
         RoomType roomType = roomTypeRepository.getAllRoomTypes().stream().findFirst().get();
         Room room = roomRepository.getAllRooms().stream().findFirst().get();
 
-        for(int i = 0; i < 15; i++){
+        for(int i = 0; i < 5; i++){
             Reservation myReservation = new Reservation(startDate, endDate, (Guest) personRepository.getSinglePerson("Jan@vandijk.nl"), 6, room, roomType);
             reservationRepository.addReservation(myReservation);
         }
