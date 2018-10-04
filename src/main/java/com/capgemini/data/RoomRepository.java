@@ -22,7 +22,6 @@ public class RoomRepository {
     }
 
     public void addRoom(Room room){
-
         rooms.add(room);
     }
 

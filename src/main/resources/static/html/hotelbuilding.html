@@ -19,7 +19,7 @@
     <link href="//cdn.datatables.net/select/1.2.6/css/select.dataTables.min.css" rel="stylesheet">
     <link href="//editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css" rel="stylesheet">
     <link href="../css/styles.css" rel="stylesheet">
-    <link href="../css/reservation.css" rel="stylesheet">
+    <link href="../css/building.css" rel="stylesheet">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 </head>
@@ -28,7 +28,6 @@
 
 <div id="wrapper">
 
-    <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -257,7 +256,7 @@
                         <a href="./dashboard.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-home-o fa-fw"></i> Building<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-home fa-fw"></i> Building<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="./hotelbuilding.html">Hotel</a>
@@ -368,132 +367,67 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Hotel reservation</h1>
+                <h1 class="page-header">Hotel rooms</h1>
             </div>
         </div>
+
         <div class="row">
             <div class=“col-lg-12”>
                 <form id="mainForm" action="">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newReservationModal" style="margin: 10px; float: right;">+ &nbspNew reservation</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newRoomModal" style="margin: 10px; float: right;">+ &nbspNew room</button>
                 </form>
             </div>
         </div>
+
         <hr>
+
         <div class="row" style="margin-left: 15px;">
             <div class="col-lg-12">
                 <table id="table_id" class="ui celled table">
                     <thead>
-                        <tr>
-                            <th></th>
-                            <th>ID</th>
-                            <th>Full Name</th>
-                            <th>Check-in Date</th>
-                            <th>Check-out Date</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Edit</th>
-                        </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Single Bed(s)</th>
+                        <th>Double Bed(s)</th>
+                        <th>Edit</th>
+                    </tr>
                     </thead>
                 </table>
             </div>
         </div>
 
-        <div id="newReservationModal" class="modal fade" role="dialog">
+        <div id="newRoomModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content" style="padding: 15px 20px">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">New Reservation</h4>
+                        <h4 class="modal-title">New Room</h4>
                     </div>
                     <div class="modal-body">
-                        <form data-toggle="validator" role="form" id="newReservationForm" onsubmit="return false;">
+                        <form data-toggle="validator" role="form" id="newRoomForm" onsubmit="return false;">
                             <div class="row">
                                 <div class="form-group col-lg-6">
-                                    <label for="inputFirstName" class="control-label">First Name</label>
-                                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" data-error="DAT IS GEEN NAAM BOYO!" required>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label for="inputLastName" class="control-label">Last Name</label>
-                                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6">
-                                    <label for="inputEmail" class="control-label">Email</label>
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" data-error="DAT IS GEEN NAAM BOYO!" required>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label for="inputBirth" class="control-label">Date of Birth</label>
-                                    <input type="date" class="form-control" id="inputBirth" max="2010-01-01" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6">
-                                    <label for="inputPhone" class="control-label">Phone</label>
-                                    <input type="tel" class="form-control" id="inputPhone" placeholder="Phone" data-error="DAT IS GEEN NAAM BOYO!" required>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label for="inputCountry" class="control-label">Country</label>
-                                    <input type="text" class="form-control" id="inputCountry" placeholder="Country" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6">
-                                    <label for="inputAddress" class="control-label">Address</label>
-                                    <input type="text" class="form-control" id="inputAddress" placeholder="Address" required>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label for="inputZipCode" class="control-label">Zip Code</label>
-                                    <input type="text" class="form-control" id="inputZipCode" placeholder="Zip Code" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6">
-                                    <label for="inputState" class="control-label">Province or State</label>
-                                    <input type="text" class="form-control" id="inputState" placeholder="Province or State" data-error="DAT IS GEEN NAAM BOYO!" required>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label for="inputCity" class="control-label">City</label>
-                                    <input type="text" class="form-control" id="inputCity" placeholder="City" data-error="DAT IS GEEN NAAM BOYO!" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6">
-                                    <label for="inputCheckIn" class="control-label">Check-in Date</label>
-                                    <input type="date" class="form-control" id="inputCheckIn" min="" data-error="DAT IS GEEN NAAM BOYO!" required>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label for="inputCheckOut" class="control-label">Check-out Date</label>
-                                    <input type="date" class="form-control" id="inputCheckOut" min="" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6">
-                                    <label for="inputGuest" class="control-label">Guests</label>
-                                    <select id="inputGuest" class="form-control" required>
+                                    <label for="inputSingle" class="control-label">Single Bed(s)</label>
+                                    <select id="inputSingle" class="form-control" required>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
                                         <option>4</option>
-                                        <option>5</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <label for="inputRoom" class="control-label">Room Type</label>
-                                    <select id="inputRoom" class="form-control" required>
-                                        <option>2 Single Beds</option>
-                                        <option>1 Double Bed</option>
-                                        <option>3 Single Beds</option>
-                                        <option>1 Double Bed and 1 Single Bed</option>
-                                        <option>4 Single Beds</option>
-                                        <option>1 Double Bed and 2 Single Beds</option>
-                                        <option>2 Double Beds</option>
+                                    <label for="inputDouble" class="control-label">Double Bed(s)</label>
+                                    <select id="inputDouble" class="form-control" required>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-lg-12" style="margin-top: 10px;">
-                                    <button id="submitReservation" type="submit" class="btn btn-primary">Submit</button>
+                                    <button id="submitRoom" type="submit" class="btn btn-primary">Submit</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
@@ -508,91 +442,27 @@
                 <div class="modal-content" style="padding: 15px 20px">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Update Reservation</h4>
+                        <h4 class="modal-title">Update Room</h4>
                     </div>
                     <div class="modal-body">
                         <form data-toggle="validator" role="form" id="newUpdateForm" onsubmit="return false;">
                             <div class="row">
                                 <div class="form-group col-lg-6">
-                                    <label for="updateFirstName" class="control-label">First Name</label>
-                                    <input type="text" class="form-control" id="updateFirstName" placeholder="First Name" data-error="DAT IS GEEN NAAM BOYO!" required>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label for="updateLastName" class="control-label">Last Name</label>
-                                    <input type="text" class="form-control" id="updateLastName" placeholder="Last Name" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6">
-                                    <label for="updateEmail" class="control-label">Email</label>
-                                    <input type="email" class="form-control" id="updateEmail" placeholder="Email" data-error="DAT IS GEEN NAAM BOYO!" required>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label for="updateBirth" class="control-label">Date of Birth</label>
-                                    <input type="date" class="form-control" id="updateBirth" max="2000-01-01" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6">
-                                    <label for="updatePhone" class="control-label">Phone</label>
-                                    <input type="tel" class="form-control" id="updatePhone" placeholder="Phone" data-error="DAT IS GEEN NAAM BOYO!" required>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label for="updateCountry" class="control-label">Country</label>
-                                    <input type="text" class="form-control" id="updateCountry" placeholder="Country" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6">
-                                    <label for="updateAddress" class="control-label">Address</label>
-                                    <input type="text" class="form-control" id="updateAddress" placeholder="Address" required>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label for="updateZipCode" class="control-label">Zip Code</label>
-                                    <input type="text" class="form-control" id="updateZipCode" placeholder="Zip Code" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6">
-                                    <label for="updateCity" class="control-label">City</label>
-                                    <input type="text" class="form-control" id="updateCity" placeholder="City" data-error="DAT IS GEEN NAAM BOYO!" required>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label for="updateState" class="control-label">Province or State</label>
-                                    <input type="text" class="form-control" id="updateState" placeholder="Province or State" data-error="DAT IS GEEN NAAM BOYO!" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6">
-                                    <label for="updateCheckIn" class="control-label">Check-in Date</label>
-                                    <input type="date" class="form-control" id="updateCheckIn" min="" placeholder="Check-in" data-error="DAT IS GEEN NAAM BOYO!" required>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label for="updateCheckOut" class="control-label">Check-out Date</label>
-                                    <input type="date" class="form-control" id="updateCheckOut" min="" placeholder="Check-put" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6">
-                                    <label for="updateGuest" class="control-label">Guests</label>
-                                    <select id="updateGuest" class="form-control" required>
+                                    <label for="updateSingle" class="control-label">Single Bed(s)</label>
+                                    <select id="updateSingle" class="form-control" required>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
                                         <option>4</option>
-                                        <option>5</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <label for="updateRoom" class="control-label">Room Type</label>
-                                    <select id="updateRoom" class="form-control" required>
-                                        <option>2 Single Beds</option>
-                                        <option>1 Double Bed</option>
-                                        <option>3 Single Beds</option>
-                                        <option>1 Double Bed and 1 Single Bed</option>
-                                        <option>4 Single Beds</option>
-                                        <option>1 Double Bed and 2 Single Beds</option>
-                                        <option>2 Double Beds</option>
+                                    <label for="updateDouble" class="control-label">Double Bed(s)</label>
+                                    <select id="updateDouble" class="form-control" required>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
                                     </select>
                                 </div>
                             </div>
@@ -618,8 +488,8 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <button id="deleteReservationTrue" type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
-                                <button id="deleteReservationFalse" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                                <button id="deleteRoomTrue" type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                                <button id="deleteRoomFalse" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
                             </div>
                         </div>
                     </div>
@@ -645,7 +515,7 @@
 <script src="//cdn.datatables.net/1.10.19/js/dataTables.semanticui.min.js"></script>
 
 
-<script src="../javascript/reservation.js"></script>
+<script src="../javascript/building.js"></script>
 
 </body>
 
