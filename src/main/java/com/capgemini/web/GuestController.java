@@ -78,17 +78,16 @@ public class GuestController {
     }
 
     @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST","ROLE_ADMIN"})
-    @RequestMapping(value = "/guest/", method = RequestMethod.DELETE)
-    public Guest softDeleteGuest(@RequestBody Guest guest) throws UnauthorizedException {
+    @RequestMapping(value = "/guest/{id}", method = RequestMethod.DELETE)
+    public void softDeleteGuest(@PathVariable int id) throws UnauthorizedException {
         if(AuthenticationHelper.userIsGuest()) {
-            if (AuthenticationHelper.getCurrentUsername() == guest.getMail()) {
-                guest.setPassword(passwordEncoder.encode(guest.getPassword()));
-                return guest;
+            if(guestRepository.getGuestByUsername(AuthenticationHelper.getCurrentUsername()).getId() == id){
+                guestRepository.deleteGuest(id);
             } else {
                 throw new UnauthorizedException("You can not delete someone else on this role");
             }
         } else {
-            return guest;
+            guestRepository.deleteGuest(id);
         }
     }
 }
