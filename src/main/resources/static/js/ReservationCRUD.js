@@ -44,44 +44,47 @@ function getAllReservations(){
 
 // TODO: Replace with actual rooms
 var demoRoom = {
-	"roomID": 0,
-	"roomType": {
-		"singleBeds": 0,
-		"doubleBeds": 2
-	}
-};
+        "roomID": 0,
+        "roomType": {
+            "singleBeds": 0,
+            "doubleBeds": 2
+        }
+    };
 
 function createReservation(){
-	var firstName = document.querySelector("input[name='inputFirstNameCreate']").value;
-	var lastName = document.querySelector("input[name='inputLastNameCreate']").value;
 	var mail = document.querySelector("input[name='inputMailCreate']").value;
 	var startDate = new Date(document.querySelector("input[name='inputStartDateCreate']").value);
 	var endDate = new Date(document.querySelector("input[name='inputEndDateCreate']").value);
 	var amountOfGuests = document.querySelector("input[name='inputAmountOfGuestsCreate']").value;
+	var checkedIn = document.querySelector("input[name='inputCheckedInCreate']").checked;
 	var guest = getOwnUsername();
 
-	// Employee only. If GuestId is entered, var guest will become that Guest object.
-	var guestId = document.querySelector("input[name='inputGuestIdCreate']").value;
-	if (guestId != null){
-		fetch(urlAccount + guestId)
-		.then(function(response){
-			return response.json();
-		})
-		.then(function(json){
-			guest = json;
-		})
-		.catch(error => console.error("Error:", error));
-	}
+	// Employee only. If mail is entered, var guest will become that Guest object.
+	// If not, reservation is made for current account.
+	// if (mail != null){
+	// 	fetch(urlAccount + guestId)
+	// 	.then(function(response){
+	// 		return response.json();
+	// 	})
+	// 	.then(function(json){
+	// 		guest = json;
+	// 	})
+	// 	.catch(error => console.error("Error:", error));
+	// }
 
 	var postRequest = { 
 		"startDate" : startDate,
 		"endDate" : endDate,
 		"amountOfGuests" : amountOfGuests,
 		"guest": guest,
+		"checkedIn": checkedIn,
 		"room": demoRoom
 	};
 
 	var postRequestStringifyd = JSON.stringify(postRequest);
+
+	console.log(postRequestStringifyd);
+
 	fetch(urlReservation, {
 		method: "POST",
 		body: postRequestStringifyd,
@@ -97,35 +100,23 @@ function updateReservation(){
 	var startDate = new Date(document.querySelector("input[name='inputStartDateCreate']").value);
 	var endDate = new Date(document.querySelector("input[name='inputEndDateCreate']").value);
 	var amountOfGuests = document.querySelector("input[name='inputAmountOfGuestsUpdate']").value;
-	var guest = getOwnUsername();
-
-	// Employee only. If GuestId is entered, var guest will become that Guest object.
-	var guestId = document.querySelector("input[name='inputGuestIdInput']").value;
-	if (guestId != null){
-		fetch(urlAccount + guestId)
-		.then(function(response){
-			return response.json();
-		})
-		.then(function(json){
-			guest = json;
-		})
-		.catch(error => console.error("Error:", error));
-	}
-	// TODO: make it possible to choose between using current account for reservation
-	// or adding ID.
-	
+	var checkedIn = document.querySelector("input[name='inputCheckedInUpdate']").checked;	
+	var softDelete = document.querySelector("input[name='inputSoftDeleteUpdate']").checked;	
 
 	var postRequest = { 
 		"startDate" : startDate,
 		"endDate" : endDate,
 		"amountOfGuests" : amountOfGuests,
-		"guest": guest,
+		"checkedIn": checkedIn,
+		"deleted": softDelete,
 		"room": demoRoom
 	};
 
 	var postRequestStringifyd = JSON.stringify(postRequest);
+
+	console.log(postRequestStringifyd); 
 	fetch(urlReservation + id, {
-		method: "PUT",
+		method: "PUT",	
 		body: postRequestStringifyd,
 		headers:{
 			'Content-Type': 'application/json'

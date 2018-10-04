@@ -32,22 +32,13 @@
                     </span>
 
                     <span class="invis createReservationDisplay">
-                        <input name="inputFirstNameCreate" type="text" placeholder="First Name"><br />
-                        <input name="inputLastNameCreate"  type="text" placeholder="Last Name"><br />
-                        <input name="inputMailCreate" type="text" placeholder="Email"><br />
+                        <input name="inputMailCreate" type="text" placeholder="Registered Email Address"><br />
                         <input type="text" placeholder="How many persons?" name="inputAmountOfGuestsCreate"><br />
                         <input type="date" placeholder="Start date" name="inputStartDateCreate"><br />
                         <input type="date" placeholder="End date" name="inputEndDateCreate"><br />
-                        <input type="string" placeholder="Guest ID (EMPLOYEE ONLY)" name="inputGuestIdCreate">
+                        <input type="checkbox" value="Checked in" name="inputCheckedInCreate"><br />
+                        RoomType is currently demo data<br />
                         <input type="text" placeholder="*ROOMTYPE OBJECT*" name="inputRoomTypeCreate"><br />
-                        <!--<label class="container">Single bed
-                            <input type="radio" checked="checked" name="radio">
-                            <span class="checkmark"></span>
-                        </label><br />
-                        <label class="container">Double bed
-                            <input type="radio" name="radio">
-                            <span class="checkmark"></span>
-                        </label><br />-->
                         <button type="button" name="createReservation">Submit</button>
                     </span>
 
@@ -56,16 +47,11 @@
                         <input type="text" placeholder="How many persons?" name="inputAmountOfGuestsUpdate"><br />
                         <input type="date" placeholder="Start date" name="inputStartDateUpdate"><br />
                         <input type="date" placeholder="End date" name="inputLastDateUpdate"><br />
-                       <!-- <label class="container">Single bed
-                            <input type="radio" checked="checked" name="radio">
-                            <span class="checkmark"></span>
-                        </label><br />
-                        <label class="container">Double bed
-                            <input type="radio" name="radio">
-                            <span class="checkmark"></span><br />
-                        </label>-->
-                        <input type="string" placeholder="Guest ID (EMPLOYEE ONLY)" name="inputGuestIdInput">
-                          <input type="text" placeholder="*ROOMTYPE OBJECT*" name="inputRoomTypeUpdate"><br />
+                        <input type="checkbox" value="Checked in" name="inputCheckedInUpdate"><br />
+                        <input type="checkbox" value="Deleted / Cancelled" name="inputSoftDeleteUpdate"><br />
+
+                         RoomType is currently demo data<br />
+                        <input type="text" placeholder="*ROOMTYPE OBJECT*" name="inputRoomTypeUpdate"><br />
                         <button type="button" name="updateReservation">Submit</button>
                     </span>
 
