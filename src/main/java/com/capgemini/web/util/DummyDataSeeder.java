@@ -103,6 +103,20 @@ public class DummyDataSeeder {
         employee.setDateOfBirth(new Date(31-8-1994));
         employee.setRole("ROLE_ADMIN");
         employeeRepository.addEmployee(employee);
+
+        Employee employee1 = new Employee();
+        employee.setFirstName("Henk");
+        employee.setLastName("van Vliet");
+        employee.setPhone("123456789");
+        employee.setPassword("$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2");
+        employee.setMail("Receptionist@molveno.com");
+        employee.setAddress("Straat 1");
+        employee.setZipCode("5555LL");
+        employee.setState("");
+        employee.setCountry("NL");
+        employee.setDateOfBirth(new Date(31-8-1994));
+        employee.setRole("ROLE_ADMIN");
+        employeeRepository.addEmployee(employee);
     }
 
     private static Date addDays(Date date, int days) {
