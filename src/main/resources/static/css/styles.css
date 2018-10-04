@@ -1,0 +1,124 @@
+body {
+    height: 100%;
+}
+
+.modal-content {
+    width: 650px;
+}
+
+#wrapper {
+    height: 100%;
+}
+
+#page-wrapper {
+    height: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.sidebar {
+    height: 100%;
+    margin-top: 0px;
+}
+
+.molvenologo {
+    font-size: 20px;
+}
+
+.navbar-top-links li a {
+    padding: 20px;
+}
+
+.navbar-default {
+    background-color: white;
+}
+
+.navbar-default a {
+    color: #333333;
+}
+
+.sidebar a {
+    padding: 20px;
+}
+
+.sidebar ul li {
+    border-style: none;
+    border-width: 0px;
+}
+
+.nav li a {
+    padding: 15px;
+}
+
+@media only screen and (max-width: 767px) {
+    .sidebar {
+        position: relative;
+        background-color: white;
+    }
+
+    #side-menu {
+        margin-top: 0px;
+        background-color: white;
+    }
+
+    .sidebar li a {
+        color: #333333;
+    }
+
+    .sidebar li a:hover {
+        background-color: #fafafa;
+    }
+
+    .sidebar ul li ul li a {
+        background-color: #fafafa;
+    }
+
+    .sidebar ul li ul li a:hover {
+        background-color: #f1f1f1;
+    }
+
+    .sidebar .molvenoli a {
+        background-color: white;
+    }
+
+    .sidebar .molvenoli a:hover {
+        background-color: white;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 5000px) {
+    .sidebar {
+        position: fixed;
+        background-color: #2b364a;
+    }
+
+    #side-menu {
+        margin-top: 0px;
+        background-color: #2b364a;
+    }
+
+    .sidebar li a {
+        color: #8f9caf;
+    }
+
+    .sidebar li a:hover {
+        background-color: #252e3f;
+    }
+
+    .sidebar ul li ul li a {
+        background-color: #252e3f;
+    }
+
+    .sidebar ul li ul li a:hover {
+        background-color: #151e2f;
+    }
+
+    .sidebar .molvenoli a {
+        background-color: #2b364a;
+    }
+
+    .sidebar .molvenoli a:hover {
+        background-color: #2b364a;
+    }
+}
+

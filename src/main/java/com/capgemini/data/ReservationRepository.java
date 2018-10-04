@@ -27,8 +27,8 @@ public class ReservationRepository {
         return getAllReservations().stream().filter(x -> x.getReservationID() == id).findFirst().orElse(null);
     }
 
-    public void updateReservation(int id, Reservation reservation){
-        reservations.set(id, reservation);
+    public void updateReservation(int index, Reservation reservation){
+        reservations.set(index, reservation);
     }
 
     public List<Reservation> getAllReservations() {
