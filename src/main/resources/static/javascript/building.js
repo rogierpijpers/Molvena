@@ -32,10 +32,12 @@ $(document).ready(function () {
     }
 
     function updateData() {
+
         var singleBeds = $("#updateSingle").val();
         var doubleBeds = $("#updateDouble").val();
 
         var newUpdate = {
+            "roomID": data.roomID,
             "roomType": {
                 "singleBeds": singleBeds,
                 "doubleBeds": doubleBeds,
