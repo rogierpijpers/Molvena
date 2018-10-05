@@ -4,28 +4,40 @@ $(document).ready(function () {
     fillDropdown('updateEmail');
 
     //Check-in validation
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1;
-    var yyyy = today.getFullYear();
+    var notBefore = new Date();
+    var dd = notBefore.getDate();
+    var mm = notBefore.getMonth()+1;
+    var yyyy = notBefore.getFullYear();
      if(dd<10){
             dd='0'+dd
         }
         if(mm<10){
             mm='0'+mm
         }
-    today = yyyy+'-'+mm+'-'+dd;
-    document.getElementById("inputCheckIn").setAttribute("min", today);
-    document.getElementById("updateCheckIn").setAttribute("min", today);
+    notBefore = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("inputCheckIn").setAttribute("min", notBefore);
+    document.getElementById("updateCheckIn").setAttribute("min", notBefore);
+    document.getElementById("inputCheckOut").setAttribute("min", notBefore);
+    document.getElementById("updateCheckOut").setAttribute("min", notBefore);
 
     $("#inputCheckOut").click(function() {
-        var tomorrowInput = $("#inputCheckIn").val();
-        document.getElementById("inputCheckOut").setAttribute("min", tomorrowInput);
+        var checkInInput = $("#inputCheckIn").val();
+        document.getElementById("inputCheckOut").setAttribute("min", checkInInput);
+    });
+
+    $("#inputCheckIn").click(function() {
+        var checkOutInput = $("#inputCheckOut").val();
+        document.getElementById("inputCheckIn").setAttribute("max", checkOutInput);
     });
 
     $("#updateCheckOut").click(function() {
-        var tomorrowUpdate = $("#updateCheckIn").val();
-        document.getElementById("updateCheckOut").setAttribute("min", tomorrowUpdate);
+        var checkInInput = $("#updateCheckIn").val();
+        document.getElementById("updateCheckOut").setAttribute("min", checkInInput);
+    });
+
+    $("#updateCheckIn").click(function() {
+        var checkOutInput = $("#updateCheckOut").val();
+        document.getElementById("updateCheckIn").setAttribute("max", checkOutInput);
     });
 
     function postData() {
