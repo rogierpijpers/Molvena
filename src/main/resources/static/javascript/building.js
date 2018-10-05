@@ -25,8 +25,7 @@ $(document).ready(function () {
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
                 getData();
-                $("#inputSingle").val("");
-                $("#inputDouble").val("");
+                $("#newRoomForm")[0].reset();
             }
         });
     }

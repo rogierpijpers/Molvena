@@ -104,20 +104,7 @@ $(document).ready(function () {
                                     $('body').removeClass('modal-open');
                                     $('.modal-backdrop').remove();
                                     getData();
-                    //                $("#inputFirstName").val("");
-                    //                $("#inputLastName").val("");
-                                    $("#inputEmail").val("");
-                    //                $("#inputBirth").val("");
-                    //                $("#inputPhone").val("");
-                    //                $("#inputAddress").val("");
-                    //                $("#inputCity").val("");
-                    //                $("#inputZipCode").val("");
-                    //                $("#inputState").val("");
-                    //                $("#inputCountry").val("");
-                                    $("#inputGuest").val("");
-                                    $("#inputCheckIn").val("");
-                                    $("#inputCheckOut").val("");
-                                    $("#inputRoom").val("");
+                                    $("#newReservationForm")[0].reset();
                                 }
                             });
                 }});
@@ -143,7 +130,7 @@ $(document).ready(function () {
             type:"get",
             success: function(result){
                 email = result;
-
+            //TODO: load rooms dynamically, Frontend Select a roomType as rooms (guest)
                 switch(room){
                         case "1":
                         room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
