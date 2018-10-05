@@ -3,17 +3,18 @@ $(document).ready(function () {
     fillDropdown('inputEmail');
     fillDropdown('updateEmail');
 
-    //Check-in validation
     var notBefore = new Date();
     var dd = notBefore.getDate();
     var mm = notBefore.getMonth()+1;
     var yyyy = notBefore.getFullYear();
+
      if(dd<10){
             dd='0'+dd
         }
         if(mm<10){
             mm='0'+mm
         }
+
     notBefore = yyyy+'-'+mm+'-'+dd;
     document.getElementById("inputCheckIn").setAttribute("min", notBefore);
     document.getElementById("updateCheckIn").setAttribute("min", notBefore);
@@ -40,18 +41,31 @@ $(document).ready(function () {
         document.getElementById("updateCheckIn").setAttribute("max", checkOutInput);
     });
 
-    function postData() {
+    function roomSwitch(room){
+        switch(room){
+            case "1":
+            room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
+                    break;
+            case "2":
+            room = {"roomID":0,"roomType":{"singleBeds":2,"doubleBeds":0}}
+                    break;
+            case "3":
+            room = {"roomID":0,"roomType":{"singleBeds":3,"doubleBeds":0}}
+                    break;
+            case "4":
+            room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
+                    break;
+            case "5":
+            room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":1}}
+                    break;
+            case "6":
+            room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":2}}
+                    break;
+        }
+    }
 
-//        var firstName = $("#inputFirstName").val();
-//        var lastName = $("#inputLastName").val();
+    function postData() {
         var email = $("#inputEmail").val();
-//        var birth = $("#inputBirth").val();
-//        var phone = $("#inputPhone").val();
-//        var address = $("#inputAddress").val();
-//        var city = $("#inputCity").val();
-//        var zipCode = $("#inputZipCode").val();
-//        var state = $("#inputState").val();
-//        var country = $("#inputCountry").val();
         var guest = $("#inputGuest").val();
         var checkIn = $("#inputCheckIn").val();
         var checkOut = $("#inputCheckOut").val();
@@ -63,26 +77,7 @@ $(document).ready(function () {
                 success: function(result){;
                     email = result;
 
-                    switch(room){
-                        case "1":
-                        room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
-                                break;
-                        case "2":
-                        room = {"roomID":0,"roomType":{"singleBeds":2,"doubleBeds":0}}
-                                break;
-                        case "3":
-                        room = {"roomID":0,"roomType":{"singleBeds":3,"doubleBeds":0}}
-                                break;
-                        case "4":
-                        room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
-                                break;
-                        case "5":
-                        room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":1}}
-                                break;
-                        case "6":
-                        room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":2}}
-                                break;
-                    }
+                    roomSwitch(room);
 
                      var newReservation = {
                                 "startDate": checkIn,
@@ -111,16 +106,7 @@ $(document).ready(function () {
     }
 
     function updateData() {
-//        var firstName = $("#updateFirstName").val();
-//        var lastName = $("#updateLastName").val();
         var email = $("#updateEmail").val();
-//        var birth = $("#updateBirth").val();
-//        var phone = $("#updatePhone").val();
-//        var address = $("#updateAddress").val();
-//        var city = $("#updateCity").val();
-//        var zipCode = $("#updateZipCode").val();
-//        var state = $("#updateState").val();
-//        var country = $("#updateCountry").val();
         var guest = $("#updateGuest").val();
         var checkIn = $("#updateCheckIn").val();
         var checkOut = $("#updateCheckOut").val();
@@ -130,27 +116,7 @@ $(document).ready(function () {
             type:"get",
             success: function(result){
                 email = result;
-            //TODO: load rooms dynamically, Frontend Select a roomType as rooms (guest)
-                switch(room){
-                        case "1":
-                        room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
-                                break;
-                        case "2":
-                        room = {"roomID":0,"roomType":{"singleBeds":2,"doubleBeds":0}}
-                                break;
-                        case "3":
-                        room = {"roomID":0,"roomType":{"singleBeds":3,"doubleBeds":0}}
-                                break;
-                        case "4":
-                        room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
-                                break;
-                        case "5":
-                        room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":1}}
-                                break;
-                        case "6":
-                        room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":2}}
-                                break;
-                        }
+               roomSwitch(room);
 
                  var updatedReservation = {
                             "reservationID" : data.reservationID,
@@ -274,7 +240,6 @@ $(document).ready(function () {
     });
 
     getData();
-
 
 });
 
