@@ -64,25 +64,25 @@ $(document).ready(function () {
                     email = result;
 
                     switch(room){
-                            case "1":
-                            room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
-                                    break;
-                            case "2":
-                            room = {"roomID":0,"roomType":{"singleBeds":2,"doubleBeds":0}}
-                                    break;
-                            case "3":
-                            room = {"roomID":0,"roomType":{"singleBeds":3,"doubleBeds":0}}
-                                    break;
-                            case "4":
-                            room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
-                                    break;
-                            case "5":
-                            room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":1}}
-                                    break;
-                            case "6":
-                            room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":2}}
-                                    break;
-                            }
+                        case "1":
+                        room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
+                                break;
+                        case "2":
+                        room = {"roomID":0,"roomType":{"singleBeds":2,"doubleBeds":0}}
+                                break;
+                        case "3":
+                        room = {"roomID":0,"roomType":{"singleBeds":3,"doubleBeds":0}}
+                                break;
+                        case "4":
+                        room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
+                                break;
+                        case "5":
+                        room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":1}}
+                                break;
+                        case "6":
+                        room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":2}}
+                                break;
+                    }
 
                      var newReservation = {
                                 "startDate": checkIn,
