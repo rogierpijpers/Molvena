@@ -33,6 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/public/**").permitAll()
         .antMatchers("/guest/").permitAll()
         .antMatchers("/js/**").permitAll()
+        .antMatchers("/*").permitAll()
+        .antMatchers("/").permitAll()
         .anyRequest().fullyAuthenticated()
         .and()
         .formLogin();

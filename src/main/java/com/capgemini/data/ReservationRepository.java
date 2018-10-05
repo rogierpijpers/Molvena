@@ -28,7 +28,7 @@ public class ReservationRepository {
     }
 
     public void updateReservation(int id, Reservation reservation){
-        int index = reservations.indexOf(getReservationById(id);
+        int index = reservations.indexOf(getReservationById(id));
         reservations.set(index, reservation);
     }
 
