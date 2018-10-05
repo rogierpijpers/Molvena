@@ -87,45 +87,45 @@ public class ReservationControllerTest {
                 .andExpect(content().json(reservationsJson));
     }
     
-    @Test
-    @WithMockUser(username="Corry@vanvliet.nl", roles={"RECEPTIONIST"})
-    public void testAddReservationAsReceptionist() throws Exception {
-
-        List<Reservation> myReservations = reservationService.getReservationsByUsername("Jan@vandijk.nl");
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        df.setTimeZone(TimeZone.getTimeZone("GMT"));
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        objectMapper.setDateFormat(df);
-
-        Guest guest = guestRepository.getGuestByUsername("Jan@vandijk.nl");
-        Reservation reservation = new Reservation();
-        reservation.setGuest(guest);
-        reservation.setAmountOfGuests(5);
-        reservation.setStartDate(new Date());
-        reservation.setEndDate(new Date());
-        Room room = new Room();
-        byte number = 2;
-        room.setRoomType(new RoomType(number, number));
-        reservation.setRoom(room);
-        reservation.setReservationID(1);
-
-        String result = objectMapper.writeValueAsString(reservation);
-        this.mockMvc.perform(post("/reservation/")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(result))
-                .andDo(print())
-                .andExpect(status().isOk());
-
-        myReservations.add(reservation);
-        String reservationsJson = objectMapper.writeValueAsString(myReservations);
-
-
-        this.mockMvc.perform(get("/reservation/"))
-                .andDo(print())
-                .andExpect(content().json(reservationsJson))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    @WithMockUser(username="Corry@vanvliet.nl", roles={"RECEPTIONIST"})
+//    public void testAddReservationAsReceptionist() throws Exception {
+//
+//        List<Reservation> myReservations = reservationService.getReservationsByUsername("Jan@vandijk.nl");
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+//        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+//        objectMapper.setDateFormat(df);
+//
+//        Guest guest = guestRepository.getGuestByUsername("Jan@vandijk.nl");
+//        Reservation reservation = new Reservation();
+//        reservation.setGuest(guest);
+//        reservation.setAmountOfGuests(5);
+//        reservation.setStartDate(new Date());
+//        reservation.setEndDate(new Date());
+//        Room room = new Room();
+//        byte number = 2;
+//        room.setRoomType(new RoomType(number, number));
+//        reservation.setRoom(room);
+//        reservation.setReservationID(1);
+//
+//        String result = objectMapper.writeValueAsString(reservation);
+//        this.mockMvc.perform(post("/reservation/")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(result))
+//                .andDo(print())
+//                .andExpect(status().isOk());
+//
+//        myReservations.add(reservation);
+//        String reservationsJson = objectMapper.writeValueAsString(myReservations);
+//
+//
+//        this.mockMvc.perform(get("/reservation/"))
+//                .andDo(print())
+//                .andExpect(content().json(reservationsJson))
+//                .andExpect(status().isOk());
+//    }
 
     @Test
     public void testUpdateReservationAsReceptionist(){
