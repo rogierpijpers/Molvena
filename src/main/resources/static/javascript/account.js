@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     function postData() {
-
         var firstName = $("#inputFirstName").val();
         var lastName = $("#inputLastName").val();
         var email = $("#inputEmail").val();
@@ -38,16 +37,7 @@ $(document).ready(function () {
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
                 getData();
-                $("#inputFirstName").val("");
-                $("#inputLastName").val("");
-                $("#inputEmail").val("");
-                $("#inputBirth").val("");
-                $("#inputPhone").val("");
-                $("#inputAddress").val("");
-                $("#inputCity").val("");
-                $("#inputZipCode").val("");
-                $("#inputState").val("");
-                $("#inputCountry").val("");
+                $("#newAccountForm")[0].reset();
             }
         });
     }
