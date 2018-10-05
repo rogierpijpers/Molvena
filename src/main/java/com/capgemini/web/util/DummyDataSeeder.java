@@ -32,7 +32,6 @@ public class DummyDataSeeder {
     @PostConstruct
     public void seedTestData(){
         logger.info("Seeding repositories with dummy data.");
-        
         seedPersonRepository();
         seedRoomTypeRepository();
         seedRoomRepository();
@@ -46,7 +45,7 @@ public class DummyDataSeeder {
         RoomType roomType4 = new RoomType((byte) 4, (byte) 0);
         RoomType roomType5 = new RoomType((byte) 0, (byte) 1);
         RoomType roomType6 = new RoomType((byte) 0, (byte) 2);
-//
+
         roomTypeRepository.addRoomType(roomType);
         roomTypeRepository.addRoomType(roomType2);
         roomTypeRepository.addRoomType(roomType3);
@@ -67,7 +66,6 @@ public class DummyDataSeeder {
         Date endDate = addDays(startDate, 1);
         RoomType roomType = roomTypeRepository.getAllRoomTypes().stream().findFirst().get();
         Room room = roomRepository.getAllRooms().stream().findFirst().get();
-
 
         Reservation myReservation = new Reservation(startDate, endDate, (Guest) personRepository.getSinglePerson("Jan@vandijk.nl"), 6, room, roomType);
         reservationRepository.addReservation(myReservation);
