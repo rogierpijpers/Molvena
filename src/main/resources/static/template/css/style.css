@@ -497,11 +497,12 @@ button:focus {
   background: #04091e;
   position: relative;
   z-index: 1;
+  background-size: contain;
 }
 
 .banner_area .bg-parallax {
-  background: url("../image/banner_bg.jpg") no-repeat scroll center 0/cover;
-  opacity: 0.50;
+  background: url("../image/background.jpg") no-repeat scroll center 0/cover;
+  opacity: 0.9;
 }
 
 .banner_area .position {
