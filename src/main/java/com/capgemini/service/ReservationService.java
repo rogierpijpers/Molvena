@@ -118,7 +118,6 @@ public class ReservationService {
 
 
     public void updateReservation(int id, Reservation reservation){
-        int index = (id -1);
-        reservationRepository.updateReservation(index, reservation);
+        reservationRepository.updateReservation(id, reservation);
     }
 }
