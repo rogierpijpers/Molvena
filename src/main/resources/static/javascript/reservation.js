@@ -131,7 +131,7 @@ $(document).ready(function () {
             type:"get",
             success: function(result){
                 email = result;
-
+            //TODO: load rooms dynamically, Frontend Select a roomType as rooms (guest)
                 switch(room){
                         case "1":
                         room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
