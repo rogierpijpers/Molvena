@@ -22,7 +22,7 @@ public class RoomRepository {
     }
 
     public void addRoom(Room room){
-
+        room.setRoomID((short)(rooms.size() + 1));
         rooms.add(room);
     }
 
