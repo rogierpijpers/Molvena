@@ -8,13 +8,16 @@ $(document).ready(function () {
     var dd = today.getDate();
     var mm = today.getMonth()+1;
     var yyyy = today.getFullYear();
+
      if(dd<10){
             dd='0'+dd
         }
         if(mm<10){
             mm='0'+mm
         }
+
     today = yyyy+'-'+mm+'-'+dd;
+
     document.getElementById("inputCheckIn").setAttribute("min", today);
     document.getElementById("updateCheckIn").setAttribute("min", today);
 
@@ -28,18 +31,31 @@ $(document).ready(function () {
         document.getElementById("updateCheckOut").setAttribute("min", tomorrowUpdate);
     });
 
-    function postData() {
+function roomSwitch(room){
+    switch(room){
+                                case "1":
+                                room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
+                                        break;
+                                case "2":
+                                room = {"roomID":0,"roomType":{"singleBeds":2,"doubleBeds":0}}
+                                        break;
+                                case "3":
+                                room = {"roomID":0,"roomType":{"singleBeds":3,"doubleBeds":0}}
+                                        break;
+                                case "4":
+                                room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
+                                        break;
+                                case "5":
+                                room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":1}}
+                                        break;
+                                case "6":
+                                room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":2}}
+                                        break;
+                                }
+}
 
-//        var firstName = $("#inputFirstName").val();
-//        var lastName = $("#inputLastName").val();
+    function postData() {
         var email = $("#inputEmail").val();
-//        var birth = $("#inputBirth").val();
-//        var phone = $("#inputPhone").val();
-//        var address = $("#inputAddress").val();
-//        var city = $("#inputCity").val();
-//        var zipCode = $("#inputZipCode").val();
-//        var state = $("#inputState").val();
-//        var country = $("#inputCountry").val();
         var guest = $("#inputGuest").val();
         var checkIn = $("#inputCheckIn").val();
         var checkOut = $("#inputCheckOut").val();
@@ -50,27 +66,7 @@ $(document).ready(function () {
                 type:"get",
                 success: function(result){;
                     email = result;
-
-                    switch(room){
-                            case "1":
-                            room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
-                                    break;
-                            case "2":
-                            room = {"roomID":0,"roomType":{"singleBeds":2,"doubleBeds":0}}
-                                    break;
-                            case "3":
-                            room = {"roomID":0,"roomType":{"singleBeds":3,"doubleBeds":0}}
-                                    break;
-                            case "4":
-                            room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
-                                    break;
-                            case "5":
-                            room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":1}}
-                                    break;
-                            case "6":
-                            room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":2}}
-                                    break;
-                            }
+                    roomSwitch(room);
 
                      var newReservation = {
                                 "startDate": checkIn,
@@ -92,16 +88,8 @@ $(document).ready(function () {
                                     $('body').removeClass('modal-open');
                                     $('.modal-backdrop').remove();
                                     getData();
-                    //                $("#inputFirstName").val("");
-                    //                $("#inputLastName").val("");
+
                                     $("#inputEmail").val("");
-                    //                $("#inputBirth").val("");
-                    //                $("#inputPhone").val("");
-                    //                $("#inputAddress").val("");
-                    //                $("#inputCity").val("");
-                    //                $("#inputZipCode").val("");
-                    //                $("#inputState").val("");
-                    //                $("#inputCountry").val("");
                                     $("#inputGuest").val("");
                                     $("#inputCheckIn").val("");
                                     $("#inputCheckOut").val("");
@@ -112,16 +100,7 @@ $(document).ready(function () {
     }
 
     function updateData() {
-//        var firstName = $("#updateFirstName").val();
-//        var lastName = $("#updateLastName").val();
         var email = $("#updateEmail").val();
-//        var birth = $("#updateBirth").val();
-//        var phone = $("#updatePhone").val();
-//        var address = $("#updateAddress").val();
-//        var city = $("#updateCity").val();
-//        var zipCode = $("#updateZipCode").val();
-//        var state = $("#updateState").val();
-//        var country = $("#updateCountry").val();
         var guest = $("#updateGuest").val();
         var checkIn = $("#updateCheckIn").val();
         var checkOut = $("#updateCheckOut").val();
