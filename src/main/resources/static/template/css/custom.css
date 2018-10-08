@@ -11,6 +11,41 @@
 }
 
 #logotitle {
-  color: mediumturquoise
+  color: #3266ba
 }
 
+.nav-item {
+  color: #3266ba !important;
+}
+
+.hotel_booking_table {
+  background: #fff !important;
+}
+
+.banner_area .position {
+  background: #fff !important;
+}
+
+.book_now_btn {
+  color: #fff !important;
+  background : #3266ba !important;
+}
+
+.form-control {
+  border-radius: 0rem !important;
+  font-size: 1rem !important;
+}
+
+#BOOK {
+  text-align: center !important;
+  color: #3266ba !important;
+  font-size: 35px !important;
+}
+
+.nav-item.active {
+  color: #ffc107 !important;
+}
+
+.hotel_booking_table {
+  color: #ffffff !important;
+}

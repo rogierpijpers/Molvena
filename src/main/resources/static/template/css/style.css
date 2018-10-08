@@ -494,7 +494,7 @@ button:focus {
 /*----------------------------------------------------*/
 /*============= Start banner_area css =============*/
 .banner_area {
-  background: #04091e;
+  background: #ffffff;
   position: relative;
   z-index: 1;
   background-size: contain;
@@ -502,7 +502,10 @@ button:focus {
 
 .banner_area .bg-parallax {
   background: url("../image/background.jpg") no-repeat scroll center 0/cover;
-  opacity: 0.9;
+  opacity: 0.4;
+  width: 100%;
+  min-width: 1152px;
+  min-height: 768px;
 }
 
 .banner_area .position {
@@ -524,7 +527,7 @@ button:focus {
   left: 0;
   right: 0;
   top: 0;
-  height: 125%;
+  height: 100%;
   bottom: 0;
   z-index: -1;
 }
