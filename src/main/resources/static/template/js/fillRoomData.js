@@ -1,15 +1,21 @@
 $(document).ready(function(){
-    var urlParams = new URLSearchParams(location.search);
-    console.log(urlParams.get('id'));  // 1234
-    console.log(urlParams.getAll('id')); // ["1234"])
+    // Met URL als http://localhost:8080/template/all_rooms.html?id=1234
+    let urlParams = new URLSearchParams(location.search);
 
-    viewAllRoomsData();
-    viewSingleRoomData();
+    let startDate = urlParams.get('startDate');
+    let endDate = urlParams.get('endDate');
+    let amountOfGuests = urlParams.get('guests')
+
+    let startDateText = $("#startDate").text(urlParams.get('startDate'));
+    let endDateText = $("#endDate").text(urlParams.get('endDate'));
+    let amountOfGuestsText = $("#amountOfGuests").text(urlParams.get('guests'));
+
+    viewAllRoomsData(startDate, endDate, amountOfGuests);
+    viewSingleRoomData(startDate, endDate, amountOfGuests);
 });
-let roomApi = "http://localhost:8080/room/";
 
-function viewAllRoomsData(){  
-    let api =  "http://localhost:8080/room/"; 
+let roomApi = "http://localhost:8080/room/";
+function viewAllRoomsData(startDate, endDate, amountOfGuests){  
     $.ajax({
         url: roomApi,
         type: "get",
@@ -28,10 +34,12 @@ function viewAllRoomsData(){
                             <div class='accomodation_item text-center'>\
                                 <div class='hotel_img'>\
                                     <img src='image/room1.jpg' alt=''>\
-                                    <a href='#'  class='btn theme_btn button_hover'>Book Now</a>\
+                                    <a href='single_room.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + 
+                                    "&singleBeds=" + value.roomType.singleBeds + "&doubleBeds=" + value.roomType.doubleBeds +"'  class='btn theme_btn button_hover'>Book Now</a>\
                                 </div>\
-                            <a href='#'><h4 class='sec_h4'>Standard room, " + value.roomType.singleBeds + ' single beds and '
-                            + value.roomType.doubleBeds + " double beds.</h4></a>\
+                            <a href='single_room.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + 
+                            "&singleBeds=" + value.roomType.singleBeds + "&doubleBeds=" + value.roomType.doubleBeds +" '><h4 class='sec_h4'>Standard room <br /> " + 
+                            value.roomType.singleBeds + ' single and '+ value.roomType.doubleBeds + " double beds.</h4></a>\
                             <h6>{price}<small>/night</small></h6>\
                             </div>\
                          </div>";
@@ -51,20 +59,16 @@ function viewAllRoomsData(){
     });
 }
 
-function viewSingleRoomData(){
+function viewSingleRoomData(startDate, endDate, amountOfGuests){
     let singleBeds = $("#singleBeds");
     let doubleBeds = $("#doubleBeds");
-    //let roomTypeName = $("#roomTypeName")
-
     // TODO: dynamic
     let roomId = 1;
-
 
     $.ajax({
         url: roomApi + roomId,
         type: "get",
         success: function(data){
-            // TODO roomTypeName.text(data.name); or similar
             singleBeds.text(data.roomType.singleBeds);
             doubleBeds.text(data.roomType.doubleBeds);
         },
