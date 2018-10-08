@@ -26,7 +26,7 @@ function roomDropdown(dropdownid){
             $.each(data, function (key, value) {
                 var opt = $('<option></option>');
                 //count++;
-                opt.text(" Single Bed(s): " + value.roomType.singleBeds + ", Double Bed(s): " + value.roomType.doubleBeds);
+                opt.text(value.roomID + " - Singlebeds: " + value.roomType.singleBeds + ", DoubleBeds: " + value.roomType.doubleBeds);
 
                 $('#' + dropdownid).append($(opt));
             });
