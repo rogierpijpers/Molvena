@@ -1,7 +1,11 @@
 $(document).ready(function () {
 
-    fillDropdown('inputEmail');
-    fillDropdown('updateEmail');
+    guestDropdown('inputEmail');
+    guestDropdown('updateEmail');
+
+    roomDropdown('inputRoom');
+    roomDropdown('updateRoom');
+
 
     var notBefore = new Date();
     var dd = notBefore.getDate();
