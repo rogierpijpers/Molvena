@@ -2,6 +2,7 @@ package com.capgemini.web;
 
 import com.capgemini.data.GuestRepository;
 import com.capgemini.domain.Guest;
+import com.capgemini.service.GuestService;
 import com.capgemini.service.RegistrationService;
 import com.capgemini.web.authentication.AuthenticationHelper;
 import com.capgemini.web.util.exception.InvalidInputException;
@@ -21,12 +22,12 @@ import java.util.Optional;
 public class GuestController {
 
     @Autowired
-    private GuestRepository guestRepository;
+    private GuestService guestService;
 
     @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/guest/")
     public Iterable<Guest> getAllGuests(){
-        return guestRepository.findAll();
+        return guestService.getAllGuests();
     }
 
     @Secured({"ROLE_GUEST", "ROLE_ADMIN", "ROLE_RECEPTIONIST"})
@@ -35,11 +36,11 @@ public class GuestController {
         if(AuthenticationHelper.userIsGuest()) {
             String loggedInUsername = AuthenticationHelper.getCurrentUsername();
             if(username.equals(loggedInUsername))
-                return guestRepository.findByMail(username);
+                return guestService.getGuestByUsername(username);
             else
                 throw new UnauthorizedException();
         }else if(AuthenticationHelper.userIsAdmin() || AuthenticationHelper.userIsReceptionist()){
-            return guestRepository.findByMail(username);
+            return guestService.getGuestByUsername(username);
         } else {
             throw new UnauthorizedException("You are not logged in");
         }
@@ -55,13 +56,13 @@ public class GuestController {
         if(AuthenticationHelper.userIsGuest()){
             String loggedInUsername = AuthenticationHelper.getCurrentUsername();
             if(guest.getMail().equals(loggedInUsername)){
-                guestRepository.save(guest);
+                guestService.createGuest(guest);
             }else{
                 throw new UnauthorizedException("You are trying to update someone else's account");
             }
-            guestRepository.save(guest);
+            guestService.createGuest(guest);
         }else if(AuthenticationHelper.userIsAdmin() || AuthenticationHelper.userIsReceptionist()){
-            guestRepository.save(guest);
+            guestService.createGuest(guest);
         } else {
             throw new UnauthorizedException("This role is not allowed to update guests");
         }
@@ -84,21 +85,13 @@ public class GuestController {
     @RequestMapping(value = "/guest/{id}", method = RequestMethod.DELETE)
     public void softDeleteGuest(@PathVariable long id) throws UnauthorizedException, ObjectNotFoundException {
         if(AuthenticationHelper.userIsGuest()) {
-            if(guestRepository.findByMail(AuthenticationHelper.getCurrentUsername()).getId() == id){
-                Optional<Guest> guest = guestRepository.findById(id);
-                if(guest.isPresent())
-                    guestRepository.delete(guest.get());
-                else
-                    throw new ObjectNotFoundException();
+            if(guestService.getGuestByUsername(AuthenticationHelper.getCurrentUsername()).getId() == id){
+                guestService.deleteGuest(id);
             } else {
                 throw new UnauthorizedException("You can not delete someone else on this role");
             }
         } else {
-            Optional<Guest> guest = guestRepository.findById(id);
-            if(guest.isPresent())
-                guestRepository.delete(guest.get());
-            else
-                throw new ObjectNotFoundException();
+            guestService.deleteGuest(id);
         }
     }
 }

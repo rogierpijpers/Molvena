@@ -8,21 +8,10 @@ import java.util.Date;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class Person {
-    public long getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(long personId) {
-        this.personId = personId;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long personId;
+    private long id;
 
-    @NotNull
-    @NotEmpty
-    protected int id;
     @NotNull
     @NotEmpty
     protected String firstName;
@@ -48,7 +37,7 @@ public abstract class Person {
     protected String state;
     protected String country;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
