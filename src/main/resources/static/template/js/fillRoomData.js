@@ -1,11 +1,12 @@
 $(document).ready(function(){
-    // Met URL als http://localhost:8080/template/all_rooms.html?id=1234
     let urlParams = new URLSearchParams(location.search);
 
     let startDate = urlParams.get('startDate');
     let endDate = urlParams.get('endDate');
     let amountOfGuests = urlParams.get('guests')
 
+    var date = new Date();
+    console.log(date.toString());
     let startDateText = $("#startDate").text(urlParams.get('startDate'));
     let endDateText = $("#endDate").text(urlParams.get('endDate'));
     let amountOfGuestsText = $("#amountOfGuests").text(urlParams.get('guests'));
@@ -15,9 +16,11 @@ $(document).ready(function(){
 });
 
 let roomApi = "http://localhost:8080/room/";
+let roomTypeApi = "http://localhost:8080/roomtype/available/";
+// TODO: test start and enddate in url, to see if the right format is passed.
 function viewAllRoomsData(startDate, endDate, amountOfGuests){  
     $.ajax({
-        url: roomApi,
+        url: roomTypeApi + startDate + "/" + endDate,
         type: "get",
         success: function(data){
             // For each room in room list, create a new element. After 3, add new row  
@@ -59,11 +62,9 @@ function viewAllRoomsData(startDate, endDate, amountOfGuests){
     });
 }
 
-function viewSingleRoomData(startDate, endDate, amountOfGuests){
+function viewSingleRoomData(){
     let singleBeds = $("#singleBeds");
     let doubleBeds = $("#doubleBeds");
-    // TODO: dynamic
-    let roomId = 1;
 
     $.ajax({
         url: roomApi + roomId,
