@@ -1,14 +1,13 @@
 package com.capgemini.web;
 
-import com.capgemini.data.RoomRepository;
-import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
-import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
 import com.capgemini.service.RoomService;
+import com.capgemini.web.dto.RoomTypeWithCountDTO;
 import com.capgemini.web.util.exception.InvalidInputException;
 import com.capgemini.web.util.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,25 +26,25 @@ public class RoomController {
 
     // public
     @RequestMapping("/roomtype/available/{startDate}/{endDate}")
-    public List<RoomType> getAvailableRoomTypes(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate){
-        return reservationService.getAllAvailableRooms(startDate, endDate).stream().map(x -> x.getRoomType()).collect(Collectors.toList());
+    public List<RoomTypeWithCountDTO> getAvailableRoomTypes(@PathVariable("startDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date startDate, @PathVariable("endDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date endDate){
+        return reservationService.getAllAvailableRooms(startDate, endDate).stream().collect(Collectors.groupingBy(Room::getRoomType, Collectors.counting()))
+            .entrySet().stream().map(x -> new RoomTypeWithCountDTO(x.getKey(), x.getValue())).collect(Collectors.toList());
     }
 
     // secured
-
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/room/available/{startDate}/{endDate}")
     public List<Room> getAvailableRooms(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate){
         return reservationService.getAllAvailableRooms(startDate, endDate);
     }
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/room/")
     public List<Room> getAllRooms(){
         return roomService.getAllRooms();
     }
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/room/{id}")
     public Room getRoomById(@PathVariable("id") short id) throws ObjectNotFoundException {
         Room room = roomService.getRoomById(id);
