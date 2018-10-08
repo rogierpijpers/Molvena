@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    var urlParams = new URLSearchParams(location.search);
+    console.log(urlParams.get('id'));  // 1234
+    console.log(urlParams.getAll('id')); // ["1234"])
 
     viewAllRoomsData();
     viewSingleRoomData();
