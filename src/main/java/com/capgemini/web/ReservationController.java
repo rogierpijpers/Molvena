@@ -36,15 +36,19 @@ public class ReservationController {
 
     @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST", "ROLE_ADMIN"})
     @RequestMapping("/reservation/user/{username}")
-    public List<Reservation> getReservationsByUsername(@PathVariable("username") String username) throws UnauthorizedException {
-        if(AuthenticationHelper.userIsGuest()) {
-            String loggedInUsername = AuthenticationHelper.getCurrentUsername();
-            if(username.equals(loggedInUsername))
-                return service.getReservationsByUsername(username);
-            else
-                throw new UnauthorizedException();
-        }else{
-            return service.getReservationsByUsername(username);
+    public ResponseEntity<List<Reservation>> getReservationsByUsername(@PathVariable("username") String username) throws UnauthorizedException {
+        if(guestRepository.getGuestByUsername(username)!= null) {
+            if (AuthenticationHelper.userIsGuest()) {
+                String loggedInUsername = AuthenticationHelper.getCurrentUsername();
+                if (username.equals(loggedInUsername))
+                    return ResponseEntity.ok(service.getReservationsByUsername(username));
+                else
+                    throw new UnauthorizedException();
+            } else {
+                return ResponseEntity.ok(service.getReservationsByUsername(username));
+            }
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -61,7 +65,7 @@ public class ReservationController {
 
     @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST", "ROLE_ADMIN"})
     @RequestMapping(value="/reservation/", method=RequestMethod.POST)
-    public ResponseEntity createReservation(@RequestBody Reservation reservation){
+    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation){
         if(guestRepository.getGuestByUsername(reservation.getGuest().getMail())!= null){
             service.addReservation(reservation);
             return ResponseEntity.ok(reservation);
