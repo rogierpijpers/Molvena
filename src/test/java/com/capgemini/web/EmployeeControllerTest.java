@@ -1,31 +1,31 @@
 package com.capgemini.web;
 
-        import com.capgemini.data.EmployeeRepository;
-        import com.capgemini.domain.Employee;
-        import com.fasterxml.jackson.databind.ObjectMapper;
-        import com.fasterxml.jackson.databind.SerializationFeature;
-        import org.junit.Assert;
-        import org.junit.Before;
-        import org.junit.Test;
-        import org.junit.runner.RunWith;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-        import org.springframework.boot.test.context.SpringBootTest;
-        import org.springframework.http.MediaType;
-        import org.springframework.security.test.context.support.WithMockUser;
-        import org.springframework.test.context.junit4.SpringRunner;
-        import org.springframework.test.web.servlet.MockMvc;
-        import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-        import org.springframework.web.context.WebApplicationContext;
+import com.capgemini.data.EmployeeRepository;
+import com.capgemini.domain.Employee;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-        import java.text.SimpleDateFormat;
-        import java.util.TimeZone;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
-        import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-        import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-        import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-        import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-        import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -64,7 +64,6 @@ public class EmployeeControllerTest {
         this.mockMvc.perform(get("/employee/Henk@vanvliet.nl")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().json(jsonExpected));
     }
-
 
     @Test
     @WithMockUser(username="Henk@vanvliet.nl", roles={"ADMIN"})

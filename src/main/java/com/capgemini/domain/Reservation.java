@@ -13,6 +13,11 @@ public class Reservation {
     private Date endDate;
     private Guest guest;
     private int amountOfGuests;
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
     private Room room;
     private boolean checkedIn;
     private boolean isDeleted;

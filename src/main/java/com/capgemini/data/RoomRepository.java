@@ -22,7 +22,16 @@ public class RoomRepository {
     }
 
     public void addRoom(Room room){
-        room.setRoomID((short)(rooms.size() + 1));
+        List<Room> allRooms = getAllRooms();
+        int id;
+        int max = 0;
+        for (Room roomIndex : allRooms) {
+            id = roomIndex.getRoomID();
+            if (id > max) {
+                max = id;
+            }
+        }
+        room.setRoomID((short)(max + 1));
         rooms.add(room);
     }
 

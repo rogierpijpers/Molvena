@@ -28,8 +28,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.
         authorizeRequests()
         .antMatchers("/account").fullyAuthenticated()
-        .antMatchers("/").permitAll()
+        .antMatchers("/css/**").permitAll()
+        .antMatchers("/javascript/**").permitAll()
+        .antMatchers("/public/**").permitAll()
+        .antMatchers("/guest/").permitAll()
+        .antMatchers("/js/**").permitAll()
         .antMatchers("/*").permitAll()
+        .antMatchers("/").permitAll()
         .anyRequest().fullyAuthenticated()
         .and()
         .formLogin();
