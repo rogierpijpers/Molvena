@@ -63,30 +63,34 @@
                             <div class="col-md-12">
                                 <div class="boking_table">
                                     <div class="row">
+
                                         <div class="col-md-3">
                                             <div class="book_tabel_item">
                                                 <div class="form-group">
-                                                        <input type='date' class="form-control" placeholder="Arrival Date"/>
+                                                        <input id="arrival" type='date' class="form-control" placeholder="Arrival Date"/>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-md-3">
                                             <div class="book_tabel_item">
                                                 <div class="form-group">
-                                                        <input type='date' class="form-control" placeholder="Departure Date"/>
+                                                        <input id="departure" type='date' class="form-control" placeholder="Departure Date"/>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-md-2">
                                             <div class="book_tabel_item">
-                                                <div class="input-group" id="persons">
-                                                <input type='text' class="form-control" placeholder="Persons"/>
+                                                <div class="input-group">
+                                                <input id="persons" type='text' class="form-control" placeholder="Persons"/>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-md-4">
                                             <div class="book_tabel_item">
-                                                    <a class="book_now_btn button_hover" href="#">Book Now</a>
+                                                    <a id="make-booking" class="book_now_btn button_hover" onclick="postData();">Book</a>
                                             </div>
                                         </div>
                                         </div>
@@ -104,12 +108,10 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
         <script src="js/jquery.ajaxchimp.min.js"></script>
-        <script src="js/mail-script.js"></script>
-        <script src="vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
-        <script src="vendors/nice-select/js/jquery.nice-select.js"></script>
-        <script src="js/mail-script.js"></script>
         <script src="js/stellar.js"></script>
         <script src="vendors/lightbox/simpleLightbox.min.js"></script>
         <script src="js/custom.js"></script>
+        <script src="js/Jeroen_custom.js"></script>
+
     </body>
 </html>
