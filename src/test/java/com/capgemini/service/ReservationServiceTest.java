@@ -35,12 +35,10 @@ public class ReservationServiceTest {
 
     @Before
     public void setupRoom() {
-        roomRepository = new RoomRepository();
-
         roomType1 = new RoomType((byte) 0, (byte) 2);
         room1.setRoomType(roomType1);
 
-        roomRepository.addRoom(room1);
+        roomRepository.save(room1);
     }
 
     @Before

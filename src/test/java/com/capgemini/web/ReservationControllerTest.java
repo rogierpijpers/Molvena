@@ -46,10 +46,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.validation.constraints.Max;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
@@ -67,10 +64,6 @@ public class ReservationControllerTest {
 
     @Autowired
     private ReservationService reservationService;
-
-    @Autowired
-    private GuestRepository guestRepository;
-
 
     @Before
     public void setup() {
@@ -183,7 +176,7 @@ public class ReservationControllerTest {
         objectMapper.setDateFormat(df);
 
         Reservation reservation = new Reservation();
-        reservation.setGuest(guestRepository.getGuestByUsername("Corry@vanvliet.nl"));
+        reservation.setGuest(guestRepository.findByMail("Corry@vanvliet.nl"));
         reservation.setAmountOfGuests(5);
         reservation.setStartDate(new Date());
         reservation.setEndDate(new Date());

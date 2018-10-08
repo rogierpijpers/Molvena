@@ -24,7 +24,7 @@ public class RegistrationService {
     }
 
     public void AddRegistration(Employee employee) {
-        employeeRepository.addEmployee(employee);
+        employeeRepository.save(employee);
     }
 
     public Guest getRegistrationByName(String username) {

@@ -23,6 +23,9 @@ public class Reservation {
     private boolean checkedIn;
     private boolean isDeleted;
 
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 
     public boolean isDeleted() {
         return isDeleted;

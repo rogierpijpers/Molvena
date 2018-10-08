@@ -5,6 +5,7 @@ import com.capgemini.data.RoomRepository;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
+import com.capgemini.web.util.exception.InvalidInputException;
 import com.capgemini.web.util.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class ReservationService {
     public List<Room> getAllAvailableRooms(Date startDate, Date endDate) {
         List<Room> availableRooms = new ArrayList();
         List<Room> notAvailableRooms = getRoomsWithReservation(startDate, endDate);
-        List<Room> allRooms = roomRepository.getAllRooms();
+        List<Room> allRooms = roomRepository.findAll();
         for (Room room : allRooms) {
             if (!notAvailableRooms.contains(room)) {
                 availableRooms.add(room);
@@ -119,7 +120,10 @@ public class ReservationService {
     }
 
 
-    public void updateReservation(Reservation reservation) throws ObjectNotFoundException {
+    public void updateReservation(long id, Reservation reservation) throws ObjectNotFoundException, InvalidInputException {
+        if(id != reservation.getReservationID())
+            throw new InvalidInputException();
+
         Optional<Reservation> foundReservation = reservationRepository.findById(reservation.getReservationID());
         if(foundReservation.isPresent())
             reservationRepository.save(reservation);

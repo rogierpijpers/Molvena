@@ -69,13 +69,13 @@ public class ReservationTests {
         }
         room = new Room();
 
-        roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 0));
-        roomTypeRepository.addRoomType(new RoomType((byte) 4, (byte) 0));
-        roomTypeRepository.addRoomType(new RoomType((byte) 6, (byte) 0));
-        roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 1));
-        roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 2));
-        roomTypeRepository.addRoomType(new RoomType((byte) 2, (byte) 3));
-        roomType = roomTypeRepository.getRoomType(1);
+        roomTypeRepository.save(new RoomType((byte) 2, (byte) 0));
+        roomTypeRepository.save(new RoomType((byte) 4, (byte) 0));
+        roomTypeRepository.save(new RoomType((byte) 6, (byte) 0));
+        roomTypeRepository.save(new RoomType((byte) 2, (byte) 1));
+        roomTypeRepository.save(new RoomType((byte) 2, (byte) 2));
+        roomTypeRepository.save(new RoomType((byte) 2, (byte) 3));
+        roomType = roomTypeRepository.findById((long) 1).get();
     }
 
     @Test

@@ -30,21 +30,16 @@ public class EmployeeController {
 
     @Secured({"ROLE_RECEPTIONIST", "ROLE_ADMIN"})
     @RequestMapping("/employee/{username}")
-<<<<<<< HEAD
     public Employee getEmployeeByUsername(@PathVariable("username") String username) throws UnauthorizedException {
-        if(AuthenticationHelper.userIsReceptionist() || AuthenticationHelper.userIsAdmin()) {
+        if (AuthenticationHelper.userIsReceptionist() || AuthenticationHelper.userIsAdmin()) {
             String loggedInUsername = AuthenticationHelper.getCurrentUsername();
-            if(username.equals(loggedInUsername))
+            if (username.equals(loggedInUsername))
                 return employeeRepository.findByMail(username);
             else
                 throw new UnauthorizedException();
         } else {
             return employeeRepository.findByMail(username);
         }
-=======
-    public Employee getEmployeeByUsername(@PathVariable("username") String username) {
-        return employeeRepository.getEmployeeByUsername(username);
->>>>>>> develop
     }
 
     @Secured({"ROLE_RECEPTIONIST", "ROLE_ADMIN"})

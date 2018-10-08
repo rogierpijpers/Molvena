@@ -11,4 +11,6 @@ import java.util.List;
 
 @Repository
 public interface RoomRepository extends CrudRepository<Room, Long> {
+    @Override
+    List<Room> findAll();
 }

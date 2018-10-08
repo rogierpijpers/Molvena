@@ -3,11 +3,13 @@ package com.capgemini.service;
 import com.capgemini.data.RoomRepository;
 import com.capgemini.domain.Room;
 import com.capgemini.web.util.exception.InvalidInputException;
+import com.capgemini.web.util.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.InvalidObjectException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomService {
@@ -16,7 +18,7 @@ public class RoomService {
 
     public void createRoom(Room room) throws InvalidInputException {
         if(validate(room))
-            roomRepository.addRoom(room);
+            roomRepository.save(room);
         else
             throw new InvalidInputException();
     }
@@ -27,24 +29,28 @@ public class RoomService {
 
     public void updateRoom(short id, Room room) throws InvalidInputException {
         if(validate(room))
-            roomRepository.updateRoom(id, room);
+            roomRepository.save(room);
         else
             throw new InvalidInputException();
     }
 
     public List<Room> getAllRooms(){
-        return roomRepository.getAllRooms();
+        return roomRepository.findAll();
     }
 
-    public Room getRoomById(short roomId){
-        return roomRepository.getRoomByRoomNumber(roomId);
+    public Room getRoomById(long roomId) throws ObjectNotFoundException {
+        Optional<Room> opt = roomRepository.findById(roomId);
+        if(opt.isPresent())
+            return opt.get();
+        else
+            throw new ObjectNotFoundException();
     }
 
-    public void deleteRoom(short roomId) throws InvalidInputException {
-        Room room = roomRepository.getRoomByRoomNumber(roomId);
+    public void deleteRoom(long roomId) throws InvalidInputException, ObjectNotFoundException {
+        Room room = getRoomById(roomId);
         if(room == null)
             throw new InvalidInputException();
 
-        roomRepository.deleteRoom(room);
+        roomRepository.delete(room);
     }
 }
