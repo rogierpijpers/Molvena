@@ -5,11 +5,9 @@ $(document).ready(function(){
     let endDate = urlParams.get('endDate');
     let amountOfGuests = urlParams.get('guests')
 
-    var date = new Date();
-    console.log(date.toString());
-    let startDateText = $("#startDate").text(urlParams.get('startDate'));
-    let endDateText = $("#endDate").text(urlParams.get('endDate'));
-    let amountOfGuestsText = $("#amountOfGuests").text(urlParams.get('guests'));
+    $("#startDate").text(urlParams.get('startDate'));
+    $("#endDate").text(urlParams.get('endDate'));
+    $("#amountOfGuests").text(urlParams.get('guests'));
 
     viewAllRoomsData(startDate, endDate, amountOfGuests);
     viewSingleRoomData(startDate, endDate, amountOfGuests);
@@ -63,18 +61,13 @@ function viewAllRoomsData(startDate, endDate, amountOfGuests){
 }
 
 function viewSingleRoomData(){
-    let singleBeds = $("#singleBeds");
-    let doubleBeds = $("#doubleBeds");
+    let urlParams = new URLSearchParams(location.search);
+    let singleBedsElement = $("#singleBeds");
+    let doubleBedsElement = $("#doubleBeds");
 
-    $.ajax({
-        url: roomApi + roomId,
-        type: "get",
-        success: function(data){
-            singleBeds.text(data.roomType.singleBeds);
-            doubleBeds.text(data.roomType.doubleBeds);
-        },
-        error: function(error){
-            console.log("Error: " + error);
-        }
-    });
+    let singleBeds = urlParams.get('singleBeds');
+    let doubleBeds = urlParams.get('doubleBeds');
+
+    singleBedsElement.text(singleBeds);
+    doubleBedsElement.text(doubleBeds);
 }
