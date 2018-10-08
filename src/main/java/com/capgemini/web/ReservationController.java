@@ -3,6 +3,8 @@ package com.capgemini.web;
 import com.capgemini.domain.Reservation;
 import com.capgemini.service.ReservationService;
 import com.capgemini.web.authentication.AuthenticationHelper;
+import com.capgemini.web.dto.CancelReservationDTO;
+import com.capgemini.web.util.exception.ObjectNotFoundException;
 import com.capgemini.web.util.exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -84,6 +86,20 @@ public class ReservationController {
             }
         } else {
             service.softDelete(service.getReservationByID(id));
+        }
+    }
+
+    @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST", "ROLE_ADMIN"})
+    @RequestMapping(value="/reservation/cancel/{id}", method=RequestMethod.PUT)
+    public void cancelReservation(@RequestBody CancelReservationDTO cancelReservationDTO) throws ObjectNotFoundException {
+        Reservation reservation = service.getReservationByID(cancelReservationDTO.getReservationId());
+        if(reservation == null)
+            throw new ObjectNotFoundException();
+
+        if(AuthenticationHelper.userIsGuest()){
+            service.cancelReservation(reservation, true);
+        }else{
+            service.cancelReservation(reservation, cancelReservationDTO.chargeCancellationConditions());
         }
     }
 }
