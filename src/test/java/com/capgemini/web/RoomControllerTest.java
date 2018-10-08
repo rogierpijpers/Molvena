@@ -6,6 +6,7 @@ import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
 import com.capgemini.service.RoomService;
 import com.capgemini.service.RoomTypeService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Assert;
@@ -25,6 +26,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -77,12 +79,32 @@ public class RoomControllerTest {
         String isoStartDate = df.format(startDate);
         String isoEndDate = df.format(endDate);
 
-        this.mockMvc.perform(get("/roomtype/available/" + isoStartDate + "/" + isoEndDate + "/0")).andDo(print()).andExpect(status().isOk()).andExpect(content().json(Long.toString(expectedAmount)));
+        this.mockMvc.perform(get("/roomtype/available/" + isoStartDate + "/" + isoEndDate + "/0"))
+                .andDo(print()).andExpect(status().isOk()).andExpect(content().json(Long.toString(expectedAmount)));
     }
 
     @Test
     @WithMockUser(username="Henk@vanvliet.nl", roles={"ADMIN"})
-    public void testGetAvailableRoomsWithRoomTypeFilter(){
+    public void testGetAvailableRoomsWithRoomTypeFilter() throws Exception {
+        RoomType roomType = roomTypeService.getRoomTypeById(0);
+
+        Date startDate = new Date(2017-10-20);
+        Date endDate = new Date(2017-10-22);
+
+        List<Room> availableRooms = reservationService.getAllAvailableRooms(startDate, endDate, roomType);
+        Assert.assertTrue(availableRooms.size() > 0);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String expectedJson = objectMapper.writeValueAsString(availableRooms);
+
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        String isoStartDate = df.format(startDate);
+        String isoEndDate = df.format(endDate);
+
+        this.mockMvc.perform(get("/room/available/" + isoStartDate + "/" + isoEndDate + "/0")).andDo(print())
+                .andExpect(status().isOk()).andExpect(content().json(expectedJson));
 
     }
 
