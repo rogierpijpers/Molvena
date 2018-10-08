@@ -22,6 +22,9 @@ public abstract class Person {
 
     @NotNull
     @NotEmpty
+    protected int id;
+    @NotNull
+    @NotEmpty
     protected String firstName;
     
     @NotNull
@@ -44,6 +47,15 @@ public abstract class Person {
     protected String zipCode;
     protected String state;
     protected String country;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     public String getRole() {
         return role;

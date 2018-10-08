@@ -2,6 +2,7 @@ package com.capgemini.web;
 
 import com.capgemini.data.EmployeeRepository;
 import com.capgemini.domain.Employee;
+import com.capgemini.domain.Guest;
 import com.capgemini.service.RegistrationService;
 import com.capgemini.web.authentication.AuthenticationHelper;
 import com.capgemini.web.util.exception.InvalidInputException;
@@ -29,6 +30,7 @@ public class EmployeeController {
 
     @Secured({"ROLE_RECEPTIONIST", "ROLE_ADMIN"})
     @RequestMapping("/employee/{username}")
+<<<<<<< HEAD
     public Employee getEmployeeByUsername(@PathVariable("username") String username) throws UnauthorizedException {
         if(AuthenticationHelper.userIsReceptionist() || AuthenticationHelper.userIsAdmin()) {
             String loggedInUsername = AuthenticationHelper.getCurrentUsername();
@@ -39,13 +41,17 @@ public class EmployeeController {
         } else {
             return employeeRepository.findByMail(username);
         }
+=======
+    public Employee getEmployeeByUsername(@PathVariable("username") String username) {
+        return employeeRepository.getEmployeeByUsername(username);
+>>>>>>> develop
     }
 
     @Secured({"ROLE_RECEPTIONIST", "ROLE_ADMIN"})
     @RequestMapping(value="/employee/{username}", method= RequestMethod.PUT)
     public void updateEmployee(@PathVariable("username") String username, @RequestBody Employee employee) throws UnauthorizedException, InvalidInputException {
         // Spring Boot returns a 400 error if PUT body is empty, but just in case...
-        if(username == null && username.equals("") && employee == null)
+        if(username == null || username.equals("") || employee == null)
             throw new InvalidInputException("Invalid input.");
 
         if(AuthenticationHelper.userIsReceptionist()) {
@@ -68,13 +74,10 @@ public class EmployeeController {
     private RegistrationService registrationService;
 
     @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/createEmployee", method = RequestMethod.POST)
-    public Employee createRegistration(@RequestBody Employee employee) {
-        //TODO: fix
+    @RequestMapping(value = "/employee/", method = RequestMethod.POST)
+    public Employee createEmployee (@RequestBody Employee employee) {
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
-
+        this.registrationService.AddRegistration(employee);
         return employee;
     }
-
-
 }

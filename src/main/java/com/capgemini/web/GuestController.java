@@ -11,6 +11,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 
 @RestController
@@ -20,13 +21,13 @@ public class GuestController {
     @Autowired
     private GuestRepository guestRepository;
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/guest/")
     public Iterable<Guest> getAllGuests(){
         return guestRepository.findAll();
     }
 
-    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
+    @Secured({"ROLE_GUEST", "ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/guest/{username}")
     public Guest getGuestByUsername(@PathVariable("username") String username) throws UnauthorizedException {
         if(AuthenticationHelper.userIsGuest()) {
@@ -35,16 +36,18 @@ public class GuestController {
                 return guestRepository.findByMail(username);
             else
                 throw new UnauthorizedException();
-        }else{
-            return guestRepository.findByMail(username);
+        }else if(AuthenticationHelper.userIsAdmin() || AuthenticationHelper.userIsReceptionist()){
+            return guestRepository.getGuestByUsername(username);
+        } else {
+            throw new UnauthorizedException("You are not logged in");
         }
     }
 
-    @Secured({"ROLE_GUEST", "ROLE_ADMIN"})
+    @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST","ROLE_ADMIN"})
     @RequestMapping(value="/guest/{username}", method= RequestMethod.PUT)
     public void updateGuest(@PathVariable("username") String username, @RequestBody Guest guest) throws UnauthorizedException, InvalidInputException {
         // Spring Boot returns a 400 error if PUT body is empty, but just in case...
-        if(username == null && username.equals("") && guest == null)
+        if(username == null || username.equals("") || guest == null)
             throw new InvalidInputException("Invalid input.");
 
         if(AuthenticationHelper.userIsGuest()){
@@ -52,10 +55,13 @@ public class GuestController {
             if(guest.getMail().equals(loggedInUsername)){
                 guestRepository.save(guest);
             }else{
-                throw new UnauthorizedException();
+                throw new UnauthorizedException("You are trying to update someone else's account");
             }
-        }else{
             guestRepository.save(guest);
+        }else if(AuthenticationHelper.userIsAdmin() || AuthenticationHelper.userIsReceptionist()){
+            guestRepository.updateGuest(username, guest);
+        } else {
+            throw new UnauthorizedException("This role is not allowed to update guests");
         }
     }
 
@@ -70,5 +76,19 @@ public class GuestController {
         guest.setPassword(passwordEncoder.encode(guest.getPassword()));
         this.registrationService.AddRegistration(guest);
         return guest;
+    }
+
+    @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST","ROLE_ADMIN"})
+    @RequestMapping(value = "/guest/{id}", method = RequestMethod.DELETE)
+    public void softDeleteGuest(@PathVariable int id) throws UnauthorizedException {
+        if(AuthenticationHelper.userIsGuest()) {
+            if(guestRepository.getGuestByUsername(AuthenticationHelper.getCurrentUsername()).getId() == id){
+                guestRepository.deleteGuest(id);
+            } else {
+                throw new UnauthorizedException("You can not delete someone else on this role");
+            }
+        } else {
+            guestRepository.deleteGuest(id);
+        }
     }
 }

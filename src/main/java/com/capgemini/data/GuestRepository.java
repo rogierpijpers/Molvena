@@ -2,6 +2,7 @@ package com.capgemini.data;
 
 import com.capgemini.domain.Guest;
 import com.capgemini.domain.Person;
+import com.capgemini.web.authentication.AuthenticationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
