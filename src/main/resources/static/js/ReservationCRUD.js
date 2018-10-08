@@ -8,32 +8,25 @@ function getSingleReservation(){
 	if ($.isNumeric(id)){
 		fetch(urlReservation + id)
 		.then(function(response){
-				return response.json();
-			})
+			return response.json();
+		})
 		.then(function(json){
-				document.querySelector("#reservationDisplayText").innerHTML = "";
-				document.querySelector("#reservationDisplayText").innerHTML = JSON.stringify(json);
-			})
+			document.querySelector("#reservationDisplayText").innerHTML = "";
+			document.querySelector("#reservationDisplayText").innerHTML = JSON.stringify(json);
+		})
 		.catch(error => console.error('Error:', error));
-		}
+	}
 
 	else if (typeof id === "string"){
-	fetch(urlReservation)
-	.then(function(response){
-		return response.json();
-	})
-	.then(function(json){
-				// Loop through JSON and find all reservations with name
-				for (reservations in json){
-					if (id == json[reservations]["guest"]["mail"]){
-						// Display Reservation
-						document.querySelector("#allReservationDisplayText").innerHTML = "";
-						document.querySelector("#allReservationDisplayText").innerHTML = JSON.stringify(json[reservations]);
-						return json;
-					}
-				}			
-			})
-	.catch(error => console.error('Error:', error));
+		fetch(urlReservation + "user/" + id)
+		.then(function(response){
+			return response.json();
+		})
+		.then(function(json){
+			document.querySelector("#reservationDisplayText").innerHTML = "";
+			document.querySelector("#reservationDisplayText").innerHTML = JSON.stringify(json);		
+		})
+		.catch(error => console.error('Error:', error));
 	}
 }
 
@@ -45,31 +38,25 @@ function getAllReservations(){
 	.then(function(json){
 		document.querySelector("#allReservationDisplayText").innerHTML = "";
 		document.querySelector("#allReservationDisplayText").innerHTML = JSON.stringify(json);
-	})
+	})	
 	.catch(error => console.error('Error:', error));
 }
 
+// TODO: Replace with actual rooms
 var demoRoom = {
-			"roomID": 0,
-			"roomType": {
-				"singleBeds": 0,
-				"doubleBeds": 2
-			}
-		};
-
-var demoRoomType = {
-			"singleBeds": 0,
-			"doubleBeds": 2
-		};
+	"roomID": 0,
+	"roomType": {
+		"singleBeds": 0,
+		"doubleBeds": 2
+	}
+};
 
 function createReservation(){
 	var firstName = document.querySelector("input[name='inputFirstNameCreate']").value;
 	var lastName = document.querySelector("input[name='inputLastNameCreate']").value;
 	var mail = document.querySelector("input[name='inputMailCreate']").value;
-	//var startDate = document.querySelector("input[name='inputStartDateCreate']").value;
-	//var endDate = document.querySelector("input[name='inputEndDateCreate']").value;
-	var startDate = "1969-12-31T23:59:58.029+0000"; 
-	var endDate = "1979-12-31T23:59:58.029+0000";
+	var startDate = new Date(document.querySelector("input[name='inputStartDateCreate']").value);
+	var endDate = new Date(document.querySelector("input[name='inputEndDateCreate']").value);
 	var amountOfGuests = document.querySelector("input[name='inputAmountOfGuestsCreate']").value;
 	var postRequest = { 
 		"startDate" : startDate,
@@ -88,8 +75,7 @@ function createReservation(){
 			"country": "NL",
 			"role": "ROLE_GUEST"
 		},
-		"room": demoRoom,
-		"roomType": demoRoomType
+		"room": demoRoom
 	};
 
 	var postRequestStringifyd = JSON.stringify(postRequest);
@@ -105,13 +91,8 @@ function createReservation(){
 
 function updateReservation(){
 	var id = document.querySelector("input[name='inputIdUpdate']").value;
-	//var firstName = document.querySelector("input[name='inputFirstNameUpdate']").value;
-	//var lastName = document.querySelector("input[name='inputLastNameUpdate']").value;
-	//var mail = document.querySelector("input[name='inputMailUpdate']").value;
-	//var startDate = document.querySelector("input[name='inputStartDateCreate']").value;
-	//var endDate = document.querySelector("input[name='inputEndDateCreate']").value;
-	startDate = "1969-12-31T23:59:58.029+0000"; 
-	endDate = "1979-12-31T23:59:58.029+0000";
+	var startDate = new Date(document.querySelector("input[name='inputStartDateCreate']").value);
+	var endDate = new Date(document.querySelector("input[name='inputEndDateCreate']").value);
 	var amountOfGuests = document.querySelector("input[name='inputAmountOfGuestsUpdate']").value;
 	var postRequest = { 
 		"startDate" : startDate,
@@ -130,8 +111,7 @@ function updateReservation(){
 			"country": "NL",
 			"role": "ROLE_GUEST"
 		},
-		"room": demoRoom,
-		"roomType": demoRoomType
+		"room": demoRoom
 	};
 
 	var postRequestStringifyd = JSON.stringify(postRequest);

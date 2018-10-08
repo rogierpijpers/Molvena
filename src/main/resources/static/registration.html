@@ -9,10 +9,7 @@
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/registration.js"></script>
 </head>
 <body>
 <div class="container">
@@ -20,19 +17,23 @@
         <h2 class="form-signin-heading">Register as Guest</h2>
         <div class="row" style="margin-top: 20px;">
             <p class="col-sm-6">
-                <label for="firstname" class="sr-only">Firstname</label>
+                <label for="firstname" class="sr-only">First name</label>
                 <input type="text" id="firstname" name="firstname" class="form-control" placeholder="Firstname" required="" autofocus="">
             </p>
 
             <p class="col-sm-6">
-                <label for="lastname" class="sr-only">Lastname</label>
+                <label for="lastname" class="sr-only">Last name</label>
                 <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Lastname" required="" autofocus="">
             </p>
         </div>
         <div class="row">
-            <p class="col-sm-12">
+            <p class="col-sm-6">
                 <label for="mail" class="sr-only">Email</label>
                 <input type="text" id="mail" name="mail" class="form-control" placeholder="Email" required="" autofocus="">
+            </p>
+            <p class="col-sm-6">
+                <label for="dateofbirth" class="sr-only">Date of birth</label>
+                <input type="text" id="dateofbirth" name="dateofbirth" class="form-control" placeholder="Date of Birth" required="" autofocus="">
             </p>
         </div>
         <div class="row">
@@ -47,12 +48,254 @@
         </div>
         <div class="row">
             <p class="col-sm-6">
-                <label for="dateofbirth" class="sr-only">Date of birth</label>
-                <input type="text" id="dateofbirth" name="dateofbirth" class="form-control" placeholder="Date of Birth" required="" autofocus="">
+                <label for="country" class="sr-only" placeholder="Country">Country</label>
+                <select id="country" name="country" class="form-control" placeholder="Country">
+                    <option value="" placeholder="Country"> Country</option>
+                    <option value="AD" code="(+376) ">AD - Andorra (+376)</option>
+                    <option value="AE" code="(+971) ">AE - United Arab Emirates (+971)</option>
+                    <option value="AF" code="(+93) ">AF - Afghanistan (+93)</option>
+                    <option value="AG" code="(+1268) ">AG - Antigua And Barbuda (+1268)</option>
+                    <option value="AI" code="(+1264) ">AI - Anguilla (+1264)</option>
+                    <option value="AL" code="(+355) ">AL - Albania (+355)</option>
+                    <option value="AM" code="(+374) ">AM - Armenia (+374)</option>
+                    <option value="AN" code="(+599) ">AN - Netherlands Antilles (+599)</option>
+                    <option value="AO" code="(+244) ">AO - Angola (+244)</option>
+                    <option value="AQ" code="(+672) ">AQ - Antarctica (+672)</option>
+                    <option value="AR" code="(+54) ">AR - Argentina (+54)</option>
+                    <option value="AS" code="(+1684) ">AS - American Samoa (+1684)</option>
+                    <option value="AT" code="(+43) ">AT - Austria (+43)</option>
+                    <option value="AU" code="(+61) ">AU - Australia (+61)</option>
+                    <option value="AW" code="(+297) ">AW - Aruba (+297)</option>
+                    <option value="AZ" code="(+994) ">AZ - Azerbaijan (+994)</option>
+                    <option value="BA" code="(+387) ">BA - Bosnia And Herzegovina (+387)</option>
+                    <option value="BB" code="(+1246) ">BB - Barbados (+1246)</option>
+                    <option value="BD" code="(+880) ">BD - Bangladesh (+880)</option>
+                    <option value="BE" code="(+32) ">BE - Belgium (+32)</option>
+                    <option value="BF" code="(+226) ">BF - Burkina Faso (+226)</option>
+                    <option value="BG" code="(+359) ">BG - Bulgaria (+359)</option>
+                    <option value="BH" code="(+973) ">BH - Bahrain (+973)</option>
+                    <option value="BI" code="(+257) ">BI - Burundi (+257)</option>
+                    <option value="BJ" code="(+229) ">BJ - Benin (+229)</option>
+                    <option value="BL" code="(+590) ">BL - Saint Barthelemy (+590)</option>
+                    <option value="BM" code="(+1441) ">BM - Bermuda (+1441)</option>
+                    <option value="BN" code="(+673) ">BN - Brunei Darussalam (+673)</option>
+                    <option value="BO" code="(+591) ">BO - Bolivia (+591)</option>
+                    <option value="BR" code="(+55) ">BR - Brazil (+55)</option>
+                    <option value="BS" code="(+1242) ">BS - Bahamas (+1242)</option>
+                    <option value="BT" code="(+975) ">BT - Bhutan (+975)</option>
+                    <option value="BW" code="(+267) ">BW - Botswana (+267)</option>
+                    <option value="BY" code="(+375) ">BY - Belarus (+375)</option>
+                    <option value="BZ" code="(+501) ">BZ - Belize (+501)</option>
+                    <option value="CA" code="(+1) ">CA - Canada (+1)</option>
+                    <option value="CC" code="(+61) ">CC - Cocos (keeling) Islands (+61)</option>
+                    <option value="CD" code="(+243) ">CD - Congo, The Democratic Republic Of The (+243)</option>
+                    <option value="CF" code="(+236) ">CF - Central African Republic (+236)</option>
+                    <option value="CG" code="(+242) ">CG - Congo (+242)</option>
+                    <option value="CH" code="(+41) ">CH - Switzerland (+41)</option>
+                    <option value="CI" code="(+225) ">CI - Cote D Ivoire (+225)</option>
+                    <option value="CK" code="(+682) ">CK - Cook Islands (+682)</option>
+                    <option value="CL" code="(+56) ">CL - Chile (+56)</option>
+                    <option value="CM" code="(+237) ">CM - Cameroon (+237)</option>
+                    <option value="CN" code="(+86) ">CN - China (+86)</option>
+                    <option value="CO" code="(+57) ">CO - Colombia (+57)</option>
+                    <option value="CR" code="(+506) ">CR - Costa Rica (+506)</option>
+                    <option value="CU" code="(+53) ">CU - Cuba (+53)</option>
+                    <option value="CV" code="(+238) ">CV - Cape Verde (+238)</option>
+                    <option value="CX" code="(+61) ">CX - Christmas Island (+61)</option>
+                    <option value="CY" code="(+357) ">CY - Cyprus (+357)</option>
+                    <option value="CZ" code="(+420) ">CZ - Czech Republic (+420)</option>
+                    <option value="DE" code="(+49) ">DE - Germany (+49)</option>
+                    <option value="DJ" code="(+253) ">DJ - Djibouti (+253)</option>
+                    <option value="DK" code="(+45) ">DK - Denmark (+45)</option>
+                    <option value="DM" code="(+1767) ">DM - Dominica (+1767)</option>
+                    <option value="DO" code="(+1809) ">DO - Dominican Republic (+1809)</option>
+                    <option value="DZ" code="(+213) ">DZ - Algeria (+213)</option>
+                    <option value="EC" code="(+593) ">EC - Ecuador (+593)</option>
+                    <option value="EE" code="(+372) ">EE - Estonia (+372)</option>
+                    <option value="EG" code="(+20) ">EG - Egypt (+20)</option>
+                    <option value="ER" code="(+291) ">ER - Eritrea (+291)</option>
+                    <option value="ES" code="(+34) ">ES - Spain (+34)</option>
+                    <option value="ET" code="(+251) ">ET - Ethiopia (+251)</option>
+                    <option value="FI" code="(+358) ">FI - Finland (+358)</option>
+                    <option value="FJ" code="(+679) ">FJ - Fiji (+679)</option>
+                    <option value="FK" code="(+500) ">FK - Falkland Islands (malvinas) (+500)</option>
+                    <option value="FM" code="(+691) ">FM - Micronesia, Federated States Of (+691)</option>
+                    <option value="FO" code="(+298) ">FO - Faroe Islands (+298)</option>
+                    <option value="FR" code="(+33) ">FR - France (+33)</option>
+                    <option value="GA" code="(+241) ">GA - Gabon (+241)</option>
+                    <option value="GB" code="(+44) ">GB - United Kingdom (+44)</option>
+                    <option value="GD" code="(+1473) ">GD - Grenada (+1473)</option>
+                    <option value="GE" code="(+995) ">GE - Georgia (+995)</option>
+                    <option value="GH" code="(+233) ">GH - Ghana (+233)</option>
+                    <option value="GI" code="(+350) ">GI - Gibraltar (+350)</option>
+                    <option value="GL" code="(+299) ">GL - Greenland (+299)</option>
+                    <option value="GM" code="(+220) ">GM - Gambia (+220)</option>
+                    <option value="GN" code="(+224) ">GN - Guinea (+224)</option>
+                    <option value="GQ" code="(+240) ">GQ - Equatorial Guinea (+240)</option>
+                    <option value="GR" code="(+30) ">GR - Greece (+30)</option>
+                    <option value="GT" code="(+502) ">GT - Guatemala (+502)</option>
+                    <option value="GU" code="(+1671) ">GU - Guam (+1671)</option>
+                    <option value="GW" code="(+245) ">GW - Guinea-bissau (+245)</option>
+                    <option value="GY" code="(+592) ">GY - Guyana (+592)</option>
+                    <option value="HK" code="(+852) ">HK - Hong Kong (+852)</option>
+                    <option value="HN" code="(+504) ">HN - Honduras (+504)</option>
+                    <option value="HR" code="(+385) ">HR - Croatia (+385)</option>
+                    <option value="HT" code="(+509) ">HT - Haiti (+509)</option>
+                    <option value="HU" code="(+36) ">HU - Hungary (+36)</option>
+                    <option value="ID" code="(+62) ">ID - Indonesia (+62)</option>
+                    <option value="IE" code="(+353) ">IE - Ireland (+353)</option>
+                    <option value="IL" code="(+972) ">IL - Israel (+972)</option>
+                    <option value="IM" code="(+44) ">IM - Isle Of Man (+44)</option>
+                    <option value="IN" code="(+91) ">IN - India (+91)</option>
+                    <option value="IQ" code="(+964) ">IQ - Iraq (+964)</option>
+                    <option value="IR" code="(+98) ">IR - Iran, Islamic Republic Of (+98)</option>
+                    <option value="IS" code="(+354) ">IS - Iceland (+354)</option>
+                    <option value="IT" code="(+39) ">IT - Italy (+39)</option>
+                    <option value="JM" code="(+1876) ">JM - Jamaica (+1876)</option>
+                    <option value="JO" code="(+962) ">JO - Jordan (+962)</option>
+                    <option value="JP" code="(+81) ">JP - Japan (+81)</option>
+                    <option value="KE" code="(+254) ">KE - Kenya (+254)</option>
+                    <option value="KG" code="(+996) ">KG - Kyrgyzstan (+996)</option>
+                    <option value="KH" code="(+855) ">KH - Cambodia (+855)</option>
+                    <option value="KI" code="(+686) ">KI - Kiribati (+686)</option>
+                    <option value="KM" code="(+269) ">KM - Comoros (+269)</option>
+                    <option value="KN" code="(+1869) ">KN - Saint Kitts And Nevis (+1869)</option>
+                    <option value="KP" code="(+850) ">KP - Korea Democratic Peoples Republic Of (+850)</option>
+                    <option value="KR" code="(+82) ">KR - Korea Republic Of (+82)</option>
+                    <option value="KW" code="(+965) ">KW - Kuwait (+965)</option>
+                    <option value="KY" code="(+1345) ">KY - Cayman Islands (+1345)</option>
+                    <option value="KZ" code="(+7) ">KZ - Kazakstan (+7)</option>
+                    <option value="LA" code="(+856) ">LA - Lao Peoples Democratic Republic (+856)</option>
+                    <option value="LB" code="(+961) ">LB - Lebanon (+961)</option>
+                    <option value="LC" code="(+1758) ">LC - Saint Lucia (+1758)</option>
+                    <option value="LI" code="(+423) ">LI - Liechtenstein (+423)</option>
+                    <option value="LK" code="(+94) ">LK - Sri Lanka (+94)</option>
+                    <option value="LR" code="(+231) ">LR - Liberia (+231)</option>
+                    <option value="LS" code="(+266) ">LS - Lesotho (+266)</option>
+                    <option value="LT" code="(+370) ">LT - Lithuania (+370)</option>
+                    <option value="LU" code="(+352) ">LU - Luxembourg (+352)</option>
+                    <option value="LV" code="(+371) ">LV - Latvia (+371)</option>
+                    <option value="LY" code="(+218) ">LY - Libyan Arab Jamahiriya (+218)</option>
+                    <option value="MA" code="(+212) ">MA - Morocco (+212)</option>
+                    <option value="MC" code="(+377) ">MC - Monaco (+377)</option>
+                    <option value="MD" code="(+373) ">MD - Moldova, Republic Of (+373)</option>
+                    <option value="ME" code="(+382) ">ME - Montenegro (+382)</option>
+                    <option value="MF" code="(+1599) ">MF - Saint Martin (+1599)</option>
+                    <option value="MG" code="(+261) ">MG - Madagascar (+261)</option>
+                    <option value="MH" code="(+692) ">MH - Marshall Islands (+692)</option>
+                    <option value="MK" code="(+389) ">MK - Macedonia, The Former Yugoslav Republic Of (+389)</option>
+                    <option value="ML" code="(+223) ">ML - Mali (+223)</option>
+                    <option value="MM" code="(+95) ">MM - Myanmar (+95)</option>
+                    <option value="MN" code="(+976) ">MN - Mongolia (+976)</option>
+                    <option value="MO" code="(+853) ">MO - Macau (+853)</option>
+                    <option value="MP" code="(+1670) ">MP - Northern Mariana Islands (+1670)</option>
+                    <option value="MR" code="(+222) ">MR - Mauritania (+222)</option>
+                    <option value="MS" code="(+1664) ">MS - Montserrat (+1664)</option>
+                    <option value="MT" code="(+356) ">MT - Malta (+356)</option>
+                    <option value="MU" code="(+230) ">MU - Mauritius (+230)</option>
+                    <option value="MV" code="(+960) ">MV - Maldives (+960)</option>
+                    <option value="MW" code="(+265) ">MW - Malawi (+265)</option>
+                    <option value="MX" code="(+52) ">MX - Mexico (+52)</option>
+                    <option value="MY" code="(+60) ">MY - Malaysia (+60)</option>
+                    <option value="MZ" code="(+258) ">MZ - Mozambique (+258)</option>
+                    <option value="NA" code="(+264) ">NA - Namibia (+264)</option>
+                    <option value="NC" code="(+687) ">NC - New Caledonia (+687)</option>
+                    <option value="NE" code="(+227) ">NE - Niger (+227)</option>
+                    <option value="NG" code="(+234) ">NG - Nigeria (+234)</option>
+                    <option value="NI" code="(+505) ">NI - Nicaragua (+505)</option>
+                    <option value="NL" code="(+31) ">NL - Netherlands (+31)</option>
+                    <option value="NO" code="(+47) ">NO - Norway (+47)</option>
+                    <option value="NP" code="(+977) ">NP - Nepal (+977)</option>
+                    <option value="NR" code="(+674) ">NR - Nauru (+674)</option>
+                    <option value="NU" code="(+683) ">NU - Niue (+683)</option>
+                    <option value="NZ" code="(+64) ">NZ - New Zealand (+64)</option>
+                    <option value="OM" code="(+968) ">OM - Oman (+968)</option>
+                    <option value="PA" code="(+507) ">PA - Panama (+507)</option>
+                    <option value="PE" code="(+51) ">PE - Peru (+51)</option>
+                    <option value="PF" code="(+689) ">PF - French Polynesia (+689)</option>
+                    <option value="PG" code="(+675) ">PG - Papua New Guinea (+675)</option>
+                    <option value="PH" code="(+63) ">PH - Philippines (+63)</option>
+                    <option value="PK" code="(+92) ">PK - Pakistan (+92)</option>
+                    <option value="PL" code="(+48) ">PL - Poland (+48)</option>
+                    <option value="PM" code="(+508) ">PM - Saint Pierre And Miquelon (+508)</option>
+                    <option value="PN" code="(+870) ">PN - Pitcairn (+870)</option>
+                    <option value="PR" code="(+1) ">PR - Puerto Rico (+1)</option>
+                    <option value="PT" code="(+351) ">PT - Portugal (+351)</option>
+                    <option value="PW" code="(+680) ">PW - Palau (+680)</option>
+                    <option value="PY" code="(+595) ">PY - Paraguay (+595)</option>
+                    <option value="QA" code="(+974) ">QA - Qatar (+974)</option>
+                    <option value="RO" code="(+40) ">RO - Romania (+40)</option>
+                    <option value="RS" code="(+381) ">RS - Serbia (+381)</option>
+                    <option value="RU" code="(+7) ">RU - Russian Federation (+7)</option>
+                    <option value="RW" code="(+250) ">RW - Rwanda (+250)</option>
+                    <option value="SA" code="(+966) ">SA - Saudi Arabia (+966)</option>
+                    <option value="SB" code="(+677) ">SB - Solomon Islands (+677)</option>
+                    <option value="SC" code="(+248) ">SC - Seychelles (+248)</option>
+                    <option value="SD" code="(+249) ">SD - Sudan (+249)</option>
+                    <option value="SE" code="(+46) ">SE - Sweden (+46)</option>
+                    <option value="SG" code="(+65) ">SG - Singapore (+65)</option>
+                    <option value="SH" code="(+290) ">SH - Saint Helena (+290)</option>
+                    <option value="SI" code="(+386) ">SI - Slovenia (+386)</option>
+                    <option value="SK" code="(+421) ">SK - Slovakia (+421)</option>
+                    <option value="SL" code="(+232) ">SL - Sierra Leone (+232)</option>
+                    <option value="SM" code="(+378) ">SM - San Marino (+378)</option>
+                    <option value="SN" code="(+221) ">SN - Senegal (+221)</option>
+                    <option value="SO" code="(+252) ">SO - Somalia (+252)</option>
+                    <option value="SR" code="(+597) ">SR - Suriname (+597)</option>
+                    <option value="ST" code="(+239) ">ST - Sao Tome And Principe (+239)</option>
+                    <option value="SV" code="(+503) ">SV - El Salvador (+503)</option>
+                    <option value="SY" code="(+963) ">SY - Syrian Arab Republic (+963)</option>
+                    <option value="SZ" code="(+268) ">SZ - Swaziland (+268)</option>
+                    <option value="TC" code="(+1649) ">TC - Turks And Caicos Islands (+1649)</option>
+                    <option value="TD" code="(+235) ">TD - Chad (+235)</option>
+                    <option value="TG" code="(+228) ">TG - Togo (+228)</option>
+                    <option value="TH" code="(+66) ">TH - Thailand (+66)</option>
+                    <option value="TJ" code="(+992) ">TJ - Tajikistan (+992)</option>
+                    <option value="TK" code="(+690) ">TK - Tokelau (+690)</option>
+                    <option value="TL" code="(+670) ">TL - Timor-leste (+670)</option>
+                    <option value="TM" code="(+993) ">TM - Turkmenistan (+993)</option>
+                    <option value="TN" code="(+216) ">TN - Tunisia (+216)</option>
+                    <option value="TO" code="(+676) ">TO - Tonga (+676)</option>
+                    <option value="TR" code="(+90) ">TR - Turkey (+90)</option>
+                    <option value="TT" code="(+1868) ">TT - Trinidad And Tobago (+1868)</option>
+                    <option value="TV" code="(+688) ">TV - Tuvalu (+688)</option>
+                    <option value="TW" code="(+886) ">TW - Taiwan, Province Of China (+886)</option>
+                    <option value="TZ" code="(+255) ">TZ - Tanzania, United Republic Of (+255)</option>
+                    <option value="UA" code="(+380) ">UA - Ukraine (+380)</option>
+                    <option value="UG" code="(+256) ">UG - Uganda (+256)</option>
+                    <option value="US" code="(+1) ">US - United States (+1)</option>
+                    <option value="UY" code="(+598) ">UY - Uruguay (+598)</option>
+                    <option value="UZ" code="(+998) ">UZ - Uzbekistan (+998)</option>
+                    <option value="VA" code="(+39) ">VA - Holy See (vatican City State) (+39)</option>
+                    <option value="VC" code="(+1784) ">VC - Saint Vincent And The Grenadines (+1784)</option>
+                    <option value="VE" code="(+58) ">VE - Venezuela (+58)</option>
+                    <option value="VG" code="(+1284) ">VG - Virgin Islands, British (+1284)</option>
+                    <option value="VI" code="(+1340) ">VI - Virgin Islands, U.s. (+1340)</option>
+                    <option value="VN" code="(+84) ">VN - Viet Nam (+84)</option>
+                    <option value="VU" code="(+678) ">VU - Vanuatu (+678)</option>
+                    <option value="WF" code="(+681) ">WF - Wallis And Futuna (+681)</option>
+                    <option value="WS" code="(+685) ">WS - Samoa (+685)</option>
+                    <option value="XK" code="(+381) ">XK - Kosovo (+381)</option>
+                    <option value="YE" code="(+967) ">YE - Yemen (+967)</option>
+                    <option value="YT" code="(+262) ">YT - Mayotte (+262)</option>
+                    <option value="ZA" code="(+27) ">ZA - South Africa (+27)</option>
+                    <option value="ZM" code="(+260) ">ZM - Zambia (+260)</option>
+                    <option value="ZW" code="(+263) ">ZW - Zimbabwe (+263)</option>
+                </select>
             </p>
             <p class="col-sm-6">
-                <label for="phone" class="sr-only">Phone</label>
-                <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" required="" autofocus="">
+                <label for="state" class="sr-only">State</label>
+                <input type="text" id="state" name="state" class="form-control" placeholder="State" required="" autofocus="">
+            </p>
+        </div>
+        <div class="row">
+            <p class="col-sm-6">
+                <label for="city" class="sr-only">City</label>
+                <input type="text" id="city" name="city" class="form-control" placeholder="City" required="" autofocus="">
+            </p>
+            <p class="col-sm-6">
+                <label for="zipcode" class="sr-only">Zipcode</label>
+                <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="Zipcode" required="" autofocus="">
             </p>
         </div>
         <div class="row">
@@ -61,18 +304,8 @@
                 <input type="text" id="address" name="address" class="form-control" placeholder="Address" required="" autofocus="">
             </p>
             <p class="col-sm-6">
-                <label for="city" class="sr-only">City</label>
-                <input type="text" id="city" name="city" class="form-control" placeholder="City" required="" autofocus="">
-            </p>
-        </div>
-        <div class="row">
-            <p class="col-sm-6">
-                <label for="zipcode" class="sr-only">Zipcode</label>
-                <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="Zipcode" required="" autofocus="">
-            </p>
-            <p class="col-sm-6">
-                <label for="country" class="sr-only">Country</label>
-                <input type="text" id="country" name="country" class="form-control" placeholder="Country" required="" autofocus="">
+                <label for="phone" class="sr-only">Phone</label>
+                <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" required="" autofocus="">
             </p>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="button" name="register" id="register">Register</button>
@@ -81,5 +314,11 @@
         </p>
         <button class="btn btn-lg btn-primary btn-block" type="button" onclick="location.href = 'http://localhost:8080/login';" name="login" id="login">Login</button>
     </form>
-</div></body>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="js/registration.js"></script>
+
+</div>
+</body>
 </html>
