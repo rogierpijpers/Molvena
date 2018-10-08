@@ -36,7 +36,7 @@ public class RoomController {
             .entrySet().stream().map(x -> new RoomTypeWithCountDTO(x.getKey(), x.getValue())).collect(Collectors.toList());
     }
 
-    @RequestMapping("/roomtype/available/{startDate}/{endDate}/{roomTypeId")
+    @RequestMapping("/roomtype/available/{startDate}/{endDate}/{roomTypeId}")
     public long getAvailableRoomsOfRoomType(@PathVariable("startDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date startDate, @PathVariable("endDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date endDate, @PathVariable("roomTypeId") int roomTypeId) throws ObjectNotFoundException {
         RoomType roomType = roomTypeService.getRoomTypeById(roomTypeId);
         if(roomType == null)

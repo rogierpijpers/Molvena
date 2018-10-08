@@ -3,7 +3,9 @@ package com.capgemini.web;
 import com.capgemini.domain.Guest;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
+import com.capgemini.service.ReservationService;
 import com.capgemini.service.RoomService;
+import com.capgemini.service.RoomTypeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Assert;
@@ -20,7 +22,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.TimeZone;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -32,23 +36,55 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //
 //
 //
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
-//@AutoConfigureMockMvc
-//public class RoomControllerTest {
-//    @Autowired
-//    private WebApplicationContext wac;
-//
-//    @Autowired
-//    private MockMvc mockMvc;
-//
-//    @Autowired
-//    private RoomService roomService;
-//
-//    @Before
-//    public void setup() {
-//        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-//    }
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+public class RoomControllerTest {
+    @Autowired
+    private WebApplicationContext wac;
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private RoomService roomService;
+
+    @Autowired
+    private ReservationService reservationService;
+
+    @Autowired
+    private RoomTypeService roomTypeService;
+
+    @Before
+    public void setup() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    }
+
+    @Test
+    @WithMockUser(username="Henk@vanvliet.nl", roles={"ADMIN"})
+    public void testGetAmountOfAvailableRoomsForRoomType() throws Exception {
+        RoomType roomType = roomTypeService.getRoomTypeById(0);
+
+        Date startDate = new Date(2017-10-20);
+        Date endDate = new Date(2017-10-22);
+
+        long expectedAmount = reservationService.getAllAvailableRooms(startDate, endDate, roomType).stream().filter(x -> x.getRoomType().equals(roomType)).count();
+        Assert.assertTrue(expectedAmount > 0);
+
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        String isoStartDate = df.format(startDate);
+        String isoEndDate = df.format(endDate);
+
+        this.mockMvc.perform(get("/roomtype/available/" + isoStartDate + "/" + isoEndDate + "/0")).andDo(print()).andExpect(status().isOk()).andExpect(content().json(Long.toString(expectedAmount)));
+    }
+
+    @Test
+    @WithMockUser(username="Henk@vanvliet.nl", roles={"ADMIN"})
+    public void testGetAvailableRoomsWithRoomTypeFilter(){
+
+    }
 
 //    @Test
 //    @WithMockUser(username="Henk@vanvliet.nl", roles={"ADMIN"})
@@ -101,4 +137,4 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //        this.mockMvc.perform(get("/room/99")).andDo(print()).andExpect(status().isOk())
 //                .andExpect(content().json(jsonExpected));
 //    }
-//}
+}
