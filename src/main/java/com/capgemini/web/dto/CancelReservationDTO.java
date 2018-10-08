@@ -2,7 +2,7 @@ package com.capgemini.web.dto;
 
 public class CancelReservationDTO {
     private int reservationId;
-    private boolean chargeCancellationConditions = true;
+    private boolean chargeCancellationConditions;
 
     public int getReservationId() {
         return reservationId;
