@@ -61,7 +61,7 @@ public class GuestControllerTest {
         guest.setPassword("爱蔼爱蔼爱蔼爱蔼");
         guest.setFirstName("爱");
         guest.setLastName("蔼");
-        guest.setMail("爱@蔼.hk.cn");
+        guest.setMail("普里@阿育王。印度");
         guest.setZipCode("3242AD");
         guest.setDateOfBirth(new Date());
         guest.setPhone("0623402340");
@@ -76,7 +76,7 @@ public class GuestControllerTest {
                 .andExpect(status().isOk());
 
         // Get this guest
-        this.mockMvc.perform(get("/guest/爱@蔼.hk.cn"))
+        this.mockMvc.perform(get("/guest/普里@阿育王。印度"))
                 .andDo(print())
                 .andExpect(status().isOk());
                 // Json is unable to parse chinese characters back. Is there any way to fix this?
