@@ -95,7 +95,7 @@ $(document).ready(function () {
     }
 
     function updateData() {
-        var reservationID = data.reservationID;
+        var reservationID = selectedValue.reservationID;
         var email = $("#updateEmail").val();
         var guest = $("#updateGuest").val();
         var checkIn = $("#updateCheckIn").val();
@@ -126,7 +126,7 @@ $(document).ready(function () {
                         };
                         var JsonUpdate = JSON.stringify(updateReservation);
                         $.ajax({
-                            url: "http://localhost:8080/reservation/" + data.reservationID,
+                            url: "http://localhost:8080/reservation/" + selectedValue.reservationID,
                             type:"put",
                             data: JsonUpdate,
                             contentType: "application/json",
@@ -198,33 +198,38 @@ $(document).ready(function () {
 
     });
 
-    var data = null;
+    var selectedValue = null;
 
     $('#table_id tbody ').on('click','#updateReservation',function () {
-        data = table.row( $(this).parents('tr') ).data();
-                $("#updateFirstName").val(data.guest.firstName);
-                $("#updateLastName").val(data.guest.lastName);
-                $("#updateEmail").val(data.guest.mail);
-                $("#updateBirth").val(data.guest.birth);
-                $("#updatePhone").val(data.guest.phone);
-                $("#updateAddress").val(data.guest.address);
-                $("#updateCity").val(data.guest.city);
-                $("#updateZipCode").val(data.guest.zipCode);
-                $("#updateState").val(data.guest.state);
-                $("#updateCountry").val(data.guest.country);
-                $("#updateGuest").val(data.amountOfGuests);
-                $("#updateCheckIn").val(data.startDate);
-                $("#updateCheckOut").val(data.endDate);
-                $("#updateRoom").val(data.roomType);
+        selectedValue = table.row( $(this).parents('tr') ).data();
+                console.log(selectedValue.startDate)
+
+                var startDate = selectedValue.startDate.substring(0,10);
+                var endDate = selectedValue.endDate.substring(0,10);
+
+                $("#updateFirstName").val(selectedValue.guest.firstName);
+                $("#updateLastName").val(selectedValue.guest.lastName);
+                $("#updateEmail").val(selectedValue.guest.mail);
+                $("#updateBirth").val(selectedValue.guest.birth);
+                $("#updatePhone").val(selectedValue.guest.phone);
+                $("#updateAddress").val(selectedValue.guest.address);
+                $("#updateCity").val(selectedValue.guest.city);
+                $("#updateZipCode").val(selectedValue.guest.zipCode);
+                $("#updateState").val(selectedValue.guest.state);
+                $("#updateCountry").val(selectedValue.guest.country);
+                $("#updateGuest").val(selectedValue.amountOfGuests);
+                $("#updateCheckIn").val(startDate);
+                $("#updateCheckOut").val(endDate);
+                $("#updateRoom").val(selectedValue.roomType);
     });
 
     $('#table_id tbody').on('click','#deleteReservation',function () {
-        data = table.row($(this).parents('tr')).data();
+        selectedValue = table.row($(this).parents('tr')).data();
     });
 
     $('#deleteReservationTrue').click(function(){
         $.ajax({
-            url:"http://localhost:8080/reservation/" + data.reservationID,
+            url:"http://localhost:8080/reservation/" + selectedValue.reservationID,
             type:"delete",
             success: function(data) {
                 getData();
