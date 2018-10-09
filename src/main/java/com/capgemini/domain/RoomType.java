@@ -1,7 +1,6 @@
 package com.capgemini.domain;
 
 public class RoomType {
-    private String name;
     private byte singleBeds;
     private byte doubleBeds;
 
@@ -13,28 +12,28 @@ public class RoomType {
     }
 
     public String getName() {
-        this.name = "";
+        String name = "";
 
         if(singleBeds == 0){
         } else if(singleBeds == 1) {
-            this.name += "one single bed";
+            name += "one single bed";
         } else {
-            this.name += singleBeds + " single beds";
+            name += singleBeds + " single beds";
         }
 
         if(singleBeds > 0 && doubleBeds > 0){
-            this.name += " and ";
+            name += " and ";
 
             if(doubleBeds == 1){
-                this.name += "one double bed";
+                name += "one double bed";
             } else {
-                this.name += doubleBeds + " double beds";
+                name += doubleBeds + " double beds";
             }
         } else {
-            this.name += doubleBeds + " double beds";
+            name += doubleBeds + " double beds";
         }
 
-        return this.name;
+        return name;
     }
 
     public byte getSingleBeds() {
