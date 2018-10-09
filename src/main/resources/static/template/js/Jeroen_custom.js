@@ -13,7 +13,7 @@ function postData() {
     console.log(departure);
     console.log(persons);
 
-	window.location.href = "http://localhost:8080/all_rooms.html?startDate=" + arrival + "T12:00:00+01:00&endDate=" + departure + "T12:00:00+01:00&guests=" + persons;
+	window.location.href = "http://localhost:8080/template/all_rooms.html?startDate=" + arrival + "T12:00:00+01:00&endDate=" + departure + "T12:00:00+01:00&guests=" + persons;
 }
 
 $(document).ready(function () {
