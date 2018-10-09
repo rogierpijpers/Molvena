@@ -1,15 +1,20 @@
 $(document).ready(function(){
+
+    $("#make-booking").click(function() {
+        postData();
+    });
+
     let urlParams = new URLSearchParams(location.search);
     let sPath = window.location.pathname;
     let sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
-
-    let startDate = urlParams.get('startDate');
-    let endDate = urlParams.get('endDate');
-    let amountOfGuests = urlParams.get('guests');
-
-    $("#startDate").text(startDate.split('T')[0]);
-    $("#endDate").text(endDate.split('T')[0]);
-    $("#amountOfGuests").text(amountOfGuests.split('T')[0]);
+    if (urlParams.get('startDate') != null && urlParams.get('endDate') != null && urlParams.get('guests') != null){
+        let startDate = urlParams.get('startDate');
+        let endDate = urlParams.get('endDate');
+        let amountOfGuests = urlParams.get('guests');
+        $("#startDate").text(startDate.split('T')[0]);
+        $("#endDate").text(endDate.split('T')[0]);
+        $("#amountOfGuests").text(amountOfGuests.split('T')[0]);
+    }    
 
     if (sPage == "single_room.html" || sPage == "reservation_confirm.html"){
         viewSingleRoomData(startDate, endDate, amountOfGuests);
@@ -17,6 +22,16 @@ $(document).ready(function(){
         viewAllRoomsData(startDate, endDate, amountOfGuests);
     }
 });
+
+function postData() {
+    let startDate;
+    let endDate;
+    let amountOfGuests;
+    startDate = document.getElementById('arrival').value;
+    endDate = document.getElementById('departure').value;
+    amountOfGuests = $("#persons").val();
+	window.location.href = "http://localhost:8080/template/all_rooms.html?startDate=" + startDate + "T12:00:00+01:00&endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests;
+}
 
 function viewAllRoomsData(startDate, endDate, amountOfGuests){  
     let roomTypeApi = "http://localhost:8080/roomtype/available/";
