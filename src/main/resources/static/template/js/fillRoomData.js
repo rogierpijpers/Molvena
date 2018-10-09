@@ -1,22 +1,26 @@
 $(document).ready(function(){
     let urlParams = new URLSearchParams(location.search);
+    let sPath = window.location.pathname;
+    let sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
 
     let startDate = urlParams.get('startDate');
     let endDate = urlParams.get('endDate');
     let amountOfGuests = urlParams.get('guests')
 
-    $("#startDate").text(urlParams.get('startDate'));
-    $("#endDate").text(urlParams.get('endDate'));
-    $("#amountOfGuests").text(urlParams.get('guests'));
+    $("#startDate").text(startDate);
+    $("#endDate").text(endDate);
+    $("#amountOfGuests").text(amountOfGuests);
 
-    viewAllRoomsData(startDate, endDate, amountOfGuests);
-    viewSingleRoomData(startDate, endDate, amountOfGuests);
+    if (sPage == "single_room.html" || sPage == "reservation_confirm.html"){
+        viewSingleRoomData(startDate, endDate, amountOfGuests);
+    }else if(sPage == "all_rooms.js"){
+        viewAllRoomsData(startDate, endDate, amountOfGuests);
+    }
 });
 
-let roomApi = "http://localhost:8080/room/";
-let roomTypeApi = "http://localhost:8080/roomtype/available/";
-// TODO: test start and enddate in url, to see if the right format is passed.
 function viewAllRoomsData(startDate, endDate, amountOfGuests){  
+    let roomTypeApi = "http://localhost:8080/roomtype/available/";
+
     $.ajax({
         url: roomTypeApi + startDate + "/" + endDate,
         type: "get",
@@ -43,7 +47,7 @@ function viewAllRoomsData(startDate, endDate, amountOfGuests){
                             value.roomType.singleBeds + ' single and '+ value.roomType.doubleBeds + " double beds.</h4></a>\
                             <h6>{price}<small>/night</small></h6>\
                             </div>\
-                         </div>";
+                            </div>";
 
                 count++;
                 if (count % 4 == 0){
@@ -52,7 +56,7 @@ function viewAllRoomsData(startDate, endDate, amountOfGuests){
                 
             }); 
             container.append(html);       
-           
+            
         },
         error: function(error){
             console.log("Error: " + error);
@@ -60,7 +64,7 @@ function viewAllRoomsData(startDate, endDate, amountOfGuests){
     });
 }
 
-function viewSingleRoomData(){
+function viewSingleRoomData(startDate, endDate, amountOfGuests){
     let urlParams = new URLSearchParams(location.search);
     let singleBedsElement = $("#singleBeds");
     let doubleBedsElement = $("#doubleBeds");
@@ -70,4 +74,8 @@ function viewSingleRoomData(){
 
     singleBedsElement.text(singleBeds);
     doubleBedsElement.text(doubleBeds);
+
+    let confirmButton = $("#confirmButton");
+    confirmButton.innerHTML = "<a class='button_hover theme_btn_two' href='single_room.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + 
+    "&singleBeds=" + singleBeds + "&doubleBeds=" + doubleBeds + ">Confirm</a>";
 }

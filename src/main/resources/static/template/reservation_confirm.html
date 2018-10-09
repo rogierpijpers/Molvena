@@ -62,10 +62,11 @@
                         <div class="about_content ">
                             <h2 class="title title_color">Your reservation <br>has been confirmed.</h2>
                             <p>Thank you for your reservation. We look forward to your stay at Molveno Lake Resort! <br /><h3>Your booking details:</h3><br />
-                            Check-in date:<br />
-                            Check-out date:<br />
-                            Amount of persons:<br />
-                            Room:</p>
+                            Check-in date: <span id="startDate"></span><br />
+                            Check-out date: <span id="endDate"></span><br />
+                            Amount of guests: <span id="amountOfGuests"></span><br />
+                            Beds: <span id="singleBeds"></span> single beds and <span id="doubleBeds"></span> double beds.</p>
+                            <div id="confirmButton"></div>
                             <a href="#" class="button_hover theme_btn_two">Go back to the homepage</a>
                         </div>
                     </div>
@@ -90,5 +91,6 @@
         <script src="js/stellar.js"></script>
         <script src="vendors/lightbox/simpleLightbox.min.js"></script>
         <script src="js/custom.js"></script>
+        <script src="js/fillRoomData.js"></script>
     </body>
 </html>
