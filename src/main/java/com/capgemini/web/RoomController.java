@@ -1,9 +1,11 @@
 package com.capgemini.web;
 
+import com.capgemini.data.RoomTypeRepository;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
 import com.capgemini.service.RoomService;
+import com.capgemini.service.RoomTypeService;
 import com.capgemini.web.dto.RoomTypeWithCountDTO;
 import com.capgemini.web.util.exception.InvalidInputException;
 import com.capgemini.web.util.exception.ObjectNotFoundException;
@@ -24,6 +26,10 @@ import java.util.stream.Collectors;
 public class RoomController {
 
     @Autowired
+    private RoomTypeRepository roomTypeRepository;
+
+
+    @Autowired
     private ReservationService reservationService;
 
     @Autowired
@@ -34,6 +40,12 @@ public class RoomController {
     public List<RoomTypeWithCountDTO> getAvailableRoomTypes(@PathVariable("startDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date startDate, @PathVariable("endDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date endDate){
         return reservationService.getAllAvailableRooms(startDate, endDate).stream().collect(Collectors.groupingBy(Room::getRoomType, Collectors.counting()))
             .entrySet().stream().map(x -> new RoomTypeWithCountDTO(x.getKey(), x.getValue())).collect(Collectors.toList());
+    }
+
+    @RequestMapping("/roomtype/")
+    public List<RoomType> getRoomTypes(){
+        return roomTypeRepository.getAllRoomTypes();
+
     }
 
     // secured

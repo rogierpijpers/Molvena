@@ -1,4 +1,5 @@
 $(document).ready(function () {
+getRoomTypes();
 
     fillDropdown('inputEmail');
     fillDropdown('updateEmail');
@@ -41,28 +42,46 @@ $(document).ready(function () {
         document.getElementById("updateCheckIn").setAttribute("max", checkOutInput);
     });
 
-    function roomSwitch(room){
-        switch(room){
-            case "1":
-            room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
-                    break;
-            case "2":
-            room = {"roomID":0,"roomType":{"singleBeds":2,"doubleBeds":0}}
-                    break;
-            case "3":
-            room = {"roomID":0,"roomType":{"singleBeds":3,"doubleBeds":0}}
-                    break;
-            case "4":
-            room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
-                    break;
-            case "5":
-            room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":1}}
-                    break;
-            case "6":
-            room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":2}}
-                    break;
-        }
+    function getRoomTypes(){
+        $.ajax({
+                url: "http://localhost:8080/roomtype/",
+                type: "get",
+                success: function(data){
+                    let dropdown = $("#updateRoom");
+                    let dropdown2 = $("#inputRoom");
+                    $.each(data, function(index, value){
+                        dropdown.append(new Option(value.name));
+                        dropdown2.append(new Option(value.name));
+                    });
+                },
+                error: function(error){
+                    console.log("Error: " + error);
+                }
+            });
     }
+
+//    function roomSwitch(room){
+//        switch(room){
+//            case "1":
+//            room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
+//                    break;
+//            case "2":
+//            room = {"roomID":0,"roomType":{"singleBeds":2,"doubleBeds":0}}
+//                    break;
+//            case "3":
+//            room = {"roomID":0,"roomType":{"singleBeds":3,"doubleBeds":0}}
+//                    break;
+//            case "4":
+//            room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
+//                    break;
+//            case "5":
+//            room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":1}}
+//                    break;
+//            case "6":
+//            room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":2}}
+//                    break;
+//        }
+//    }
 
     function postData() {
         var email = $("#inputEmail").val();
@@ -77,7 +96,7 @@ $(document).ready(function () {
                 success: function(result){;
                     email = result;
 
-                    roomSwitch(room);
+//                    roomSwitch(room);
 
                      var newReservation = {
                                 "startDate": checkIn,
@@ -90,18 +109,18 @@ $(document).ready(function () {
                     var JsonReservation = JSON.stringify(newReservation);
 
                     $.ajax({
-                                url:"http://localhost:8080/reservation/",
-                                type:"post",
-                                data: JsonReservation,
-                                contentType: "application/json",
-                                success: function(result) {
-                                    $("#newReservationModal").hide();
-                                    $('body').removeClass('modal-open');
-                                    $('.modal-backdrop').remove();
-                                    getData();
-                                    $("#newReservationForm")[0].reset();
-                                }
-                            });
+                        url:"http://localhost:8080/reservation/",
+                        type:"post",
+                        data: JsonReservation,
+                        contentType: "application/json",
+                        success: function(result) {
+                            $("#newReservationModal").hide();
+                            $('body').removeClass('modal-open');
+                            $('.modal-backdrop').remove();
+                            getData();
+                            $("#newReservationForm")[0].reset();
+                        }
+                    });
                 }});
     }
 
@@ -116,7 +135,6 @@ $(document).ready(function () {
             type:"get",
             success: function(result){
                 email = result;
-               roomSwitch(room);
 
                  var updatedReservation = {
                             "reservationID" : data.reservationID,
@@ -222,7 +240,7 @@ $(document).ready(function () {
                 $("#updateGuest").val(data.amountOfGuests);
                 $("#updateCheckIn").val(data.startDate);
                 $("#updateCheckOut").val(data.endDate);
-                $("#updateRoom").val(data.roomType);
+                $("#updateRoom").val(data.roomType.name);
     });
 
     $('#table_id tbody').on('click','#deleteReservation',function () {
@@ -238,8 +256,5 @@ $(document).ready(function () {
             }
         });
     });
-
     getData();
-
 });
-
