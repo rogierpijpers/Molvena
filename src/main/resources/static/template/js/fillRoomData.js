@@ -5,11 +5,11 @@ $(document).ready(function(){
 
     let startDate = urlParams.get('startDate');
     let endDate = urlParams.get('endDate');
-    let amountOfGuests = urlParams.get('guests')
+    let amountOfGuests = urlParams.get('guests');
 
-    $("#startDate").text(startDate);
-    $("#endDate").text(endDate);
-    $("#amountOfGuests").text(amountOfGuests);
+    $("#startDate").text(startDate.split('T')[0]);
+    $("#endDate").text(endDate.split('T')[0]);
+    $("#amountOfGuests").text(amountOfGuests.split('T')[0]);
 
     if (sPage == "single_room.html" || sPage == "reservation_confirm.html"){
         viewSingleRoomData(startDate, endDate, amountOfGuests);
@@ -22,7 +22,7 @@ function viewAllRoomsData(startDate, endDate, amountOfGuests){
     let roomTypeApi = "http://localhost:8080/roomtype/available/";
 
     $.ajax({
-        url: roomTypeApi + startDate + "/" + endDate,
+        url: roomTypeApi + startDate + "T12:28:35.584+0000/" + endDate + "T12:28:35.584+0000",
         type: "get",
         success: function(data){
             // For each room in room list, create a new element. After 3, add new row  
@@ -39,10 +39,10 @@ function viewAllRoomsData(startDate, endDate, amountOfGuests){
                             <div class='accomodation_item text-center'>\
                                 <div class='hotel_img'>\
                                     <img src='image/room1.jpg' alt=''>\
-                                    <a href='single_room.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + 
+                                    <a href='single_room.html?startDate=" + startDate + "&T12:00:00+01:00endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests + 
                                     "&singleBeds=" + value.roomType.singleBeds + "&doubleBeds=" + value.roomType.doubleBeds +"'  class='btn theme_btn button_hover'>Book Now</a>\
                                 </div>\
-                            <a href='single_room.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + 
+                            <a href='single_room.html?startDate=" + startDate + "T12:00:00+01:00&endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests + 
                             "&singleBeds=" + value.roomType.singleBeds + "&doubleBeds=" + value.roomType.doubleBeds +" '><h4 class='sec_h4'>Standard room <br /> " + 
                             value.roomType.singleBeds + ' single and '+ value.roomType.doubleBeds + " double beds.</h4></a>\
                             <h6>{price}<small>/night</small></h6>\
@@ -76,6 +76,6 @@ function viewSingleRoomData(startDate, endDate, amountOfGuests){
     doubleBedsElement.text(doubleBeds);
 
     let confirmButton = $("#confirmButton");
-    confirmButton.innerHTML = "<a class='button_hover theme_btn_two' href='single_room.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + 
+    confirmButton.innerHTML = "<a class='button_hover theme_btn_two' href='single_room.html?startDate=" + startDate + "T12:00:00+01:00&endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests + 
     "&singleBeds=" + singleBeds + "&doubleBeds=" + doubleBeds + ">Confirm</a>";
 }
