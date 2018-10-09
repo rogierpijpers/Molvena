@@ -139,13 +139,13 @@ public class DummyDataSeeder {
         employee1.setLastName("van Vliet");
         employee1.setPhone("123456789");
         employee1.setPassword("$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2");
-        employee1.setMail("Receptionist@molveno.com");
+        employee1.setMail("Receptionist@molvenolakeresort.com");
         employee1.setAddress("Straat 1");
         employee1.setZipCode("5555LL");
         employee1.setState("");
         employee1.setCountry("NL");
         employee1.setDateOfBirth(new Date(31-8-1994));
-        employee1.setRole("ROLE_ADMIN");
+        employee1.setRole("ROLE_RECEPTIONIST");
         employeeRepository.addEmployee(employee1);
     }
 
