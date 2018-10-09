@@ -44,11 +44,11 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-        <!--<dependency>-->
-            <!--&lt;!&ndash;<groupId>org.springframework.data</groupId>&ndash;&gt;-->
-            <!--&lt;!&ndash;<artifactId>spring-data-commons</artifactId>&ndash;&gt;-->
-            <!--&lt;!&ndash;<version>2.0.10.RELEASE</version>&ndash;&gt;-->
-        <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>5.2.9.Final</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
