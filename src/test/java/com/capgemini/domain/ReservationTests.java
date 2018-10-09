@@ -1,7 +1,9 @@
 package com.capgemini.domain;
 
 import com.capgemini.TestJpaConfig;
+import com.capgemini.data.GuestRepository;
 import com.capgemini.data.ReservationRepository;
+import com.capgemini.data.RoomRepository;
 import com.capgemini.data.RoomTypeRepository;
 import com.capgemini.domain.Guest;
 import com.capgemini.domain.Reservation;
@@ -31,11 +33,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { TestJpaConfig.class }, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = { MolvenolakeresortApplication.class, TestJpaConfig.class }, loader = AnnotationConfigContextLoader.class)
 @Transactional
 public class ReservationTests {
     @Autowired
@@ -44,6 +47,10 @@ public class ReservationTests {
     ReservationService reservationService;
     @Autowired
     RoomTypeRepository roomTypeRepository;
+    @Autowired
+    GuestRepository guestRepository;
+    @Autowired
+    RoomRepository roomRepository;
     @Autowired
     RoomTypeService roomTypeService;
 
@@ -59,6 +66,13 @@ public class ReservationTests {
         MockitoAnnotations.initMocks(this);
 
         guest = new Guest();
+        guest.setLastName("van de Moosdijk");
+        guest.setFirstName("Thom");
+        guest.setPassword("dummypassword");
+        guest.setCity("Utrecht");
+        guest.setMail("Thom@moosjes.nl");
+        guest.setAddress("Reykjavikplein 1");
+        guestRepository.save(guest);
 
         try {
             startDate = dateFormat.parse("19-04-2018");
@@ -68,14 +82,16 @@ public class ReservationTests {
             e.printStackTrace();
         }
         room = new Room();
-
         roomTypeRepository.save(new RoomType((byte) 2, (byte) 0));
         roomTypeRepository.save(new RoomType((byte) 4, (byte) 0));
         roomTypeRepository.save(new RoomType((byte) 6, (byte) 0));
         roomTypeRepository.save(new RoomType((byte) 2, (byte) 1));
         roomTypeRepository.save(new RoomType((byte) 2, (byte) 2));
         roomTypeRepository.save(new RoomType((byte) 2, (byte) 3));
-        roomType = roomTypeRepository.findById((long) 1).get();
+        List<RoomType> types = roomTypeRepository.findAll();
+        roomType = roomTypeRepository.findAll().stream().findFirst().get();
+        room.setRoomType(roomType);
+        roomRepository.save(room);
     }
 
     @Test
@@ -94,7 +110,7 @@ public class ReservationTests {
         Reservation myReservation = new Reservation(startDate, endDate, guest, 6, room, roomType);
         reservationRepository.save(myReservation);
 
-        Reservation reservation = reservationService.getReservationByID(1);
+        Reservation reservation = reservationService.getReservationByID(myReservation.getReservationID());
         // if(myReservation.equals(reservation))
         // Tests if the correct reservation returns correctly by GetReservationID();
         assertEquals(myReservation.getReservationID(), reservation.getReservationID());
@@ -102,7 +118,6 @@ public class ReservationTests {
 
     @Test
     public void testGetReservationByName() {
-        guest.setLastName("van de Moosdijk");
         Reservation myReservation = new Reservation(startDate, endDate, guest, 6, room, roomType);
         reservationRepository.save(myReservation);
 
