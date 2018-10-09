@@ -18,7 +18,7 @@ $(document).ready(function(){
 
     if (sPage == "single_room.html" || sPage == "reservation_confirm.html"){
         viewSingleRoomData(startDate, endDate, amountOfGuests);
-    }else if(sPage == "all_rooms.js"){
+    }else if(sPage == "all_rooms.html"){
         viewAllRoomsData(startDate, endDate, amountOfGuests);
     }
 });
@@ -37,7 +37,7 @@ function viewAllRoomsData(startDate, endDate, amountOfGuests){
     let roomTypeApi = "http://localhost:8080/roomtype/available/";
 
     $.ajax({
-        url: roomTypeApi + startDate + "T12:28:35.584+0000/" + endDate + "T12:28:35.584+0000",
+        url: roomTypeApi + startDate.innerHTML + "/" + endDate.innerHTML,
         type: "get",
         success: function(data){
             // For each room in room list, create a new element. After 3, add new row  
