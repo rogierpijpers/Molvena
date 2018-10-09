@@ -2,6 +2,9 @@ language: java
 install:
 - mvn -N io.takari:maven:wrapper
 - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+addons:
+  sonarcloud:
+    organization: "rogierpijpers_Molveno"
 notifications:
   email: false
   slack: capgemax:7MDJtZvUxLRcMITeBaRwZp1a
