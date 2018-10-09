@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.context.WebApplicationContext;
@@ -38,6 +40,9 @@ public class GuestControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private GuestRepository guestRepository;
@@ -76,11 +81,18 @@ public class GuestControllerTest {
                 .andExpect(status().isOk());
 
         // Get this guest
-        this.mockMvc.perform(get("/guest/普里@阿育王。印度"))
+        MvcResult mvcResult = this.mockMvc.perform(get("/guest/普里@阿育王。印度").characterEncoding("UTF-8"))
                 .andDo(print())
-                .andExpect(status().isOk());
-                // Json is unable to parse chinese characters back. Is there any way to fix this?
-                // .andExpect(content().json(guestWithChineseCharactersInNameAsJsonString));
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String responseJson = mvcResult.getResponse().getContentAsString();
+        Guest responseGuest = objectMapper.readValue(responseJson, Guest.class);
+
+        Assert.assertEquals(guest.getMail(), responseGuest.getMail());
+        Assert.assertEquals(guest.getFirstName(), responseGuest.getFirstName());
+        Assert.assertEquals(guest.getLastName(), responseGuest.getLastName());
+        Assert.assertTrue(passwordEncoder.matches(guest.getPassword(), responseGuest.getPassword()));
     }
 
     @Test
