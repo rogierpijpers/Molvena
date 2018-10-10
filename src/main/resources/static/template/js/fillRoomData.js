@@ -87,84 +87,71 @@ function viewSingleRoomData(startDate, endDate, amountOfGuests){
 
     singleBedsElement.text(singleBeds);
     doubleBedsElement.text(doubleBeds);
-    let newButton = "<a onclick='createBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds)' class='button_hover theme_btn_two' style='3px solid black'>CONFIRM BOOKING</a>";
-    //let newButton = "<a onclick='createBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds)' class='button_hover theme_btn_two' style='3px solid black' href='reservation_confirm.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + "&singleBeds=" + singleBeds + "&doubleBeds=" + doubleBeds + "'>CONFIRM BOOKING</a>";
+    let newButton = "<a href='' onclick='confirmBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds)' class='button_hover theme_btn_two'>CONFIRM BOOKING</a>";
     let confirmButtonWrapper = $("#confirmButtonWrapper");
     confirmButtonWrapper.append(newButton);
 }
 
-function getCurrentUser(){
-    let currentUserApi = "http://localhost:8080/account/";
-    let currentUser = "";
-    // Get current user
+function confirmBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds){
+    let loggedInApi = "http://localhost:8080/account/check";
     $.ajax({
-        url: currentUserApi,
+        url: loggedInApi,
         type: "get",
         success: function(data){
-            console.log(data);      
-            return data;
+            if (data == false){
+                window.location.href = "http://localhost:8080/login";
+            }else{ 
+                createBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds);
+                window.location.href="http://localhost:8080/template/reservation_confirm.html?startDate=" + startDate.innerHTML + "&endDate=" + endDate.innerHTML + "&guests=" + amountOfGuests.innerHTML + "&singleBeds=" + singleBeds.innerHTML + "&doubleBeds=" + doubleBeds.innerHTML;
+            }
         },
         error: function(error){           
             console.log("Error: " + error);
-            return null;
         }
     });
 }
 
 function createBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds){
-
-    let currentUser = getCurrentUser();
-    // User is not logged in
-    if (currentUser == undefined){
-        window.location.href = "https://localhost:8080/login";
-    }else{
-        window.location.href="https://localhost:8080/template/reservation_confirm.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + "&singleBeds=" + singleBeds + "&doubleBeds=" + doubleBeds;
-        let createReservationApi = "http://localhost:8080/reservation/";
-    // Use current user and booking details to send data to the backend
-    // Minor bug: .innerHTML shouldn't be necessary, but is.
-    let user = getCurrentUser();
-    console.log(user);
-    if (user == undefined){
-        console.log("yea");
-        window.location.href = "https://www.example.com";
-        break;
-    }       
-
-    let postRequest = {
-        "startDate": startDate.innerHTML+"T12:37:28.499+0000",
-        "endDate": endDate.innerHTML+"T12:37:28.499+0000",
-        "guest": user,
-        "amountOfGuests": parseInt(amountOfGuests.innerHTML),
-        "room": {
-            "roomType": {
-                "singleBeds": parseInt(singleBeds.innerHTML),
-                "doubleBeds": parseInt(doubleBeds.innerHTML)
-            }
-        }
-     };
-
-    let postRequestStringifyd = JSON.stringify(postRequest);
-
-    console.log(postRequestStringifyd);
-
+    let userApi = "http://localhost:8080/account";
+    let createReservationApi = "http://localhost:8080/reservation";
+ 
     $.ajax({
-        url: createReservationApi,
-        type: "post",
-        contentType: "application/json",
-        body: postRequestStringifyd,
-        success: function(){
-            console.log("Successfully created reservation");
+        url: userApi,
+        type: "get",
+        success: function(data){
+            let postRequest = {
+                "startDate": startDate.innerHTML+"T12:37:28.499+0000",
+                "endDate": endDate.innerHTML+"T12:37:28.499+0000",
+                "guest": data,
+                "amountOfGuests": parseInt(amountOfGuests.innerHTML),
+                "room": {
+                    "roomType": {
+                        "singleBeds": parseInt(singleBeds.innerHTML),
+                        "doubleBeds": parseInt(doubleBeds.innerHTML)
+                    }
+                }
+             };
+             
+        let postRequestStringifyd = JSON.stringify(postRequest);
+
+        console.log(postRequestStringifyd);
+
+        $.ajax({
+            url: createReservationApi,
+            type: "post",
+            contentType: "application/json",
+            body: postRequestStringifyd,
+            success: function(){
+                console.log("Successfully created reservation");
+            },
+            error: function(error){           
+                console.log("Error creating reservation: " + error);
+            }
+        });
         },
         error: function(error){           
-            console.log("Error creating reservation: " + error);
+            console.log("Error: " + error);
         }
+  
     });
-   
-    }
-
-
-
-
-
-    
 }
