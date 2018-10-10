@@ -8,6 +8,7 @@ import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
 import com.capgemini.web.authentication.AuthenticationHelper;
+import com.capgemini.web.dto.CancelReservationDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -163,5 +164,57 @@ public class ReservationControllerTest {
         } catch (Exception e) {
             Assert.assertTrue(e.getCause() instanceof AccessDeniedException);
         }
+    }
+
+    @Test
+    @WithMockUser(username="Jan@vandijk.nl", roles={"GUEST"})
+    public void testCancelReservationAsGuest() throws Exception {
+        List<Reservation> myReservations = reservationService.getReservationsByUsername("Jan@vandijk.nl");
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(df);
+
+        Reservation reservation = myReservations.get(0);
+
+        CancelReservationDTO dto = new CancelReservationDTO();
+        dto.setChargeCancellationConditions(false);
+        dto.setReservationId(reservation.getReservationID());
+
+        String reservationsJson = objectMapper.writeValueAsString(dto);
+
+        this.mockMvc.perform(put("/reservation/cancel/" + reservation.getReservationID()).contentType(MediaType.APPLICATION_JSON)
+                .content(reservationsJson)).andDo(print()).andExpect(status().isOk());
+
+        this.mockMvc.perform(get("/reservation/" + reservation.getReservationID())).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("\"chargedPercentage\":100.0")));
+    }
+
+    @Test
+    @WithMockUser(username="Corry@vanvliet.nl", roles={"RECEPTIONIST"})
+    public void testCancelReservationAsReceptionistFreeOfCharge() throws Exception {
+        List<Reservation> myReservations = reservationService.getReservationsByUsername("Jan@vandijk.nl");
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(df);
+
+        Reservation reservation = myReservations.get(0);
+
+        CancelReservationDTO dto = new CancelReservationDTO();
+        dto.setChargeCancellationConditions(false);
+        dto.setReservationId(reservation.getReservationID());
+
+        String reservationsJson = objectMapper.writeValueAsString(dto);
+
+        this.mockMvc.perform(put("/reservation/cancel/" + reservation.getReservationID()).contentType(MediaType.APPLICATION_JSON)
+                .content(reservationsJson)).andDo(print()).andExpect(status().isOk());
+
+        this.mockMvc.perform(get("/reservation/" + reservation.getReservationID())).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("\"chargedPercentage\":0.0")));
     }
 }
