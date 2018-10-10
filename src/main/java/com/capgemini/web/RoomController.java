@@ -56,7 +56,7 @@ public class RoomController {
 
     @RequestMapping("/roomtype/")
     public List<RoomType> getRoomTypes(){
-        return roomTypeRepository.getAllRoomTypes();
+        return roomTypeRepository.findAll();
 
     }
 
