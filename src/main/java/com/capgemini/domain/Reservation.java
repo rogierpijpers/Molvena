@@ -27,14 +27,11 @@ public class Reservation {
         this.room = room;
     }
 
-    private Room room;
-    private boolean checkedIn;
-    private boolean isDeleted;
-
     public ReservationCancellation getReservationCancellation() {
         return reservationCancellation;
     }
 
+    @OneToOne(cascade = CascadeType.ALL)
     private ReservationCancellation reservationCancellation;
 
     public boolean isDeleted() {

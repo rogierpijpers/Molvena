@@ -145,7 +145,7 @@ public class DummyDataSeeder {
         employee1.setState("");
         employee1.setCountry("NL");
         employee1.setDateOfBirth(new Date(31-8-1994));
-        employee1.setRole("ROLE_ADMIN");
+        employee1.setRole("ROLE_RECEPTIONIST");
         employeeRepository.save(employee1);
     }
 

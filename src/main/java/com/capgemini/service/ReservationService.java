@@ -93,11 +93,11 @@ public class ReservationService {
         ReservationCancellation cancellation = new ReservationCancellation(new Date());
         cancellation.setChargeCancellationConditions(chargeCancellationConditions);
         reservation.cancel(cancellation);
-        reservationRepository.updateReservation(reservation.getReservationID(), reservation);
+        reservationRepository.save(reservation);
     }
 
-    public Reservation getReservationByID(int id) {
-        for (Reservation reservation : reservationRepository.getAllReservations()) {
+    public Reservation getReservationByID(long id) {
+        for (Reservation reservation : reservationRepository.findAll()) {
             if (reservation.getReservationID() == id) {
                 return reservation;
             }
