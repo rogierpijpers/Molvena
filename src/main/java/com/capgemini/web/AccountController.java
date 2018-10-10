@@ -19,7 +19,7 @@ public class AccountController {
     public Person getCurrentUser(){
         String username = AuthenticationHelper.getCurrentUsername();
         Person person = personRepository.getSinglePerson(username);
-        person.setPassword("");
+        //person.setPassword("");
         return person;
     }
 
