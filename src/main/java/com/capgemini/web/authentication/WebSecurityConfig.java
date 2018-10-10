@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .formLogin();
         auth.csrf().disable();
+        auth.headers().frameOptions().disable();
     }
 
     @Override

@@ -1,14 +1,13 @@
 package com.capgemini.web;
 
-import com.capgemini.domain.Guest;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
 import com.capgemini.service.RoomService;
 import com.capgemini.service.RoomTypeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.capgemini.web.util.exception.InvalidInputException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

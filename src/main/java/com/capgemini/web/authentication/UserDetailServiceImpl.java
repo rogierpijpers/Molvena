@@ -16,7 +16,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public User loadUserByUsername(String username) {
-        Person person = personRepository.getSinglePerson(username);
+        Person person = personRepository.findByMail(username);
         if(person == null){
             throw new BadCredentialsException("Bad credentials");
         }

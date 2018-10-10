@@ -6,6 +6,8 @@ import com.capgemini.domain.Reservation;
 import com.capgemini.domain.ReservationCancellation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
+import com.capgemini.web.util.exception.InvalidInputException;
+import com.capgemini.web.util.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,13 +31,13 @@ public class ReservationService {
     }
 
     public List<Reservation> getAllReservations(){
-        return reservationRepository.getAllReservations();
+        return reservationRepository.findAll();
     }
 
     public List<Room> getAllAvailableRooms(Date startDate, Date endDate) {
         List<Room> availableRooms = new ArrayList();
         List<Room> notAvailableRooms = getRoomsWithReservation(startDate, endDate);
-        List<Room> allRooms = roomRepository.getAllRooms();
+        List<Room> allRooms = roomRepository.findAll();
         for (Room room : allRooms) {
             if (!notAvailableRooms.contains(room)) {
                 availableRooms.add(room);
@@ -57,7 +59,7 @@ public class ReservationService {
     private List<Room> getRoomsWithReservation(Date startDate, Date endDate) {
         List<Room> allReservedRooms = new ArrayList();
 
-        for (Reservation reservation : reservationRepository.getAllReservations()) {
+        for (Reservation reservation : reservationRepository.findAll()) {
             Date reservationStart = reservation.getStartDate();
             Date reservationEnd = reservation.getEndDate();
 
@@ -81,6 +83,7 @@ public class ReservationService {
     public void softDelete(Reservation reservation) throws InvalidObjectException{
         if(getReservationByID(reservation.getReservationID()) != null){
             reservation.setDeleted(true);
+            reservationRepository.save(reservation);
         } else {
             throw new InvalidObjectException("Reservation not found.");
         }
@@ -90,11 +93,11 @@ public class ReservationService {
         ReservationCancellation cancellation = new ReservationCancellation(new Date());
         cancellation.setChargeCancellationConditions(chargeCancellationConditions);
         reservation.cancel(cancellation);
-        reservationRepository.updateReservation(reservation.getReservationID(), reservation);
+        reservationRepository.save(reservation);
     }
 
-    public Reservation getReservationByID(int id) {
-        for (Reservation reservation : reservationRepository.getAllReservations()) {
+    public Reservation getReservationByID(long id) {
+        for (Reservation reservation : reservationRepository.findAll()) {
             if (reservation.getReservationID() == id) {
                 return reservation;
             }
@@ -107,11 +110,11 @@ public class ReservationService {
     }
 
     public List<Reservation> getReservationsByUsername(String username){
-        return reservationRepository.getAllReservations().stream().filter(x -> x.getGuest().getMail().equals(username)).collect(Collectors.toList());
+        return reservationRepository.findAll().stream().filter(x -> x.getGuest().getMail().equals(username)).collect(Collectors.toList());
     }
 
     public Reservation getReservationByName(String lastName) {
-        for (Reservation reservation : reservationRepository.getAllReservations()) {
+        for (Reservation reservation : reservationRepository.findAll()) {
             if (reservation.getGuest().getLastName() == lastName) {
                 return reservation;
             }
@@ -120,11 +123,18 @@ public class ReservationService {
     }
 
     public void addReservation(Reservation reservation){
-        reservationRepository.addReservation(reservation);
+        reservationRepository.save(reservation);
     }
 
 
-    public void updateReservation(int id, Reservation reservation){
-        reservationRepository.updateReservation(id, reservation);
+    public void updateReservation(long id, Reservation reservation) throws ObjectNotFoundException, InvalidInputException {
+        if(id != reservation.getReservationID())
+            throw new InvalidInputException();
+
+        Optional<Reservation> foundReservation = reservationRepository.findById(reservation.getReservationID());
+        if(foundReservation.isPresent())
+            reservationRepository.save(reservation);
+        else
+            throw new ObjectNotFoundException();
     }
 }

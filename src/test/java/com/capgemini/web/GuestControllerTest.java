@@ -1,5 +1,6 @@
 package com.capgemini.web;
 
+import com.capgemini.TestJpaConfig;
 import com.capgemini.data.GuestRepository;
 import com.capgemini.domain.Guest;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,10 +15,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -98,7 +103,7 @@ public class GuestControllerTest {
     @Test
     @WithMockUser(username="Jan@vandijk.nl", roles={"GUEST"})
     public void testUpdateGuest() throws Exception {
-        Guest guest = guestRepository.getGuestByUsername("Jan@vandijk.nl");
+        Guest guest = guestRepository.findByMail("Jan@vandijk.nl");
         Assert.assertTrue(guest.getFirstName().equals("Jan"));
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
