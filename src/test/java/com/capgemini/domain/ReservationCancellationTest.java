@@ -17,7 +17,7 @@ public class ReservationCancellationTest {
     }
 
     @Test
-    public void testCancellationC0Percent(){
+    public void testCancellation0Percent(){
         Date date = createDateMinus(21);
 
         ReservationCancellation cancellation = new ReservationCancellation(date);
@@ -57,7 +57,7 @@ public class ReservationCancellationTest {
     }
 
     @Test
-    public void testCancellationhargeFree(){
+    public void testCancellationChargeFree(){
         Date date = createDateMinus(2);
 
         ReservationCancellation cancellation = new ReservationCancellation(date);
