@@ -35,11 +35,23 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
 
+    @Autowired
+    private RoomTypeService roomTypeService;
+
     // public
     @RequestMapping("/roomtype/available/{startDate}/{endDate}")
     public List<RoomTypeWithCountDTO> getAvailableRoomTypes(@PathVariable("startDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date startDate, @PathVariable("endDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date endDate){
         return reservationService.getAllAvailableRooms(startDate, endDate).stream().collect(Collectors.groupingBy(Room::getRoomType, Collectors.counting()))
             .entrySet().stream().map(x -> new RoomTypeWithCountDTO(x.getKey(), x.getValue())).collect(Collectors.toList());
+    }
+
+    @RequestMapping("/roomtype/available/{startDate}/{endDate}/{roomTypeId}")
+    public long getAvailableRoomsOfRoomType(@PathVariable("startDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date startDate, @PathVariable("endDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date endDate, @PathVariable("roomTypeId") int roomTypeId) throws ObjectNotFoundException {
+        RoomType roomType = roomTypeService.getRoomTypeById(roomTypeId);
+        if(roomType == null)
+            throw new ObjectNotFoundException("RoomType with ID: " + roomTypeId + " not found.");
+
+        return reservationService.getAllAvailableRooms(startDate, endDate, roomType).stream().filter(x -> x.getRoomType().equals(roomType)).count();
     }
 
     @RequestMapping("/roomtype/")
