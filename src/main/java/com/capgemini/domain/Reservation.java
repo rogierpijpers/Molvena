@@ -2,26 +2,37 @@ package com.capgemini.domain;
 
 import com.capgemini.exceptions.InvalidDateException;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Entity
 public class Reservation {
-    private int reservationID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long reservationID;
     private Date startDate;
     private Date endDate;
+    @ManyToOne
     private Guest guest;
     private int amountOfGuests;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Room room;
+    private boolean checkedIn;
+    private boolean isDeleted;
 
     public void setRoom(Room room) {
         this.room = room;
     }
 
-    private Room room;
-    private boolean checkedIn;
-    private boolean isDeleted;
+    public ReservationCancellation getReservationCancellation() {
+        return reservationCancellation;
+    }
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private ReservationCancellation reservationCancellation;
 
     public boolean isDeleted() {
         return isDeleted;
@@ -44,7 +55,7 @@ public class Reservation {
         this.isDeleted = false;
     }
 
-    public int getReservationID() {
+    public long getReservationID() {
         return reservationID;
     }
 
@@ -139,5 +150,13 @@ public class Reservation {
     @Override
     public String toString(){
         return startDate.toString() + " - " + endDate.toString() + ". " + guest.getFirstName() + " " + guest.getLastName() + ". " + amountOfGuests;
+    }
+
+    public boolean isCancelled() {
+        return reservationCancellation != null;
+    }
+
+    public void cancel(ReservationCancellation cancellation) {
+        reservationCancellation = cancellation;
     }
 }

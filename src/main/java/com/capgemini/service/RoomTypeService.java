@@ -17,7 +17,7 @@ public class RoomTypeService {
         return people;
     }
 
-    public RoomType getRoomTypeById(int id){
-        return roomTypeRepository.getRoomType(id);
+    public RoomType getRoomTypeById(long id){
+        return roomTypeRepository.findById(id).orElse(null);
     }
 }

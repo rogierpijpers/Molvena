@@ -1,7 +1,24 @@
 package com.capgemini.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class RoomType {
+    public long getRoomTypeId() {
+        return roomTypeId;
+    }
+
+    public void setRoomTypeId(long roomTypeId) {
+        this.roomTypeId = roomTypeId;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long roomTypeId;
+
     private byte singleBeds;
     private byte doubleBeds;
 

@@ -2,9 +2,11 @@ package com.capgemini.web;
 
 import com.capgemini.data.GuestRepository;
 import com.capgemini.domain.Guest;
+import com.capgemini.service.GuestService;
 import com.capgemini.service.RegistrationService;
 import com.capgemini.web.authentication.AuthenticationHelper;
 import com.capgemini.web.util.exception.InvalidInputException;
+import com.capgemini.web.util.exception.ObjectNotFoundException;
 import com.capgemini.web.util.exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -13,18 +15,19 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
 public class GuestController {
 
     @Autowired
-    private GuestRepository guestRepository;
+    private GuestService guestService;
 
     @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/guest/")
-    public List<Guest> getAllGuests(){
-        return guestRepository.getAllGuests();
+    public Iterable<Guest> getAllGuests(){
+        return guestService.getAllGuests();
     }
 
     @Secured({"ROLE_GUEST", "ROLE_ADMIN", "ROLE_RECEPTIONIST"})
@@ -33,11 +36,11 @@ public class GuestController {
         if(AuthenticationHelper.userIsGuest()) {
             String loggedInUsername = AuthenticationHelper.getCurrentUsername();
             if(username.equals(loggedInUsername))
-                return guestRepository.getGuestByUsername(username);
+                return guestService.getGuestByUsername(username);
             else
                 throw new UnauthorizedException();
         }else if(AuthenticationHelper.userIsAdmin() || AuthenticationHelper.userIsReceptionist()){
-            return guestRepository.getGuestByUsername(username);
+            return guestService.getGuestByUsername(username);
         } else {
             throw new UnauthorizedException("You are not logged in");
         }
@@ -53,12 +56,13 @@ public class GuestController {
         if(AuthenticationHelper.userIsGuest()){
             String loggedInUsername = AuthenticationHelper.getCurrentUsername();
             if(guest.getMail().equals(loggedInUsername)){
-                guestRepository.updateGuest(username, guest);
+                guestService.createGuest(guest);
             }else{
                 throw new UnauthorizedException("You are trying to update someone else's account");
             }
+            guestService.createGuest(guest);
         }else if(AuthenticationHelper.userIsAdmin() || AuthenticationHelper.userIsReceptionist()){
-            guestRepository.updateGuest(username, guest);
+            guestService.createGuest(guest);
         } else {
             throw new UnauthorizedException("This role is not allowed to update guests");
         }
@@ -79,15 +83,15 @@ public class GuestController {
 
     @Secured({"ROLE_GUEST", "ROLE_RECEPTIONIST","ROLE_ADMIN"})
     @RequestMapping(value = "/guest/{id}", method = RequestMethod.DELETE)
-    public void softDeleteGuest(@PathVariable int id) throws UnauthorizedException {
+    public void softDeleteGuest(@PathVariable long id) throws UnauthorizedException, ObjectNotFoundException {
         if(AuthenticationHelper.userIsGuest()) {
-            if(guestRepository.getGuestByUsername(AuthenticationHelper.getCurrentUsername()).getId() == id){
-                guestRepository.deleteGuest(id);
+            if(guestService.getGuestByUsername(AuthenticationHelper.getCurrentUsername()).getId() == id){
+                guestService.deleteGuest(id);
             } else {
                 throw new UnauthorizedException("You can not delete someone else on this role");
             }
         } else {
-            guestRepository.deleteGuest(id);
+            guestService.deleteGuest(id);
         }
     }
 }

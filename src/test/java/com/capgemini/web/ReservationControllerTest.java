@@ -1,5 +1,6 @@
 package com.capgemini.web;
 
+import com.capgemini.TestJpaConfig;
 import com.capgemini.data.GuestRepository;
 import com.capgemini.data.ReservationRepository;
 import com.capgemini.domain.Guest;
@@ -8,6 +9,7 @@ import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
 import com.capgemini.web.authentication.AuthenticationHelper;
+import com.capgemini.web.dto.CancelReservationDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -31,23 +33,29 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.test.context.web.AnnotationConfigWebContextLoader;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.validation.constraints.Max;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -71,17 +79,50 @@ public class ReservationControllerTest {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
+    private Reservation createDummyReservation(Guest guest){
+        Date startDate = new Date();
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(startDate);
+        cal.add(Calendar.DATE, 1);
+        Date endDate = cal.getTime();
+
+        Room room = new Room();
+        room.setRoomID((short) 0);
+        room.setRoomType(new RoomType((byte)2, (byte)2));
+
+        Reservation myReservation = new Reservation(startDate, endDate, (Guest) guest, 6, room, room.getRoomType());
+        return myReservation;
+    }
+
+    private Guest createDummyGuest(){
+        Guest guest = new Guest();
+        guest.setFirstName("Jan");
+        guest.setLastName("van Dijk");
+        guest.setPhone("123456789");
+        guest.setPassword("$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2");
+        guest.setMail("Jan@vandijk.nl");
+        guest.setAddress("Straat 1");
+        guest.setZipCode("5555LL");
+        guest.setCountry("NL");
+        guest.setDateOfBirth(new Date(31-8-1994));
+        return guest;
+    }
+
     @Test
     @WithMockUser(username="Jan@vandijk.nl", roles={"GUEST"})
     public void testGetReservationsForGuest() throws Exception{
-        List<Reservation> myReservations = reservationService.getReservationsByUsername("Jan@vandijk.nl");
+        Guest guest = createDummyGuest();
+        guestRepository.save(guest);
+
+        Reservation reservation = createDummyReservation(guest);
+        reservationService.addReservation(reservation);
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         df.setTimeZone(TimeZone.getTimeZone("GMT"));
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.setDateFormat(df);
-        String reservationsJson = objectMapper.writeValueAsString(myReservations);
+        String reservationsJson = objectMapper.writeValueAsString(reservationService.getReservationsByUsername("Jan@vandijk.nl"));
 
         this.mockMvc.perform(get("/reservation/")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().json(reservationsJson));
@@ -144,7 +185,7 @@ public class ReservationControllerTest {
         objectMapper.setDateFormat(df);
 
         Reservation reservation = new Reservation();
-        reservation.setGuest(guestRepository.getGuestByUsername("Corry@vanvliet.nl"));
+        reservation.setGuest(guestRepository.findByMail("Corry@vanvliet.nl"));
         reservation.setAmountOfGuests(5);
         reservation.setStartDate(new Date());
         reservation.setEndDate(new Date());
@@ -163,5 +204,57 @@ public class ReservationControllerTest {
         } catch (Exception e) {
             Assert.assertTrue(e.getCause() instanceof AccessDeniedException);
         }
+    }
+
+    @Test
+    @WithMockUser(username="Jan@vandijk.nl", roles={"GUEST"})
+    public void testCancelReservationAsGuest() throws Exception {
+        List<Reservation> myReservations = reservationService.getReservationsByUsername("Jan@vandijk.nl");
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(df);
+
+        Reservation reservation = myReservations.get(0);
+
+        CancelReservationDTO dto = new CancelReservationDTO();
+        dto.setChargeCancellationConditions(false);
+        dto.setReservationId(reservation.getReservationID());
+
+        String reservationsJson = objectMapper.writeValueAsString(dto);
+
+        this.mockMvc.perform(put("/reservation/cancel/" + reservation.getReservationID()).contentType(MediaType.APPLICATION_JSON)
+                .content(reservationsJson)).andDo(print()).andExpect(status().isOk());
+
+        this.mockMvc.perform(get("/reservation/" + reservation.getReservationID())).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("\"chargedPercentage\":100.0")));
+    }
+
+    @Test
+    @WithMockUser(username="Corry@vanvliet.nl", roles={"RECEPTIONIST"})
+    public void testCancelReservationAsReceptionistFreeOfCharge() throws Exception {
+        List<Reservation> myReservations = reservationService.getReservationsByUsername("Jan@vandijk.nl");
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.setDateFormat(df);
+
+        Reservation reservation = myReservations.get(0);
+
+        CancelReservationDTO dto = new CancelReservationDTO();
+        dto.setChargeCancellationConditions(false);
+        dto.setReservationId(reservation.getReservationID());
+
+        String reservationsJson = objectMapper.writeValueAsString(dto);
+
+        this.mockMvc.perform(put("/reservation/cancel/" + reservation.getReservationID()).contentType(MediaType.APPLICATION_JSON)
+                .content(reservationsJson)).andDo(print()).andExpect(status().isOk());
+
+        this.mockMvc.perform(get("/reservation/" + reservation.getReservationID())).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("\"chargedPercentage\":0.0")));
     }
 }
