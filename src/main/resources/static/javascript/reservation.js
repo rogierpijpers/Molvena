@@ -1,5 +1,4 @@
 $(document).ready(function () {
-getRoomTypes();
 
     fillDropdown('inputEmail');
     fillDropdown('updateEmail');
@@ -42,16 +41,20 @@ getRoomTypes();
         document.getElementById("updateCheckIn").setAttribute("max", checkOutInput);
     });
 
-    function getRoomTypes(){
+    function getRoomTypesInput(){
         $.ajax({
-                url: "http://localhost:8080/roomtype/",
+                url: "http://localhost:8080/roomtype/available/" + $("#inputCheckIn")[0].value +"/"+ $("#inputCheckOut")[0].value +"",
+
                 type: "get",
                 success: function(data){
                     let dropdown = $("#updateRoom");
                     let dropdown2 = $("#inputRoom");
+
+
                     $.each(data, function(index, value){
-                        dropdown.append(new Option(value.name));
-                        dropdown2.append(new Option(value.name));
+                    console.log(value)
+                        dropdown.append("<option value=\"" + value.roomType.roomTypeId + "\">" + value.roomType.name + "</option>");
+                        dropdown2.append("<option value=\"" + value.roomType.roomTypeId + "\">" + value.roomType.name + "</option>");
                     });
                 },
                 error: function(error){
@@ -59,29 +62,6 @@ getRoomTypes();
                 }
             });
     }
-
-//    function roomSwitch(room){
-//        switch(room){
-//            case "1":
-//            room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
-//                    break;
-//            case "2":
-//            room = {"roomID":0,"roomType":{"singleBeds":2,"doubleBeds":0}}
-//                    break;
-//            case "3":
-//            room = {"roomID":0,"roomType":{"singleBeds":3,"doubleBeds":0}}
-//                    break;
-//            case "4":
-//            room = {"roomID":0,"roomType":{"singleBeds":4,"doubleBeds":0}}
-//                    break;
-//            case "5":
-//            room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":1}}
-//                    break;
-//            case "6":
-//            room = {"roomID":0,"roomType":{"singleBeds":0,"doubleBeds":2}}
-//                    break;
-//        }
-//    }
 
     function postData() {
         var email = $("#inputEmail").val();
@@ -96,8 +76,6 @@ getRoomTypes();
                 success: function(result){;
                     email = result;
 
-//                    roomSwitch(room);
-
                      var newReservation = {
                                 "startDate": checkIn,
                                 "endDate": checkOut,
@@ -107,7 +85,7 @@ getRoomTypes();
                                };
 
                     var JsonReservation = JSON.stringify(newReservation);
-
+                    console.log(JsonReservation);
                     $.ajax({
                         url:"http://localhost:8080/reservation/",
                         type:"post",
@@ -162,6 +140,15 @@ getRoomTypes();
     }
     });
     }
+
+    $("#inputCheckIn").change(function(){
+        getRoomTypesInput();
+    });
+
+
+    $("#inputCheckOut").change(function(){
+        getRoomTypesInput();
+    })
 
     function getData() {
         $.ajax({

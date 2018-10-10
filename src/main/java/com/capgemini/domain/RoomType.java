@@ -1,5 +1,6 @@
 package com.capgemini.domain;
 
+
 public class RoomType {
     private byte singleBeds;
     private byte doubleBeds;
