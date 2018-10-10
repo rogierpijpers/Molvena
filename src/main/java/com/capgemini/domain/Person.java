@@ -1,5 +1,7 @@
 package com.capgemini.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -51,6 +53,7 @@ public abstract class Person {
         this.role = role;
     }
 
+    @JsonIgnore
     protected String role;
 
     public String getState() {
