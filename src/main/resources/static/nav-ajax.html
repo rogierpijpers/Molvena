@@ -14,7 +14,6 @@
     <link href="css/styles.css" rel="stylesheet">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <body>
     <div id="wrapper">
@@ -47,9 +46,6 @@
                             <a class="molvenologo"> Molveno Lake Resort</a>
                         </li>
                         <li>
-                            <a class="fa fa-dashboard fa-fw" id="dashboard"> Dashboard</a>
-                        </li>
-                        <li>
                             <a class="fa fa-bed fa-fw" id="roommanagement"> Room Management</a>
                         </li>
                         <li>
@@ -65,42 +61,19 @@
     </div>
         <div id="page-wrapper">
                 <div class="row">
-                    <div class="col-lg-4" id="vullen">
+                    <div class="col-lg-12" id="vullen">
                     </div>
                 </div>
         </div>
 
-    <script>
-
-    $(document).ready(function () {
-
-    $("#vullen").load("http://localhost:8080/Dashboard.html");
-
-    $("#dashboard").click(function() {
-    $("#vullen").load("http://localhost:8080/Dashboard.html");
-    });
-
-    $("#roommanagement").click(function() {
-    $("#vullen").load("http://localhost:8080/Roommanagement.html");
-    });
-
-    $("#reservationmanagement").click(function() {
-    $("#vullen").load("http://localhost:8080/Reservationmanagement.html");
-    });
-
-    $("#accountmanagement").click(function() {
-    $("#vullen").load("http://localhost:8080/Accountmanagement.html");
-    });
-    });
-
-    </script>
-
+    <script src="public/vendor/jquery/jquery.min.js"></script>
     <script src="public/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="public/vendor/metisMenu/metisMenu.min.js"></script>
     <script src="public/vendor/raphael/raphael.min.js"></script>
     <script src="public/dist/js/sb-admin-2.min.js"></script>
     <script src="javascript/javascript.js"></script>
-    <script src="javascript/functions.js"></script>
+    <script src="../javascript/functions.js"></script>
+    <script src="../javascript/ajaxload.js"></script>
     
 </body>
 </html>
