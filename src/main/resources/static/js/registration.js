@@ -10,6 +10,7 @@
 	var zipcode;
 	var country;
 	var state;
+	var newsletter;
 
 function postData() {
     console.log("posting data...");
@@ -25,7 +26,8 @@ function postData() {
 		city : city,
 		zipCode : zipcode,
 		country : country,
-		state : state
+		state : state,
+		newsletter : newsletter
     };
     console.log(postrequest);
 
@@ -68,7 +70,7 @@ function postData() {
         address = $("#address").val();
         city = $("#city").val();
         zipcode = $("#zipcode").val();
-        state = $("#state").val();
+        newsletter = $('#newsletter').is(':checked');
 
             if (firstname == '' || $("#lastname").val() == '' || $("#password").val() == ''
             || $("#cpassword").val() == '' || $("#dateofbirth").val() == '' || $("#mail").val() == '' || $("#phone").val() == ''
