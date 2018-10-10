@@ -87,14 +87,13 @@ function viewSingleRoomData(startDate, endDate, amountOfGuests){
 
     singleBedsElement.text(singleBeds);
     doubleBedsElement.text(doubleBeds);
-
-    let newButton = "<a onclick='getCurrentUser(startDate, endDate, amountOfGuests, singleBeds, doubleBeds)' class='button_hover theme_btn_two' style='3px solid black' href='reservation_confirm.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + "&singleBeds=" + singleBeds + "&doubleBeds=" + doubleBeds + "'>CONFIRM BOOKING</a>";
+    let newButton = "<a onclick='createBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds)' class='button_hover theme_btn_two' style='3px solid black'>CONFIRM BOOKING</a>";
+    //let newButton = "<a onclick='createBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds)' class='button_hover theme_btn_two' style='3px solid black' href='reservation_confirm.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + "&singleBeds=" + singleBeds + "&doubleBeds=" + doubleBeds + "'>CONFIRM BOOKING</a>";
     let confirmButtonWrapper = $("#confirmButtonWrapper");
     confirmButtonWrapper.append(newButton);
-
 }
 
-function getCurrentUser(startDate, endDate, amountOfGuests, singleBeds, doubleBeds){
+function getCurrentUser(){
     let currentUserApi = "http://localhost:8080/account/";
     let currentUser = "";
     // Get current user
@@ -102,23 +101,35 @@ function getCurrentUser(startDate, endDate, amountOfGuests, singleBeds, doubleBe
         url: currentUserApi,
         type: "get",
         success: function(data){
-            currentUser = data;
-            console.log(currentUser);
+            console.log(data);      
+            return data;
         },
-        error: function(error){
+        error: function(error){           
             console.log("Error: " + error);
+            return null;
         }
-    }).done(function(data){
-        postBookingToBackend(data, startDate, endDate, amountOfGuests, singleBeds, doubleBeds);
     });
 }
 
-function postBookingToBackend(user, startDate, endDate, amountOfGuests, singleBeds, doubleBeds){
-    let createReservationApi = "http://localhost:8080/reservation/";
+function createBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds){
+
+    let currentUser = getCurrentUser();
+    // User is not logged in
+    if (currentUser == undefined){
+        window.location.href = "https://localhost:8080/login";
+    }else{
+        window.location.href="https://localhost:8080/template/reservation_confirm.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + "&singleBeds=" + singleBeds + "&doubleBeds=" + doubleBeds;
+        let createReservationApi = "http://localhost:8080/reservation/";
     // Use current user and booking details to send data to the backend
     // Minor bug: .innerHTML shouldn't be necessary, but is.
-    console.log(singleBeds);
-    console.log(singleBeds.innerHTML);
+    let user = getCurrentUser();
+    console.log(user);
+    if (user == undefined){
+        console.log("yea");
+        window.location.href = "https://www.example.com";
+        break;
+    }       
+
     let postRequest = {
         "startDate": startDate.innerHTML+"T12:37:28.499+0000",
         "endDate": endDate.innerHTML+"T12:37:28.499+0000",
@@ -130,10 +141,12 @@ function postBookingToBackend(user, startDate, endDate, amountOfGuests, singleBe
                 "doubleBeds": parseInt(doubleBeds.innerHTML)
             }
         }
-    };
-    
+     };
+
     let postRequestStringifyd = JSON.stringify(postRequest);
+
     console.log(postRequestStringifyd);
+
     $.ajax({
         url: createReservationApi,
         type: "post",
@@ -146,4 +159,12 @@ function postBookingToBackend(user, startDate, endDate, amountOfGuests, singleBe
             console.log("Error creating reservation: " + error);
         }
     });
+   
+    }
+
+
+
+
+
+    
 }
