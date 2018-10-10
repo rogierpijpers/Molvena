@@ -22,6 +22,11 @@ public class Reservation {
     private boolean checkedIn;
     private boolean isDeleted;
 
+    public ReservationCancellation getReservationCancellation() {
+        return reservationCancellation;
+    }
+
+    private ReservationCancellation reservationCancellation;
 
     public boolean isDeleted() {
         return isDeleted;
@@ -139,5 +144,13 @@ public class Reservation {
     @Override
     public String toString(){
         return startDate.toString() + " - " + endDate.toString() + ". " + guest.getFirstName() + " " + guest.getLastName() + ". " + amountOfGuests;
+    }
+
+    public boolean isCancelled() {
+        return reservationCancellation != null;
+    }
+
+    public void cancel(ReservationCancellation cancellation) {
+        reservationCancellation = cancellation;
     }
 }

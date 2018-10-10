@@ -3,6 +3,7 @@ package com.capgemini.service;
 import com.capgemini.data.ReservationRepository;
 import com.capgemini.data.RoomRepository;
 import com.capgemini.domain.Reservation;
+import com.capgemini.domain.ReservationCancellation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,12 +79,18 @@ public class ReservationService {
     }
 
     public void softDelete(Reservation reservation) throws InvalidObjectException{
-
         if(getReservationByID(reservation.getReservationID()) != null){
             reservation.setDeleted(true);
         } else {
             throw new InvalidObjectException("Reservation not found.");
         }
+    }
+
+    public void cancelReservation(Reservation reservation, boolean chargeCancellationConditions){
+        ReservationCancellation cancellation = new ReservationCancellation(new Date());
+        cancellation.setChargeCancellationConditions(chargeCancellationConditions);
+        reservation.cancel(cancellation);
+        reservationRepository.updateReservation(reservation.getReservationID(), reservation);
     }
 
     public Reservation getReservationByID(int id) {
