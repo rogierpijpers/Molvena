@@ -1,6 +1,7 @@
 package com.capgemini.web;
 
 import com.capgemini.domain.Room;
+import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
 import com.capgemini.service.RoomService;
 import com.capgemini.service.RoomTypeService;
