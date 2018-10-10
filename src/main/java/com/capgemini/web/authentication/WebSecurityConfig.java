@@ -28,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.
         authorizeRequests()
         .antMatchers("/account").fullyAuthenticated()
+        .antMatchers("/account/**").permitAll()
         .antMatchers("/roomtype/available/*/**").permitAll()
         .antMatchers("/template/**").permitAll()
         .antMatchers("/css/**").permitAll()
