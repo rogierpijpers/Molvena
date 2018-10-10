@@ -30,7 +30,7 @@ function postData() {
     startDate = document.getElementById('arrival').value;
     endDate = document.getElementById('departure').value;
     amountOfGuests = $("#persons").val();
-	window.location.href = "http://localhost:8080/template/all_rooms.html?startDate=" + startDate + "T12:00:00+01:00&endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests;
+	window.location.href = "http://localhost:8080/public/guest/all_rooms.html?startDate=" + startDate + "T12:00:00+01:00&endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests;
 }
 
 function viewAllRoomsData(startDate, endDate, amountOfGuests){  

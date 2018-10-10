@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/account").fullyAuthenticated()
         .antMatchers("/private/admin/**").access("hasAnyAuthority('ROLE_ADMIN')")
         .antMatchers("/private/receptionist/**").access("hasAnyAuthority('ROLE_ADMIN','ROLE_RECEPTIONIST')")
+        .antMatchers("/template/**").permitAll()
         .antMatchers("/public/**").permitAll()
         .antMatchers("/*").permitAll()
         .antMatchers("/").permitAll()
