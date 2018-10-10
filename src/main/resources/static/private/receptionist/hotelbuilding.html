@@ -18,7 +18,7 @@
     <link href="//cdn.datatables.net/select/1.2.6/css/select.dataTables.min.css" rel="stylesheet">
     <link href="//editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css" rel="stylesheet">
     <link href="../../public/css/styles.css" rel="stylesheet">
-    <link href="../../public/css/reservation.css" rel="stylesheet">
+    <link href="../../public/css/building.css" rel="stylesheet">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 </head>
@@ -105,6 +105,9 @@
                             <h4 class="modal-title">New Room</h4>
                         </div>
                         <div class="modal-body">
+                            <div id="roomDanger" class="alert alert-danger col-lg-12" role="alert">
+                                You have no permission to add a room, please ask the admin.
+                            </div>
                             <form data-toggle="validator" role="form" id="newRoomForm" onsubmit="return false;">
                                 <div class="row">
                                     <div class="form-group col-lg-6">
