@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     $("#make-booking").click(function() {
         postData();
     });
@@ -89,20 +88,62 @@ function viewSingleRoomData(startDate, endDate, amountOfGuests){
     singleBedsElement.text(singleBeds);
     doubleBedsElement.text(doubleBeds);
 
-    let newButton = "<a onclick='postBooking()' class='button_hover theme_btn_two' style='3px solid black' href='reservation_confirm.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + "&singleBeds=" + singleBeds + "&doubleBeds=" + doubleBeds + "'>CONFIRM BOOKING</a>";
+    let newButton = "<a onclick='getCurrentUser(startDate, endDate, amountOfGuests, singleBeds, doubleBeds)' class='button_hover theme_btn_two' style='3px solid black' href='reservation_confirm.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + "&singleBeds=" + singleBeds + "&doubleBeds=" + doubleBeds + "'>CONFIRM BOOKING</a>";
     let confirmButtonWrapper = $("#confirmButtonWrapper");
     confirmButtonWrapper.append(newButton);
 
 }
 
-function postBooking(){
-    console.log("confimring");
-    let createReservationApi = "http://localhost:8080/reservation/";
+function getCurrentUser(startDate, endDate, amountOfGuests, singleBeds, doubleBeds){
+    let currentUserApi = "http://localhost:8080/account/";
+    let currentUser = "";
+    // Get current user
+    $.ajax({
+        url: currentUserApi,
+        type: "get",
+        success: function(data){
+            currentUser = data;
+            console.log(currentUser);
+        },
+        error: function(error){
+            console.log("Error: " + error);
+        }
+    }).done(function(data){
+        postBookingToBackend(data, startDate, endDate, amountOfGuests, singleBeds, doubleBeds);
+    });
+}
 
-//     $.ajax({
-//         url: createReservationApi,
-//         type: "post",
-//         contentType: "application/json",
-//         body: ""
-//     })
+function postBookingToBackend(user, startDate, endDate, amountOfGuests, singleBeds, doubleBeds){
+    let createReservationApi = "http://localhost:8080/reservation/";
+    // Use current user and booking details to send data to the backend
+    // Minor bug: .innerHTML shouldn't be necessary, but is.
+    console.log(singleBeds);
+    console.log(singleBeds.innerHTML);
+    let postRequest = {
+        "startDate": startDate.innerHTML+"T12:37:28.499+0000",
+        "endDate": endDate.innerHTML+"T12:37:28.499+0000",
+        "guest": user,
+        "amountOfGuests": parseInt(amountOfGuests.innerHTML),
+        "room": {
+            "roomType": {
+                "singleBeds": parseInt(singleBeds.innerHTML),
+                "doubleBeds": parseInt(doubleBeds.innerHTML)
+            }
+        }
+    };
+    
+    let postRequestStringifyd = JSON.stringify(postRequest);
+    console.log(postRequestStringifyd);
+    $.ajax({
+        url: createReservationApi,
+        type: "post",
+        contentType: "application/json",
+        body: postRequestStringifyd,
+        success: function(){
+            console.log("Successfully created reservation");
+        },
+        error: function(error){           
+            console.log("Error creating reservation: " + error);
+        }
+    });
 }
