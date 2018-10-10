@@ -3,6 +3,7 @@ package com.capgemini.service;
 import com.capgemini.data.ReservationRepository;
 import com.capgemini.data.RoomRepository;
 import com.capgemini.domain.Reservation;
+import com.capgemini.domain.ReservationCancellation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import com.capgemini.web.util.exception.InvalidInputException;
@@ -80,7 +81,6 @@ public class ReservationService {
     }
 
     public void softDelete(Reservation reservation) throws InvalidObjectException{
-
         if(getReservationByID(reservation.getReservationID()) != null){
             reservation.setDeleted(true);
             reservationRepository.save(reservation);
@@ -89,8 +89,15 @@ public class ReservationService {
         }
     }
 
-    public Reservation getReservationByID(long id) {
-        for (Reservation reservation : reservationRepository.findAll()) {
+    public void cancelReservation(Reservation reservation, boolean chargeCancellationConditions){
+        ReservationCancellation cancellation = new ReservationCancellation(new Date());
+        cancellation.setChargeCancellationConditions(chargeCancellationConditions);
+        reservation.cancel(cancellation);
+        reservationRepository.updateReservation(reservation.getReservationID(), reservation);
+    }
+
+    public Reservation getReservationByID(int id) {
+        for (Reservation reservation : reservationRepository.getAllReservations()) {
             if (reservation.getReservationID() == id) {
                 return reservation;
             }
