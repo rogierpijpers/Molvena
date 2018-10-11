@@ -1,5 +1,6 @@
 package com.capgemini.web;
 
+import com.capgemini.data.RoomTypeRepository;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
@@ -15,10 +16,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
 public class RoomController {
+
+    @Autowired
+    private RoomTypeRepository roomTypeRepository;
+
 
     @Autowired
     private ReservationService reservationService;
@@ -45,6 +51,12 @@ public class RoomController {
         return reservationService.getAllAvailableRooms(startDate, endDate, roomType).stream().filter(x -> x.getRoomType().equals(roomType)).count();
     }
 
+    @RequestMapping("/roomtype/")
+    public List<RoomType> getRoomTypes(){
+        return roomTypeRepository.findAll();
+
+    }
+
     // secured
     @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/room/available/{startDate}/{endDate}")
@@ -52,16 +64,13 @@ public class RoomController {
         return reservationService.getAllAvailableRooms(startDate, endDate);
     }
 
+    // secured
     @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/room/available/{startDate}/{endDate}/{roomTypeId}")
-    public List<Room> getAvailableRooms(@PathVariable("startDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date startDate, @PathVariable("endDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date endDate, @PathVariable("roomTypeId") int roomTypeId) throws ObjectNotFoundException {
-        RoomType roomType = roomTypeService.getRoomTypeById(roomTypeId);
-        if(roomType == null)
-            throw new ObjectNotFoundException("RoomType with ID: " + roomTypeId + " not found.");
-
-        return reservationService.getAllAvailableRooms(startDate, endDate, roomType);
+    public List<Room> getAvailableRoomsByRoomType(@PathVariable("startDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date startDate, @PathVariable("endDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date endDate, @PathVariable("roomTypeId") long roomTypeId){
+        Optional<RoomType> roomType = roomTypeRepository.findById(roomTypeId);
+        return reservationService.getAllAvailableRooms(startDate, endDate, roomType.orElse(null));
     }
-
     @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/room/")
     public List<Room> getAllRooms(){
