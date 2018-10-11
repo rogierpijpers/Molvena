@@ -1,5 +1,7 @@
 package com.capgemini.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -22,6 +24,7 @@ public abstract class Person {
 
     @NotNull
     @NotEmpty
+    @JsonIgnore
     protected String password;
 
     protected Date dateOfBirth;
