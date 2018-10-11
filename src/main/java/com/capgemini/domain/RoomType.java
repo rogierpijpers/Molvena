@@ -39,16 +39,16 @@ public class RoomType {
             name += singleBeds + " single beds";
         }
 
-        if(singleBeds > 0 && doubleBeds > 0){
+        if(singleBeds > 0 && doubleBeds > 0) {
             name += " and ";
+        }
 
+        if(doubleBeds > 0){
             if(doubleBeds == 1){
                 name += "one double bed";
             } else {
                 name += doubleBeds + " double beds";
             }
-        } else {
-            name += doubleBeds + " double beds";
         }
 
         return name;
