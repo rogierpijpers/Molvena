@@ -111,7 +111,7 @@ function confirmBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBe
 }
 
 function createBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds){
-    let userApi = "http://localhost:8080/guest/Jan@vandijk.nl";
+    let userApi = "http://localhost:8080/account/";
     let createReservationApi = "http://localhost:8080/reservation/";
 
     $.ajax({
