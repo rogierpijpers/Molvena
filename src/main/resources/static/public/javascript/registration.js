@@ -30,7 +30,6 @@ function postData() {
     };
 
     var validJsonBook = JSON.stringify(postrequest);
-
     $.ajax({
         url:"http://localhost:8080/guest/",
         type:"post",
@@ -38,7 +37,11 @@ function postData() {
         contentType: "application/json",
         success: function(result) {
             alert("Account aangemaakt!");
-            window.href.location="http://localhost:8080/";
+
+            window.location.href="http://localhost:8080/login";
+        },
+        error: function(error){
+            console.log(error);
         }
     });
 }
@@ -46,12 +49,10 @@ function postData() {
 
         $("#country").click(function() {
         country = $( "#country option:selected" ).attr("value");
-        console.log(country);
 
         var newcode = $( "#country option:selected" ).attr("code");
         $("#phone").attr("value", newcode);
 
-        console.log("Opzoeken van landcode gelukt");
         });
 
         $("#register").click(function() {
@@ -91,7 +92,6 @@ function postData() {
             alert("Use a number in your password");
             }
         else {
-                console.log("Post request send");
                 postData();
            };
         });
