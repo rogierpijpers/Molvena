@@ -69,6 +69,7 @@ function postData() {
         phone = $("#phone").val();
         address = $("#address").val();
         city = $("#city").val();
+        state = $("#state").val();
         zipcode = $("#zipcode").val();
         newsletter = $('#newsletter').is(':checked');
 
