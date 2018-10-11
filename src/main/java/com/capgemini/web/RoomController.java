@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -67,6 +68,13 @@ public class RoomController {
         return reservationService.getAllAvailableRooms(startDate, endDate);
     }
 
+    // secured
+    @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
+    @RequestMapping("/room/available/{startDate}/{endDate}/{roomTypeId}")
+    public List<Room> getAvailableRoomsByRoomType(@PathVariable("startDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date startDate, @PathVariable("endDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date endDate, @PathVariable("roomTypeId") long roomTypeId){
+        Optional<RoomType> roomType = roomTypeRepository.findById(roomTypeId);
+        return reservationService.getAllAvailableRooms(startDate, endDate, roomType.orElse(null));
+    }
     @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/room/")
     public List<Room> getAllRooms(){

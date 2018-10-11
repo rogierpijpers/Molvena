@@ -5,7 +5,6 @@ $(document).ready(function () {
 
     roomDropdown('inputRoom');
     roomDropdown('updateRoom');
-
     var notBefore = new Date();
     var dd = notBefore.getDate();
     var mm = notBefore.getMonth()+1;
@@ -82,26 +81,24 @@ $(document).ready(function () {
         });
     }
 
-
-    function postData() {
-        var email = $("#inputEmail").val();
-        var guest = $("#inputGuest").val();
-        var checkIn = $("#inputCheckIn").val();
-        var checkOut = $("#inputCheckOut").val();
-        var room = $("#inputRoom").val();
-
+    function getRoomByRoomType(checkIn, checkOut, roomType, email, guest){
+        $.ajax({
+        url:"http://localhost:8080/room/available/"+checkIn+"/"+checkOut+"/"+roomType+"",
+        type:"get",
+        async:false,
+        success: function(result){
          $.ajax({
                 url: "http://localhost:8080/guest/" + email,
                 type:"get",
-                success: function(result){;
-                    email = result;
+                success: function(result2){
+                    email = result2;
 
                      var newReservation = {
                                 "startDate": checkIn,
                                 "endDate": checkOut,
                                 "amountOfGuests": guest,
                                 "guest": email,
-                                "room": room.value
+                                "room": result[0]
                                };
 
                     var JsonReservation = JSON.stringify(newReservation);
@@ -120,6 +117,22 @@ $(document).ready(function () {
                         }
                     });
                 }});
+
+        },
+        error: function(error){
+            console.log(error);
+        }
+        })
+    }
+
+    function postData() {
+        var email = $("#inputEmail").val();
+        var guest = $("#inputGuest").val();
+        var checkIn = $("#inputCheckIn").val();
+        var checkOut = $("#inputCheckOut").val();
+        var roomType = $("#inputRoom").val();
+
+        var room = getRoomByRoomType(checkIn,checkOut,roomType, email, guest);
     }
 
     function updateData() {
@@ -136,7 +149,7 @@ $(document).ready(function () {
                 email = result;
 
                  var updatedReservation = {
-                            "reservationID" : data.reservationID,
+                            "reservationID" : reservationID,
                             "startDate": checkIn,
                             "endDate": checkOut,
                             "amountOfGuests": guest,
@@ -147,7 +160,7 @@ $(document).ready(function () {
                 var JsonUpdate = JSON.stringify(updatedReservation);
 
         $.ajax({
-            url:"http://localhost:8080/reservation/" + data.reservationID,
+            url:"http://localhost:8080/reservation/" + reservationID,
             type:"put",
             data: JsonUpdate,
             contentType: "application/json",
