@@ -142,7 +142,8 @@ function createBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBed
             contentType: "application/json",
             body: postRequestStringifyd,
             success: function(){
-                console.log("Successfully created reservation");
+                //console.log("Successfully created reservation");
+                // TODO after merging with Chestons branch (or develop when its there)
             },
             error: function(error){           
                 console.log("Error creating reservation: " + error);
