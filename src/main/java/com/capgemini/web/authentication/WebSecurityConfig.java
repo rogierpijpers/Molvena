@@ -25,16 +25,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity auth) throws Exception{
         auth.authenticationProvider(authenticationProvider());
         auth.userDetailsService(userDetailsService());
-        auth.
-        authorizeRequests()
+        auth.authorizeRequests()
         .antMatchers("/account").fullyAuthenticated()
         .antMatchers("/roomtype/available/*/**").permitAll()
-        .antMatchers("/template/**").permitAll()
-        .antMatchers("/css/**").permitAll()
-        .antMatchers("/javascript/**").permitAll()
+        .antMatchers("/private/admin/**").access("hasAnyAuthority('ROLE_ADMIN')")
+        .antMatchers("/private/receptionist/**").access("hasAnyAuthority('ROLE_ADMIN','ROLE_RECEPTIONIST')")
         .antMatchers("/public/**").permitAll()
-        .antMatchers("/guest/").permitAll()
-        .antMatchers("/js/**").permitAll()
+        .antMatchers("/public/**").permitAll()
         .antMatchers("/*").permitAll()
         .antMatchers("/").permitAll()
         .anyRequest().fullyAuthenticated()
