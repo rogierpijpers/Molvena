@@ -47,13 +47,10 @@ $(document).ready(function () {
 
             type: "get",
             success: function(data){
-                let dropdown = $("#updateRoom");
                 let dropdown2 = $("#inputRoom");
-                dropdown.children().remove();
                 dropdown2.children().remove();
 
                 $.each(data, function(index, value){
-                    dropdown.append("<option value=\"" + value.roomType.roomTypeId + "\">" + value.roomType.name + "</option>");
                     dropdown2.append("<option value=\"" + value.roomType.roomTypeId + "\">" + value.roomType.name + "</option>");
                 });
             },
@@ -62,6 +59,26 @@ $(document).ready(function () {
             }
         });
     }
+
+    function getRoomTypesUpdate(){
+        $.ajax({
+            url: "http://localhost:8080/roomtype/available/" + $("#updateCheckIn")[0].value +"/"+ $("#updateCheckOut")[0].value +"",
+
+            type: "get",
+            success: function(data){
+                let dropdown = $("#updateRoom");
+                dropdown.children().remove();
+
+                $.each(data, function(index, value){
+                    dropdown.append("<option value=\"" + value.roomType.roomTypeId + "\">" + value.roomType.name + "</option>");
+                });
+            },
+            error: function(error){
+                console.log("Error: " + error);
+            }
+        });
+    }
+
 
     function postData() {
         var email = $("#inputEmail").val();
@@ -120,7 +137,7 @@ $(document).ready(function () {
                             "endDate": checkOut,
                             "amountOfGuests": guest,
                             "guest": email,
-                            "room": room
+                            "room": room.value
                            };
 
                 var JsonUpdate = JSON.stringify(updatedReservation);
@@ -151,11 +168,11 @@ $(document).ready(function () {
     })
 
     $("#updateCheckIn").change(function(){
-        getRoomTypesInput();
+        getRoomTypesUpdate();
     });
 
     $("#updateCheckOut").change(function(){
-        getRoomTypesInput();
+        getRoomTypesUpdate();
     });
 
     function getData() {
