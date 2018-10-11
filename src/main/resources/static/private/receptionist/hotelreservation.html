@@ -7,24 +7,23 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Molveno Lake Resort</title>
-    <link href="../public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../public/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <link href="../public/dist/css/sb-admin-2.css" rel="stylesheet">
-    <link href="../public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../../public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../public/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../../public/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../../public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" >
     <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.19/css/dataTables.semanticui.min.css" rel="stylesheet">
     <link href="//cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" rel="stylesheet">
     <link href="//cdn.datatables.net/select/1.2.6/css/select.dataTables.min.css" rel="stylesheet">
     <link href="//editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css" rel="stylesheet">
-    <link href="../css/styles.css" rel="stylesheet">
-    <link href="../css/reservation.css" rel="stylesheet">
+    <link href="../../public/css/styles.css" rel="stylesheet">
+    <link href="../../public/css/reservation.css" rel="stylesheet">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 </head>
 <body>
     <div id="wrapper">
-
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -51,19 +50,19 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li class="molvenoli">
-                            <a href="/" class="molvenologo"> Molveno Lake Resort</a>
+                            <a href="index.html" class="molvenologo"> Molveno Lake Resort</a>
                         </li>
                         <li>
-                            <a href="/html/dashboard.html"><i class="fa fa-dashboard fa-fw"></i> &nbsp Dashboard</a>
+                            <a href="/private/receptionist/dashboard.html"><i class="fa fa-dashboard fa-fw"></i> &nbsp Dashboard</a>
                         </li>
                         <li>
-                            <a href="/html/hotelbuilding.html"><i class="fa fa-bed fa-fw"></i> &nbsp Room Management</a>
+                            <a href="/private/receptionist/hotelbuilding.html"><i class="fa fa-bed fa-fw"></i> &nbsp Room Management</a>
                         </li>
                         <li>
-                            <a href="/html/hotelreservation.html"><i class="fa fa-table fa-fw"></i> &nbsp Reservation Management</a>
+                            <a href="/private/receptionist/hotelreservation.html"><i class="fa fa-table fa-fw"></i> &nbsp Reservation Management</a>
                         </li>
                         <li>
-                            <a href="/html/hotelaccount.html"><i class="fa fa-user fa-fw"></i> &nbsp Account Management</a>
+                            <a href="/private/receptionist/hotelaccount.html"><i class="fa fa-user fa-fw"></i> &nbsp Account Management</a>
                         </li>
                     </ul>
                 </div>
@@ -72,13 +71,13 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Hotel rooms</h1>
+                    <h1 class="page-header">Hotel reservation</h1>
                 </div>
             </div>
             <div class="row">
                 <div class=“col-lg-12”>
                     <form id="mainForm" action="">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newRoomModal" style="margin: 10px; float: right;">+ &nbspNew room</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newReservationModal" style="margin: 10px; float: right;">+ &nbspNew reservation</button>
                     </form>
                 </div>
             </div>
@@ -87,48 +86,68 @@
                 <div class="col-lg-12">
                     <table id="table_id" class="ui celled table">
                         <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Single Bed(s)</th>
-                            <th>Double Bed(s)</th>
-                            <th>Edit</th>
-                        </tr>
+                            <tr>
+                                <th>ID</th>
+                                <th>Full Name</th>
+                                <th>Check-in date</th>
+                                <th>Check-out date</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                                <th>Room Number</th>
+                                <th>Edit</th>
+                            </tr>
                         </thead>
                     </table>
                 </div>
             </div>
-            <div id="newRoomModal" class="modal fade" role="dialog">
+            <div id="newReservationModal" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content" style="padding: 15px 20px">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">New Room</h4>
+                            <h4 class="modal-title">New Reservation</h4>
                         </div>
                         <div class="modal-body">
-                            <form data-toggle="validator" role="form" id="newRoomForm" onsubmit="return false;">
+                            <form data-toggle="validator" role="form" id="newReservationForm" onsubmit="return false;">
                                 <div class="row">
                                     <div class="form-group col-lg-6">
-                                        <label for="inputSingle" class="control-label">Single Bed(s)</label>
-                                        <select id="inputSingle" class="form-control" required>
+                                        <label for="inputEmail" class="control-label">Account mail</label>
+                                        <select id="inputEmail" class="form-control" required>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="inputCheckIn" class="control-label" novalidate>Check-in date</label>
+                                        <input type="date" class="form-control" id="inputCheckIn" min="" data-error="" required>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label for="inputCheckOut" class="control-label" novalidate>Check-out date</label>
+                                        <input type="date" class="form-control" id="inputCheckOut" min="" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="inputGuest" class="control-label">Amount of guests</label>
+                                        <select id="inputGuest" class="form-control" required>
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
                                             <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-lg-6">
-                                        <label for="inputDouble" class="control-label">Double Bed(s)</label>
-                                        <select id="inputDouble" class="form-control" required>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
+                                        <label for="inputRoom" class="control-label">Room Type</label>
+                                        <select id="inputRoom" class="form-control" required>
+                                            <option disabled selected value> -- select an option -- </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-lg-12" style="margin-top: 10px;">
-                                        <button id="submitRoom" type="submit" class="btn btn-primary">Submit</button>
+                                        <button id="submitReservation" type="submit" class="btn btn-primary">Submit</button>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
@@ -142,27 +161,43 @@
                     <div class="modal-content" style="padding: 15px 20px">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Update Room</h4>
+                            <h4 class="modal-title">Update Reservation</h4>
                         </div>
                         <div class="modal-body">
                             <form data-toggle="validator" role="form" id="newUpdateForm" onsubmit="return false;">
                                 <div class="row">
                                     <div class="form-group col-lg-6">
-                                        <label for="updateSingle" class="control-label">Single Bed(s)</label>
-                                        <select id="updateSingle" class="form-control" required>
+                                        <label for="updateEmail" class="control-label">Account mail</label>
+                                        <select id="updateEmail" class="form-control" required>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="updateCheckIn" class="control-label" novalidate>Check-in date</label>
+                                        <input type="date" class="form-control" id="updateCheckIn" min="" placeholder="Check-in" data-error="" required>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label for="updateCheckOut" class="control-label" novalidate>Check-out date</label>
+                                        <input type="date" class="form-control" id="updateCheckOut" min="" placeholder="Check-put" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="updateGuest" class="control-label">Guests</label>
+                                        <select id="updateGuest" class="form-control" required>
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
                                             <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-lg-6">
-                                        <label for="updateDouble" class="control-label">Double Bed(s)</label>
-                                        <select id="updateDouble" class="form-control" required>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
+                                        <label for="updateRoom" class="control-label">Room Type</label>
+                                        <select id="updateRoom" class="form-control" required>
+                                            <option disabled selected value> -- select an option -- </option>
                                         </select>
                                     </div>
                                 </div>
@@ -182,13 +217,13 @@
                     <div class="modal-content" style="padding: 15px 20px">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Are you sure you wan't to delete the reservation</h4>
+                            <h4 class="modal-title">Are you sure you want to delete the reservation?</h4>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <button id="deleteRoomTrue" type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
-                                    <button id="deleteRoomFalse" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                                    <button id="deleteReservationTrue" type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                                    <button id="deleteReservationFalse" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
                                 </div>
                             </div>
                         </div>
@@ -200,15 +235,16 @@
             </div>
         </div>
     </div>
-    <script src="../public/vendor/jquery/jquery.min.js"></script>
-    <script src="../public/vendor/metisMenu/metisMenu.min.js"></script>
-    <script src="../public/vendor/raphael/raphael.min.js"></script>
-    <script src="../public/dist/js/sb-admin-2.min.js"></script>
-    <script src="../javascript/javascript.js"></script>
+    <script src="../../public/vendor/jquery/jquery.min.js"></script>
+    <script src="../../public/vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="../../public/vendor/raphael/raphael.min.js"></script>
+    <script src="../../public/dist/js/sb-admin-2.min.js"></script>
+    <script src="../../public/javascript/javascript.js"></script>
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="../public/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../public/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
     <script src="//cdn.datatables.net/1.10.19/js/dataTables.semanticui.min.js"></script>
-    <script src="../javascript/building.js"></script>
+    <script src="../../public/javascript/reservation.js"></script>
+    <script src="../../public/javascript/functions.js"></script>
 </body>
 </html>
