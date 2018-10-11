@@ -10,6 +10,7 @@
 	var zipcode;
 	var country;
 	var state;
+	var newsletter;
 
 function postData() {
 
@@ -24,7 +25,8 @@ function postData() {
 		city : city,
 		zipCode : zipcode,
 		country : country,
-		state : state
+		state : state,
+		newsletter : newsletter
     };
 
     var validJsonBook = JSON.stringify(postrequest);
@@ -63,8 +65,9 @@ function postData() {
         phone = $("#phone").val();
         address = $("#address").val();
         city = $("#city").val();
-        zipcode = $("#zipcode").val();
         state = $("#state").val();
+        zipcode = $("#zipcode").val();
+        newsletter = $('#newsletter').is(':checked');
 
             if (firstname == '' || $("#lastname").val() == '' || $("#password").val() == ''
             || $("#cpassword").val() == '' || $("#dateofbirth").val() == '' || $("#mail").val() == '' || $("#phone").val() == ''
