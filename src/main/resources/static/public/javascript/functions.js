@@ -19,7 +19,7 @@ function roomDropdown(dropdownid){
         success: function(data){
             $.each(data, function (key, value) {
                 var opt = $('<option></option>');
-                opt.text(value.roomID + " - Singlebeds: " + value.roomType.singleBeds + ", DoubleBeds: " + value.roomType.doubleBeds);
+                opt.text(value.roomID);
                 $('#' + dropdownid).append($(opt));
             });
         }

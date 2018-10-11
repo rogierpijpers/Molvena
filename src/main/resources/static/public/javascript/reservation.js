@@ -51,8 +51,6 @@ $(document).ready(function () {
         var checkOut = $("#inputCheckOut").val();
         var room = $("#inputRoom").val();
 
-        room = "12";
-
         $.ajax({
             url:"http://localhost:8080/room/" + room,
             type:"get",
