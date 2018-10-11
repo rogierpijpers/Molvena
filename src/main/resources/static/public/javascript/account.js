@@ -1,5 +1,12 @@
 $(document).ready(function () {
 
+    $("#inputCountry").click(function() {
+            country = $( "#inputCountry option:selected" ).attr("value");
+
+            var newcode = $( "#inputCountry option:selected" ).attr("code");
+            $("#inputPhone").attr("value", newcode);
+    });
+
     function postData() {
         var firstName = $("#inputFirstName").val();
         var lastName = $("#inputLastName").val();

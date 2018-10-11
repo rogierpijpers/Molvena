@@ -26,3 +26,7 @@ body {
 table.dataTable.no-footer {
     border: 1px solid rgba(34,36,38,.15)
 }
+
+#roomDanger {
+    display: none;
+}

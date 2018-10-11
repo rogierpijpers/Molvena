@@ -20,13 +20,13 @@ $(document).ready(function () {
             data: JsonRoom,
             contentType: "application/json",
             success: function(result) {
-                alert('success')
                 $("#newRoomModal").hide();
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
                 getData();
                 $("#newRoomForm")[0].reset();
-            }
+            },
+            error: function (jqXHR, textStatus, errorThrown) { $('#roomDanger').css('display', 'inline-block'); }
         });
     }
 
