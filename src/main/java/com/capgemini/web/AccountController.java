@@ -25,7 +25,6 @@ public class AccountController {
 
     @RequestMapping("/account/check")
     public boolean isLoggedIn() {
-        boolean isLoggedIn = AuthenticationHelper.isLoggedIn();
-        return isLoggedIn;
+        return AuthenticationHelper.isLoggedIn();
     }
 }
