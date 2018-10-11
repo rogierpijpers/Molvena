@@ -1,15 +1,15 @@
-	var firstname;
-	var lastname;
-	var password;
-	var cpassword;
-	var dateofbirth;
-	var mail;
-	var phone;
-	var address;
-	var city;
-	var zipcode;
-	var country;
-	var state;
+var firstname;
+var lastname;
+var password;
+var cpassword;
+var dateofbirth;
+var mail;
+var phone;
+var address;
+var city;
+var zipcode;
+var country;
+var state;
 
 function postData() {
     console.log("posting data...");

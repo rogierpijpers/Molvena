@@ -1,5 +1,12 @@
 $(document).ready(function () {
 
+        $("#newAccountModal").click(function() {
+        country = $( "#country option:selected" ).attr("value");
+
+        var newcode = $( "#country option:selected" ).attr("code");
+        $("#inputPhone").attr("value", newcode);
+        });
+
     function postData() {
         var firstName = $("#inputFirstName").val();
         var lastName = $("#inputLastName").val();
@@ -10,19 +17,27 @@ $(document).ready(function () {
         var city = $("#inputCity").val();
         var zipCode = $("#inputZipCode").val();
         var state = $("#inputState").val();
-        var country = $("#inputCountry").val();
+        var country = $("#country option:selected" ).attr("value");
+        var password;
+
+        if (firstName == '' || lastName == '' || birth == '' || email == '' || phone == ''
+                    || address == '' || city == '' || zipCode == '' || country == '' || state == '')
+                    {
+                    alert("Please fill all fields");
+                    console.log("Please fill all fields")
+                    }
 
         var newAccount = {
-            "firstName": firstName,
-            "lastName": lastName,
-            "password": "$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
-            "dateOfBirth": birth,
-            "mail": email,
-            "phone": phone,
-            "address": address,
-            "city": city,
-            "zipCode": zipCode,
-            "country": country,
+            firstName: firstName,
+            lastName: lastName,
+            password: "$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
+            dateOfBirth: birth,
+            mail: email,
+            phone: phone,
+            address: address,
+            city: city,
+            zipCode: zipCode,
+            country: country,
         };
 
         var JsonAccount = JSON.stringify(newAccount);
@@ -40,7 +55,7 @@ $(document).ready(function () {
                 $("#newAccountForm")[0].reset();
             }
         });
-    }
+        }
 
     function updateData() {
         var firstName = $("#updateFirstName").val();
@@ -52,7 +67,8 @@ $(document).ready(function () {
         var city = $("#updateCity").val();
         var zipCode = $("#updateZipCode").val();
         var state = $("#updateState").val();
-        var country = $("#updateCountry").val();
+        var country = $("#country option:selected" ).attr("value");
+        var password;
 
         var newUpdate = {
             "firstName": firstName,
