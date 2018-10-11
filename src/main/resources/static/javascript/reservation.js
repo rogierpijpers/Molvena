@@ -43,24 +43,24 @@ $(document).ready(function () {
 
     function getRoomTypesInput(){
         $.ajax({
-                url: "http://localhost:8080/roomtype/available/" + $("#inputCheckIn")[0].value +"/"+ $("#inputCheckOut")[0].value +"",
+            url: "http://localhost:8080/roomtype/available/" + $("#inputCheckIn")[0].value +"/"+ $("#inputCheckOut")[0].value +"",
 
-                type: "get",
-                success: function(data){
-                    let dropdown = $("#updateRoom");
-                    let dropdown2 = $("#inputRoom");
+            type: "get",
+            success: function(data){
+                let dropdown = $("#updateRoom");
+                let dropdown2 = $("#inputRoom");
+                dropdown.children().remove();
+                dropdown2.children().remove();
 
-
-                    $.each(data, function(index, value){
-                    console.log(value)
-                        dropdown.append("<option value=\"" + value.roomType.roomTypeId + "\">" + value.roomType.name + "</option>");
-                        dropdown2.append("<option value=\"" + value.roomType.roomTypeId + "\">" + value.roomType.name + "</option>");
-                    });
-                },
-                error: function(error){
-                    console.log("Error: " + error);
-                }
-            });
+                $.each(data, function(index, value){
+                    dropdown.append("<option value=\"" + value.roomType.roomTypeId + "\">" + value.roomType.name + "</option>");
+                    dropdown2.append("<option value=\"" + value.roomType.roomTypeId + "\">" + value.roomType.name + "</option>");
+                });
+            },
+            error: function(error){
+                console.log("Error: " + error);
+            }
+        });
     }
 
     function postData() {
@@ -81,7 +81,7 @@ $(document).ready(function () {
                                 "endDate": checkOut,
                                 "amountOfGuests": guest,
                                 "guest": email,
-                                "room": room
+                                "room": room.value
                                };
 
                     var JsonReservation = JSON.stringify(newReservation);
@@ -149,6 +149,14 @@ $(document).ready(function () {
     $("#inputCheckOut").change(function(){
         getRoomTypesInput();
     })
+
+    $("#updateCheckIn").change(function(){
+        getRoomTypesInput();
+    });
+
+    $("#updateCheckOut").change(function(){
+        getRoomTypesInput();
+    });
 
     function getData() {
         $.ajax({
