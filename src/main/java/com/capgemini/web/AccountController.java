@@ -23,4 +23,9 @@ public class AccountController {
         person.setPassword("");
         return person;
     }
+
+    @RequestMapping("/account/check")
+    public boolean isLoggedIn() {
+        return AuthenticationHelper.isLoggedIn();
+    }
 }
