@@ -1,6 +1,5 @@
 package com.capgemini.web;
 
-import com.capgemini.data.PersonBaseRepository;
 import com.capgemini.data.PersonRepository;
 import com.capgemini.domain.Person;
 import com.capgemini.web.authentication.AuthenticationHelper;
@@ -20,7 +19,11 @@ public class AccountController {
     public Person getCurrentUser(){
         String username = AuthenticationHelper.getCurrentUsername();
         Person person = personRepository.findByMail(username);
-        person.setPassword("");
+
+        // Currently disabled to fix bug with password resetting
+        // when performing a post request with an empty password string.
+        // Todo: either remove code and allow passwords in guest object, or remove key all together from returned guest object.
+        // person.setPassword("");
         return person;
     }
 

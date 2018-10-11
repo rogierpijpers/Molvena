@@ -1,0 +1,216 @@
+[1mdiff --git a/src/main/java/com/capgemini/web/AccountController.java b/src/main/java/com/capgemini/web/AccountController.java[m
+[1mindex 3c3903e..b542aea 100644[m
+[1m--- a/src/main/java/com/capgemini/web/AccountController.java[m
+[1m+++ b/src/main/java/com/capgemini/web/AccountController.java[m
+[36m@@ -5,6 +5,7 @@[m [mimport com.capgemini.domain.Person;[m
+ import com.capgemini.web.authentication.AuthenticationHelper;[m
+ import org.springframework.beans.factory.annotation.Autowired;[m
+ import org.springframework.web.bind.annotation.RequestMapping;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.RequestMethod;[m
+ import org.springframework.web.bind.annotation.RestController;[m
+ [m
+ /**[m
+[36m@@ -19,13 +20,7 @@[m [mpublic class AccountController {[m
+     public Person getCurrentUser(){[m
+         String username = AuthenticationHelper.getCurrentUsername();[m
+         Person person = personRepository.getSinglePerson(username);[m
+[31m-        //person.setPassword("");[m
+[32m+[m[32m        person.setPassword("");[m
+         return person;[m
+     }[m
+[31m-[m
+[31m-    @RequestMapping("/account/check")[m
+[31m-    public boolean isLoggedIn() {[m
+[31m-        boolean isLoggedIn = AuthenticationHelper.isLoggedIn();[m
+[31m-        return isLoggedIn;[m
+[31m-    }[m
+ }[m
+[1mdiff --git a/src/main/java/com/capgemini/web/authentication/AuthenticationHelper.java b/src/main/java/com/capgemini/web/authentication/AuthenticationHelper.java[m
+[1mindex c790684..c77e5d7 100644[m
+[1m--- a/src/main/java/com/capgemini/web/authentication/AuthenticationHelper.java[m
+[1m+++ b/src/main/java/com/capgemini/web/authentication/AuthenticationHelper.java[m
+[36m@@ -30,13 +30,4 @@[m [mpublic class AuthenticationHelper {[m
+         User currentUser = (User) auth.getPrincipal();[m
+         return currentUser.getUsername();[m
+     }[m
+[31m-[m
+[31m-    public static boolean isLoggedIn(){[m
+[31m-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();[m
+[31m-        if (auth.getPrincipal() == "anonymousUser"){[m
+[31m-            return false;[m
+[31m-        }else{[m
+[31m-            return true;[m
+[31m-        }[m
+[31m-    }[m
+ }[m
+[1mdiff --git a/src/main/java/com/capgemini/web/authentication/WebSecurityConfig.java b/src/main/java/com/capgemini/web/authentication/WebSecurityConfig.java[m
+[1mindex c3d0cf4..2b94b74 100644[m
+[1m--- a/src/main/java/com/capgemini/web/authentication/WebSecurityConfig.java[m
+[1m+++ b/src/main/java/com/capgemini/web/authentication/WebSecurityConfig.java[m
+[36m@@ -28,7 +28,6 @@[m [mpublic class WebSecurityConfig extends WebSecurityConfigurerAdapter {[m
+         auth.[m
+         authorizeRequests()[m
+         .antMatchers("/account").fullyAuthenticated()[m
+[31m-        .antMatchers("/account/**").permitAll()[m
+         .antMatchers("/roomtype/available/*/**").permitAll()[m
+         .antMatchers("/template/**").permitAll()[m
+         .antMatchers("/css/**").permitAll()[m
+[1mdiff --git a/src/main/resources/static/template/js/fillRoomData.js b/src/main/resources/static/template/js/fillRoomData.js[m
+[1mindex 32605a7..3321792 100644[m
+[1m--- a/src/main/resources/static/template/js/fillRoomData.js[m
+[1m+++ b/src/main/resources/static/template/js/fillRoomData.js[m
+[36m@@ -1,4 +1,5 @@[m
+ $(document).ready(function(){[m
+[32m+[m
+     $("#make-booking").click(function() {[m
+         postData();[m
+     });[m
+[36m@@ -12,13 +13,13 @@[m [m$(document).ready(function(){[m
+         let amountOfGuests = urlParams.get('guests');[m
+         $("#startDate").text(startDate.split('T')[0]);[m
+         $("#endDate").text(endDate.split('T')[0]);[m
+[31m-        $("#amountOfGuests").text(amountOfGuests);[m
+[32m+[m[32m        $("#amountOfGuests").text(amountOfGuests.split('T')[0]);[m
+     }    [m
+ [m
+     if (sPage == "single_room.html" || sPage == "reservation_confirm.html"){[m
+[31m-        viewSingleRoomData(startDate.innerHTML, endDate.innerHTML, amountOfGuests.innerHTML);[m
+[32m+[m[32m        viewSingleRoomData(startDate, endDate, amountOfGuests);[m
+     }else if(sPage == "all_rooms.html"){[m
+[31m-        viewAllRoomsData(startDate.innerHTML, endDate.innerHTML, amountOfGuests.innerHTML);[m
+[32m+[m[32m        viewAllRoomsData(startDate, endDate, amountOfGuests);[m
+     }[m
+ });[m
+ [m
+[36m@@ -29,13 +30,14 @@[m [mfunction postData() {[m
+     startDate = document.getElementById('arrival').value;[m
+     endDate = document.getElementById('departure').value;[m
+     amountOfGuests = $("#persons").val();[m
+[31m-	window.location.href = "http://localhost:8080/template/all_rooms.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests;[m
+[32m+[m	[32mwindow.location.href = "http://localhost:8080/template/all_rooms.html?startDate=" + startDate + "T12:00:00+01:00&endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests;[m
+ }[m
+ [m
+ function viewAllRoomsData(startDate, endDate, amountOfGuests){  [m
+     let roomTypeApi = "http://localhost:8080/roomtype/available/";[m
+[32m+[m
+     $.ajax({[m
+[31m-        url: roomTypeApi + startDate + "/" + endDate,[m
+[32m+[m[32m        url: roomTypeApi + startDate.innerHTML + "/" + endDate.innerHTML,[m
+         type: "get",[m
+         success: function(data){[m
+             // For each room in room list, create a new element. After 3, add new row  [m
+[36m@@ -52,10 +54,10 @@[m [mfunction viewAllRoomsData(startDate, endDate, amountOfGuests){[m
+                             <div class='accomodation_item text-center'>\[m
+                                 <div class='hotel_img'>\[m
+                                     <img src='image/room1.jpg' alt=''>\[m
+[31m-                                    <a href='single_room.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + [m
+[32m+[m[32m                                    <a href='single_room.html?startDate=" + startDate + "&T12:00:00+01:00endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests +[m[41m [m
+                                     "&singleBeds=" + value.roomType.singleBeds + "&doubleBeds=" + value.roomType.doubleBeds +"'  class='btn theme_btn button_hover'>Book Now</a>\[m
+                                 </div>\[m
+[31m-                            <a href='single_room.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + [m
+[32m+[m[32m                            <a href='single_room.html?startDate=" + startDate + "T12:00:00+01:00&endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests +[m[41m [m
+                             "&singleBeds=" + value.roomType.singleBeds + "&doubleBeds=" + value.roomType.doubleBeds +" '><h4 class='sec_h4'>Standard room <br /> " + [m
+                             value.roomType.singleBeds + ' single and '+ value.roomType.doubleBeds + " double beds.</h4></a>\[m
+                             <h6>{price}<small>/night</small></h6>\[m
+[36m@@ -87,71 +89,8 @@[m [mfunction viewSingleRoomData(startDate, endDate, amountOfGuests){[m
+ [m
+     singleBedsElement.text(singleBeds);[m
+     doubleBedsElement.text(doubleBeds);[m
+[31m-    let newButton = "<a href='' onclick='confirmBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds)' class='button_hover theme_btn_two'>CONFIRM BOOKING</a>";[m
+[31m-    let confirmButtonWrapper = $("#confirmButtonWrapper");[m
+[31m-    confirmButtonWrapper.append(newButton);[m
+[31m-}[m
+[31m-[m
+[31m-function confirmBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds){[m
+[31m-    let loggedInApi = "http://localhost:8080/account/check";[m
+[31m-    $.ajax({[m
+[31m-        url: loggedInApi,[m
+[31m-        type: "get",[m
+[31m-        success: function(data){[m
+[31m-            if (data == false){[m
+[31m-                window.location.href = "http://localhost:8080/login";[m
+[31m-            }else{ [m
+[31m-                createBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds);[m
+[31m-                window.location.href="http://localhost:8080/template/reservation_confirm.html?startDate=" + startDate.innerHTML + "&endDate=" + endDate.innerHTML + "&guests=" + amountOfGuests.innerHTML + "&singleBeds=" + singleBeds.innerHTML + "&doubleBeds=" + doubleBeds.innerHTML;[m
+[31m-            }[m
+[31m-        },[m
+[31m-        error: function(error){           [m
+[31m-            console.log("Error: " + error);[m
+[31m-        }[m
+[31m-    });[m
+[31m-}[m
+[31m-[m
+[31m-function createBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds){[m
+[31m-    let userApi = "http://localhost:8080/account";[m
+[31m-    let createReservationApi = "http://localhost:8080/reservation";[m
+[31m- [m
+[31m-    $.ajax({[m
+[31m-        url: userApi,[m
+[31m-        type: "get",[m
+[31m-        success: function(data){[m
+[31m-            let postRequest = {[m
+[31m-                "startDate": startDate.innerHTML+"T12:37:28.499+0000",[m
+[31m-                "endDate": endDate.innerHTML+"T12:37:28.499+0000",[m
+[31m-                "guest": data,[m
+[31m-                "amountOfGuests": parseInt(amountOfGuests.innerHTML),[m
+[31m-                "room": {[m
+[31m-                    "roomType": {[m
+[31m-                        "singleBeds": parseInt(singleBeds.innerHTML),[m
+[31m-                        "doubleBeds": parseInt(doubleBeds.innerHTML)[m
+[31m-                    }[m
+[31m-                }[m
+[31m-             };[m
+[31m-             [m
+[31m-        let postRequestStringifyd = JSON.stringify(postRequest);[m
+ [m
+[31m-        console.log(postRequestStringifyd);[m
+[31m-[m
+[31m-        $.ajax({[m
+[31m-            url: createReservationApi,[m
+[31m-            type: "post",[m
+[31m-            contentType: "application/json",[m
+[31m-            body: postRequestStringifyd,[m
+[31m-            success: function(){[m
+[31m-                console.log("Successfully created reservation");[m
+[31m-            },[m
+[31m-            error: function(error){           [m
+[31m-                console.log("Error creating reservation: " + error);[m
+[31m-            }[m
+[31m-        });[m
+[31m-        },[m
+[31m-        error: function(error){           [m
+[31m-            console.log("Error: " + error);[m
+[31m-        }[m
+[31m-  [m
+[31m-    });[m
+[32m+[m[32m    let confirmButton = $("#confirmButton");[m
+[32m+[m[32m    confirmButton.innerHTML = "<a class='button_hover theme_btn_two' href='single_room.html?startDate=" + startDate + "T12:00:00+01:00&endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests +[m[41m [m
+[32m+[m[32m    "&singleBeds=" + singleBeds + "&doubleBeds=" + doubleBeds + ">Confirm</a>";[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/src/main/resources/static/template/reservation_confirm.html b/src/main/resources/static/template/reservation_confirm.html[m
+[1mindex 006ad56..20a8a1b 100644[m
+[1m--- a/src/main/resources/static/template/reservation_confirm.html[m
+[1m+++ b/src/main/resources/static/template/reservation_confirm.html[m
+[36m@@ -67,7 +67,7 @@[m
+                             Amount of guests: <span id="amountOfGuests"></span><br />[m
+                             Beds: <span id="singleBeds"></span> single beds and <span id="doubleBeds"></span> double beds.</p>[m
+                             <div id="confirmButton"></div>[m
+[31m-                            <a href="index.html" class="button_hover theme_btn_two">Go back to the homepage</a>[m
+[32m+[m[32m                            <a href="#" class="button_hover theme_btn_two">Go back to the homepage</a>[m
+                         </div>[m
+                     </div>[m
+                     <div class="col-md-6">[m
+[1mdiff --git a/src/main/resources/static/template/single_room.html b/src/main/resources/static/template/single_room.html[m
+[1mindex 3c6ad41..d319962 100644[m
+[1m--- a/src/main/resources/static/template/single_room.html[m
+[1m+++ b/src/main/resources/static/template/single_room.html[m
+[36m@@ -64,7 +64,7 @@[m
+                             <h2><span id="startDate"></span> - <span id="endDate"></span></h2>[m
+                             <h3><span id="amountOfGuests"></span> persons</h3>[m
+                             <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>[m
+[31m-                            <div id="confirmButtonWrapper"></div>[m
+[32m+[m[32m                            <div id="confirmButton"></div>[m
+                         </div>[m
+                     </div>[m
+                     <div class="col-md-6">[m

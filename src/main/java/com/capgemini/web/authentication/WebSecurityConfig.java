@@ -32,7 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/private/admin/**").access("hasAnyAuthority('ROLE_ADMIN')")
         .antMatchers("/private/receptionist/**").access("hasAnyAuthority('ROLE_ADMIN','ROLE_RECEPTIONIST')")
         .antMatchers("/public/**").permitAll()
-        .antMatchers("/public/**").permitAll()
         .antMatchers("/*").permitAll()
         .antMatchers("/").permitAll()
         .anyRequest().fullyAuthenticated()

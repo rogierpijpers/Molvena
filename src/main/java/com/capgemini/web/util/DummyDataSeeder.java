@@ -55,10 +55,11 @@ public class DummyDataSeeder {
     }
 
     private void seedRoomRepository(){
-        Room room = new Room();
-        RoomType roomType = roomTypeRepository.findAll().stream().findFirst().get();
-        room.setRoomType(roomType);
-        roomRepository.save(room);
+        for (RoomType roomType : roomTypeRepository.findAll()){
+            Room room = new Room();
+            room.setRoomType((roomType));
+            roomRepository.save(room);
+        }
     }
 
     private void seedReservationRepository(){

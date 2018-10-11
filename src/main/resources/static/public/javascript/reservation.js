@@ -51,7 +51,7 @@ $(document).ready(function () {
         var checkOut = $("#inputCheckOut").val();
         var room = $("#inputRoom").val();
 
-        room = room.charAt(0);
+        room = "12";
 
         $.ajax({
             url:"http://localhost:8080/room/" + room,
@@ -65,6 +65,7 @@ $(document).ready(function () {
                    contentType: "application/json",
                    success: function(result) {
                       email = result;
+                      console.log(email);
                       var newReservation = {
                           "startDate": checkIn,
                           "endDate": checkOut,
@@ -86,6 +87,10 @@ $(document).ready(function () {
                               $('.modal-backdrop').remove();
                               getData();
                               $("#newReservationForm")[0].reset();
+                          },
+                          error: function(error){
+                            console.log("Error creating reservation: " + error);
+                            console.log(error);
                           }
                        });
                    }

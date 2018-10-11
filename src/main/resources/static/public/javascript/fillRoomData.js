@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     $("#make-booking").click(function() {
         postData();
     });
@@ -13,13 +12,13 @@ $(document).ready(function(){
         let amountOfGuests = urlParams.get('guests');
         $("#startDate").text(startDate.split('T')[0]);
         $("#endDate").text(endDate.split('T')[0]);
-        $("#amountOfGuests").text(amountOfGuests.split('T')[0]);
+        $("#amountOfGuests").text(amountOfGuests);
     }    
 
     if (sPage == "single_room.html" || sPage == "reservation_confirm.html"){
-        viewSingleRoomData(startDate, endDate, amountOfGuests);
+        viewSingleRoomData(startDate.innerHTML, endDate.innerHTML, amountOfGuests.innerHTML);
     }else if(sPage == "all_rooms.html"){
-        viewAllRoomsData(startDate, endDate, amountOfGuests);
+        viewAllRoomsData(startDate.innerHTML, endDate.innerHTML, amountOfGuests.innerHTML);
     }
 });
 
@@ -30,14 +29,13 @@ function postData() {
     startDate = document.getElementById('arrival').value;
     endDate = document.getElementById('departure').value;
     amountOfGuests = $("#persons").val();
-	window.location.href = "http://localhost:8080/public/guest/all_rooms.html?startDate=" + startDate + "T12:00:00+01:00&endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests;
+	window.location.href = "http://localhost:8080/public/guest/all_rooms.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests;
 }
 
 function viewAllRoomsData(startDate, endDate, amountOfGuests){  
     let roomTypeApi = "http://localhost:8080/roomtype/available/";
-
     $.ajax({
-        url: roomTypeApi + startDate.innerHTML + "/" + endDate.innerHTML,
+        url: roomTypeApi + startDate + "/" + endDate,
         type: "get",
         success: function(data){
             // For each room in room list, create a new element. After 3, add new row  
@@ -54,12 +52,12 @@ function viewAllRoomsData(startDate, endDate, amountOfGuests){
                             <div class='accomodation_item text-center'>\
                                 <div class='hotel_img'>\
                                     <img src='image/room1.jpg' alt=''>\
-                                    <a href='single_room.html?startDate=" + startDate + "&T12:00:00+01:00endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests + 
+                                    <a href='single_room.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + 
                                     "&singleBeds=" + value.roomType.singleBeds + "&doubleBeds=" + value.roomType.doubleBeds +"'  class='btn theme_btn button_hover'>Book Now</a>\
                                 </div>\
-                            <a href='single_room.html?startDate=" + startDate + "T12:00:00+01:00&endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests + 
+                            <a href='single_room.html?startDate=" + startDate + "&endDate=" + endDate + "&guests=" + amountOfGuests + 
                             "&singleBeds=" + value.roomType.singleBeds + "&doubleBeds=" + value.roomType.doubleBeds +" '><h4 class='sec_h4'>Standard room <br /> " + 
-                            value.roomType.singleBeds + ' single and '+ value.roomType.doubleBeds + " double beds.</h4></a>\
+                            value.roomType.singleBeds + ' single and '+ value.roomType.doubleBeds + " double bed(s).</h4></a>\
                             <h6>{price}<small>/night</small></h6>\
                             </div>\
                             </div>";
@@ -89,8 +87,72 @@ function viewSingleRoomData(startDate, endDate, amountOfGuests){
 
     singleBedsElement.text(singleBeds);
     doubleBedsElement.text(doubleBeds);
+    let newButton = "<a href='#' onclick='confirmBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds)' class='button_hover theme_btn_two'>CONFIRM BOOKING</a>";
+    let confirmButtonWrapper = $("#confirmButtonWrapper");
+    confirmButtonWrapper.append(newButton);
+}
 
-    let confirmButton = $("#confirmButton");
-    confirmButton.innerHTML = "<a class='button_hover theme_btn_two' href='single_room.html?startDate=" + startDate + "T12:00:00+01:00&endDate=" + endDate + "T12:00:00+01:00&guests=" + amountOfGuests + 
-    "&singleBeds=" + singleBeds + "&doubleBeds=" + doubleBeds + ">Confirm</a>";
+function confirmBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds){
+    let loggedInApi = "http://localhost:8080/account/check";
+    $.ajax({
+        url: loggedInApi,
+        type: "get",
+        success: function(data){
+            if (data === true){  
+                createBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds);
+            }else { 
+                window.location.href = "http://localhost:8080/login";
+            }
+        },
+        error: function(error){           
+            console.log("Error: " + error);
+        }
+    });
+}
+
+function createBooking(startDate, endDate, amountOfGuests, singleBeds, doubleBeds){
+    let userApi = "http://localhost:8080/guest/Jan@vandijk.nl";
+    let createReservationApi = "http://localhost:8080/reservation/";
+
+    $.ajax({
+        url: userApi,
+        type: "get",
+        success: function(result){
+            let postRequest = {
+                "startDate": startDate.innerHTML,
+                "endDate": endDate.innerHTML,
+                "amountOfGuests": amountOfGuests.innerHTML,
+                "guest": result,                
+                "room": {
+                    "roomID" : 12,
+                    "roomType": {
+                        "roomTypeId" : 6, 
+                        "singleBeds": parseInt(singleBeds.innerHTML),
+                        "doubleBeds": parseInt(doubleBeds.innerHTML)
+                    }
+                }
+             }; 
+        let postRequestStringifyd = JSON.stringify(postRequest);
+             
+       // console.log(postRequestStringifyd);
+
+        $.ajax({
+            url:"http://localhost:8080/reservation/",
+            type:"post",
+            data: postRequestStringifyd,
+            contentType: "application/json",          
+            success: function(){
+                console.log("Successfully created reservation");
+                window.location.href="http://localhost:8080/public/guest/reservation_confirm.html?startDate=" + startDate.innerHTML + "&endDate=" + endDate.innerHTML + "&guests=" + amountOfGuests.innerHTML + "&singleBeds=" + singleBeds.innerHTML + "&doubleBeds=" + doubleBeds.innerHTML;                 
+            },
+            error: function (errorThrown){           
+                console.log("Error creating reservation: " + errorThrown);
+            }
+        });
+        },
+        error: function (errorThrown){           
+            console.log("Error on get account: " + errorThrown);
+        }
+  
+    });
 }
