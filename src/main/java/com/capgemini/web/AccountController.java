@@ -1,5 +1,6 @@
 package com.capgemini.web;
 
+import com.capgemini.data.PersonBaseRepository;
 import com.capgemini.data.PersonRepository;
 import com.capgemini.domain.Person;
 import com.capgemini.web.authentication.AuthenticationHelper;
@@ -18,8 +19,9 @@ public class AccountController {
     @RequestMapping("/account")
     public Person getCurrentUser(){
         String username = AuthenticationHelper.getCurrentUsername();
-        Person person = personRepository.getSinglePerson(username);
         //person.setPassword("");
+        Person person = personRepository.findByMail(username);
+        person.setPassword("");
         return person;
     }
 

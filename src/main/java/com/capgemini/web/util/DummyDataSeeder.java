@@ -46,38 +46,38 @@ public class DummyDataSeeder {
         RoomType roomType5 = new RoomType((byte) 0, (byte) 1);
         RoomType roomType6 = new RoomType((byte) 0, (byte) 2);
 
-        roomTypeRepository.addRoomType(roomType);
-        roomTypeRepository.addRoomType(roomType2);
-        roomTypeRepository.addRoomType(roomType3);
-        roomTypeRepository.addRoomType(roomType4);
-        roomTypeRepository.addRoomType(roomType5);
-        roomTypeRepository.addRoomType(roomType6);
+        roomTypeRepository.save(roomType);
+        roomTypeRepository.save(roomType2);
+        roomTypeRepository.save(roomType3);
+        roomTypeRepository.save(roomType4);
+        roomTypeRepository.save(roomType5);
+        roomTypeRepository.save(roomType6);
     }
 
     private void seedRoomRepository(){
         Room room = new Room();
-        RoomType roomType = roomTypeRepository.getAllRoomTypes().stream().findFirst().get();
+        RoomType roomType = roomTypeRepository.findAll().stream().findFirst().get();
         room.setRoomType(roomType);
-        roomRepository.addRoom(room);
+        roomRepository.save(room);
     }
 
     private void seedReservationRepository(){
         Date startDate = new Date();
         Date endDate = addDays(startDate, 1);
-        RoomType roomType = roomTypeRepository.getAllRoomTypes().stream().findFirst().get();
-        Room room = roomRepository.getAllRooms().stream().findFirst().get();
+        Room room = roomRepository.findAll().stream().findFirst().get();
+        RoomType roomType = room.getRoomType();
 
-        Reservation myReservation = new Reservation(startDate, endDate, (Guest) personRepository.getSinglePerson("Jan@vandijk.nl"), 6, room, roomType);
-        reservationRepository.addReservation(myReservation);
+        Reservation myReservation = new Reservation(startDate, endDate, (Guest) personRepository.findByMail("Jan@vandijk.nl"), 6, room, roomType);
+        reservationRepository.save(myReservation);
 
-        Reservation myReservation2 = new Reservation(startDate, endDate, (Guest) personRepository.getSinglePerson("Tom@vandersteen.nl"), 6, room, roomType);
-        reservationRepository.addReservation(myReservation2);
+        Reservation myReservation2 = new Reservation(startDate, endDate, (Guest) personRepository.findByMail("Tom@vandersteen.nl"), 6, room, roomType);
+        reservationRepository.save(myReservation2);
 
-        Reservation myReservation3 = new Reservation(addDays(startDate, 5), addDays(startDate, 8), (Guest) personRepository.getSinglePerson("Jan@vandijk.nl"), 6, room, roomType);
-        reservationRepository.addReservation(myReservation3);
+        Reservation myReservation3 = new Reservation(addDays(startDate, 5), addDays(startDate, 8), (Guest) personRepository.findByMail("Jan@vandijk.nl"), 6, room, roomType);
+        reservationRepository.save(myReservation3);
 
-        Reservation myReservation4 = new Reservation(addDays(startDate, 14), addDays(startDate, 19), (Guest) personRepository.getSinglePerson("Tom@vandersteen.nl"), 3, room, roomType);
-        reservationRepository.addReservation(myReservation4);
+        Reservation myReservation4 = new Reservation(addDays(startDate, 14), addDays(startDate, 19), (Guest) personRepository.findByMail("Tom@vandersteen.nl"), 3, room, roomType);
+        reservationRepository.save(myReservation4);
     }
 
     private void seedPersonRepository(){
@@ -92,7 +92,7 @@ public class DummyDataSeeder {
         guest.setZipCode("5555LL");
         guest.setCountry("NL");
         guest.setDateOfBirth(new Date(31-8-1994));
-        guestRepository.addGuest(guest);
+        guestRepository.save(guest);
 
         Guest guest2 = new Guest();
         guest2.setFirstName("Jan");
@@ -105,7 +105,7 @@ public class DummyDataSeeder {
         guest2.setState("");
         guest2.setCountry("NL");
         guest2.setDateOfBirth(new Date(31-8-1994));
-        guestRepository.addGuest(guest2);
+        guestRepository.save(guest2);
 
         Guest guest3 = new Guest();
         guest3.setFirstName("Günther");
@@ -118,7 +118,7 @@ public class DummyDataSeeder {
         guest3.setState("");
         guest3.setCountry("NL");
         guest3.setDateOfBirth(new Date(31-8-1994));
-        guestRepository.addGuest(guest3);
+        guestRepository.save(guest3);
 
         Employee employee = new Employee();
         employee.setFirstName("Henk");
@@ -132,7 +132,7 @@ public class DummyDataSeeder {
         employee.setCountry("NL");
         employee.setDateOfBirth(new Date(31-8-1994));
         employee.setRole("ROLE_ADMIN");
-        employeeRepository.addEmployee(employee);
+        employeeRepository.save(employee);
 
         Employee employee1 = new Employee();
         employee1.setFirstName("Tiny");
@@ -146,7 +146,7 @@ public class DummyDataSeeder {
         employee1.setCountry("NL");
         employee1.setDateOfBirth(new Date(31-8-1994));
         employee1.setRole("ROLE_RECEPTIONIST");
-        employeeRepository.addEmployee(employee1);
+        employeeRepository.save(employee1);
     }
 
     private static Date addDays(Date date, int days) {
