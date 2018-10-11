@@ -1,14 +1,17 @@
 package com.capgemini.domain;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class Person {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-    @NotNull
-    @NotEmpty
-    protected int id;
     @NotNull
     @NotEmpty
     protected String firstName;
@@ -43,7 +46,7 @@ public abstract class Person {
         this.newsletter = newsletter;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

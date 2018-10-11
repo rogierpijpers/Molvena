@@ -1,10 +1,16 @@
 package com.capgemini.domain;
 
+import javax.persistence.*;
+
+@Entity
 public class Room {
-    private short roomID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long roomID;
+    @ManyToOne(cascade = CascadeType.MERGE)
     private RoomType roomType;
 
-    public short getRoomID() {
+    public long getRoomID() {
         return roomID;
     }
 

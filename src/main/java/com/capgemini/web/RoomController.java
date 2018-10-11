@@ -92,7 +92,7 @@ public class RoomController {
 
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value="/room/{id}", method=RequestMethod.DELETE)
-    public void deleteRoom(@PathVariable("id") short id) throws InvalidInputException {
+    public void deleteRoom(@PathVariable("id") short id) throws InvalidInputException, ObjectNotFoundException {
         roomService.deleteRoom(id);
     }
 }
