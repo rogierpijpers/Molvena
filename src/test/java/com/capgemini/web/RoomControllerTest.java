@@ -31,6 +31,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.swing.text.html.Option;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -153,6 +154,16 @@ public class RoomControllerTest {
     @Test
     @WithMockUser(username="Henk@vanvliet.nl", roles={"ADMIN"})
     public void testGetAvailableRoomsWithRoomTypeFilter() throws Exception {
+        List<Reservation> reservations = new ArrayList<>();
+        reservations.add(createDummyReservation(createDummyGuest()));
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(createDummyRoom(getDummyRoomTypes().get(0)));
+
+        when(roomTypeRepository.findById((long) 0)).thenReturn(java.util.Optional.ofNullable(getDummyRoomTypes().get(0)));
+        when(roomTypeRepository.findAll()).thenReturn(getDummyRoomTypes());
+        when(reservationRepository.findAll()).thenReturn(reservations);
+        when(roomRepository.findAll()).thenReturn(rooms);
+
         RoomType roomType = roomTypeService.getRoomTypeById(0);
 
         Date startDate = new Date(2017-10-20);
@@ -172,12 +183,15 @@ public class RoomControllerTest {
 
         this.mockMvc.perform(get("/room/available/" + isoStartDate + "/" + isoEndDate + "/0")).andDo(print())
                 .andExpect(status().isOk()).andExpect(content().json(expectedJson));
-
     }
 
     @Test
     @WithMockUser(username="Henk@vanvliet.nl", roles={"ADMIN"})
     public void testDeleteRoom() throws Exception {
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(createDummyRoom(getDummyRoomTypes().get(0)));
+        when(roomRepository.findById((long) 0)).thenReturn(Optional.ofNullable(rooms.get(0)));
+
         Room room = roomService.getRoomById((short) 0);
         if(room == null){
             room = new Room();
@@ -191,6 +205,8 @@ public class RoomControllerTest {
 
         this.mockMvc.perform(get("/room/0")).andDo(print()).andExpect(status().isOk()).andExpect(content().json(jsonExpected));
         this.mockMvc.perform(delete("/room/0")).andDo(print()).andExpect(status().isOk());
+
+        when(roomRepository.findById((long) 0)).thenReturn(Optional.empty());
         this.mockMvc.perform(get("/room/0")).andExpect(status().isNotFound());
     }
 
@@ -205,12 +221,17 @@ public class RoomControllerTest {
         String jsonExpected = objectMapper.writeValueAsString(room);
 
         this.mockMvc.perform(post("/room/").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonExpected)).andDo(print()).andExpect(status().isOk());
+        when(roomRepository.findById(room.getRoomID())).thenReturn(Optional.ofNullable(room));
         this.mockMvc.perform(get("/room/5432")).andDo(print()).andExpect(status().isOk()).andExpect(content().json(jsonExpected));
     }
 
     @Test
     @WithMockUser(username="Henk@vanvliet.nl", roles={"ADMIN"})
     public void testUpdateRoom() throws Exception{
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(createDummyRoom(getDummyRoomTypes().get(0)));
+        when(roomRepository.findAll()).thenReturn(rooms);
+
         Room room = roomService.getAllRooms().get(0);
         Assert.assertTrue(room.getRoomID() == 0);
 
@@ -223,6 +244,7 @@ public class RoomControllerTest {
 
         this.mockMvc.perform(put("/room/0").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonExpected)).andDo(print()).andExpect(status().isOk());
 
+        when(roomRepository.findById(newRoom.getRoomID())).thenReturn(Optional.ofNullable(newRoom));
         this.mockMvc.perform(get("/room/99")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().json(jsonExpected));
     }
