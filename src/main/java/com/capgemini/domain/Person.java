@@ -24,6 +24,7 @@ public abstract class Person {
 
     @NotNull
     @NotEmpty
+    @JsonIgnore
     protected String password;
 
     protected Date dateOfBirth;

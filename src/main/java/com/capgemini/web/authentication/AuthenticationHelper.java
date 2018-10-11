@@ -33,6 +33,6 @@ public class AuthenticationHelper {
 
     public static boolean isLoggedIn(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth.getPrincipal().equals("anonymousUser");
+        return !(auth.getPrincipal().equals("anonymousUser"));
     }
 }
