@@ -77,6 +77,7 @@ public class GuestController {
     @RequestMapping(value = "/guest/", method = RequestMethod.POST)
     public Guest createGuest(@RequestBody Guest guest) {
         guest.setPassword(passwordEncoder.encode(guest.getPassword()));
+        guest.setMail(guest.getMail().toLowerCase());
         this.registrationService.AddRegistration(guest);
         return guest;
     }

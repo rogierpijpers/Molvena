@@ -1,5 +1,7 @@
 package com.capgemini.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -36,6 +38,15 @@ public abstract class Person {
     protected String zipCode;
     protected String state;
     protected String country;
+    protected Boolean newsletter;
+
+    public Boolean getNewsletter() {
+        return newsletter;
+    }
+
+    public void setNewsletter(Boolean newsletter) {
+        this.newsletter = newsletter;
+    }
 
     public long getId() {
         return id;
@@ -54,6 +65,7 @@ public abstract class Person {
         this.role = role;
     }
 
+    @JsonIgnore
     protected String role;
 
     public String getState() {

@@ -4,19 +4,21 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="image/Logo.jpg" type="image/jpeg">
+    <link rel="icon" href="../image/Logo.jpg" type="image/jpeg">
     <title>Molveno Lake Resort</title>
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../vendors/linericon/style.css">
+    <link rel="stylesheet" href="../vendor/linericon/style.css">
     <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link rel="stylesheet" href="../vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.css">
-    <link rel="stylesheet" href="../vendors/nice-select/css/nice-select.css">
-    <link rel="stylesheet" href="../vendors/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="../vendor/bootstrap-datepicker/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="../vendor/nice-select/css/nice-select.css">
+    <link rel="stylesheet" href="../vendor/owl-carousel/owl.carousel.min.css">
     <!-- main css -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="../css/custom.css">
+
 
 </head>
 <body>
@@ -37,6 +39,7 @@
             <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                 <ul class="nav navbar-nav menu_nav ml-auto">
                     <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/reservation.html">Reservations</a></li>
                     <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="/registration.html">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
@@ -52,38 +55,74 @@
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">Choose a room.</h2>
+            <h2 class="page-cover-tittle">My reservations</h2>
         </div>
     </div>
 </section>
-<!--================Breadcrumb Area =================-->
 
-<!--================ Accomodation Area  =================-->
-<section class="accomodation_area section_gap">
-    <div id="roomContainer" class="container">
-        <div class="section_title text-center">
-            <h2 class="title_color">Available rooms</h2>
-            <h2><span id="startDate"></span> - <span id="endDate"></span></h2>
-            <h3><span id="amountOfGuests"></span> persons</h3>
-            <p>Select a room from the list below:</p>
+<div class="row" style="margin: 60px 0px">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <div id="reservationDanger" class="row" style="display: none;">
+            <div class="col-lg-12" style="margin: 30px 0px;">
+                <div class="alert alert-warning" role="alert">
+                    You don't have any reservations
+                </div>
+            </div>
+        </div>
+        <table id="table_id" class="ui celled table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Check-in date</th>
+                <th>Check-out date</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Room Number</th>
+                <th>Edit</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="col-lg-1"></div>
+</div>
+
+<div id="newDeleteModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="padding: 15px 20px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Are you sure you want to delete the reservation?
+                    there may be costs associated with canceling the reservation</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button id="deleteReservationTrue" type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                        <button id="deleteReservationFalse" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</section>
-<!--================ Accomodation Area  =================-->
+</div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="../javascript/jquery-3.2.1.min.js"></script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="../javascript/popper.js"></script>
 <script src="../javascript/bootstrap.min.js"></script>
-<script src="../vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="../vendor/owl-carousel/owl.carousel.min.js"></script>
 <script src="../javascript/jquery.ajaxchimp.min.js"></script>
-<script src="../vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
-<script src="../vendors/nice-select/js/jquery.nice-select.js"></script>
+<script src="../vendor/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="../vendor/nice-select/js/jquery.nice-select.js"></script>
 <script src="../javascript/mail-script.js"></script>
 <script src="../javascript/stellar.js"></script>
-<script src="../vendors/lightbox/simpleLightbox.min.js"></script>
+<script src="../vendor/lightbox/simpleLightbox.min.js"></script>
 <script src="../javascript/custom.js"></script>
 <script src="../javascript/fillRoomData.js"></script>
+<script src="../javascript/reservationguest.js"></script><
 </body>
 </html>
