@@ -35,11 +35,15 @@
                     </button>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav menu_nav ml-auto">
+                        <ul id="loggedOut" class="nav navbar-nav menu_nav ml-auto">
                             <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/reservation.html">Reservations</a></li>
                             <li class="nav-item"><a class="nav-link" href="login">Login</a></li>
                             <li class="nav-item"><a class="nav-link" href="registration.html">Register</a></li>
+                        </ul>
+                        <ul id="loggedIn" class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/public/guest/reservation.html">Reservations</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/private/receptionist/index.html">Admin page</a></li>
                             <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
                         </ul>
                     </div>
@@ -106,5 +110,6 @@
         <script src="/public/javascript/stellar.js"></script>
         <script src="/public/javascript/custom.js"></script>
         <script src="/public/javascript/fillRoomData.js"></script>
+        <script src="/public/javascript/logged.js"></script>
     </body>
 </html>
