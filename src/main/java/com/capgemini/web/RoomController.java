@@ -9,8 +9,6 @@ import com.capgemini.service.RoomTypeService;
 import com.capgemini.web.dto.RoomTypeWithCountDTO;
 import com.capgemini.web.util.exception.InvalidInputException;
 import com.capgemini.web.util.exception.ObjectNotFoundException;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.annotation.Secured;
@@ -18,9 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RestController
@@ -64,7 +60,7 @@ public class RoomController {
     // secured
     @Secured({"ROLE_ADMIN", "ROLE_RECEPTIONIST"})
     @RequestMapping("/room/available/{startDate}/{endDate}")
-    public List<Room> getAvailableRooms(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate){
+    public List<Room> getAvailableRooms(@PathVariable("startDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date startDate, @PathVariable("endDate") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) Date endDate){
         return reservationService.getAllAvailableRooms(startDate, endDate);
     }
 
