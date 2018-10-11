@@ -30,4 +30,9 @@ public class AuthenticationHelper {
         User currentUser = (User) auth.getPrincipal();
         return currentUser.getUsername();
     }
+
+    public static boolean isLoggedIn(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getPrincipal().equals("anonymousUser");
+    }
 }

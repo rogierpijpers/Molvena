@@ -1,16 +1,27 @@
 package com.capgemini.service;
 
+import com.capgemini.TestJpaConfig;
 import com.capgemini.data.ReservationRepository;
 import com.capgemini.domain.Guest;
 import com.capgemini.domain.Reservation;
 import com.capgemini.domain.Room;
 import com.capgemini.domain.RoomType;
 import com.capgemini.service.ReservationService;
+import com.capgemini.web.MolvenolakeresortApplication;
 import org.junit.Assert;
 import org.junit.Before;
 import com.capgemini.data.RoomRepository;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.InvalidObjectException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,9 +29,13 @@ import java.util.Date;
 import java.util.List;
 
 public class ReservationServiceTest {
-
+    @Autowired
     private ReservationRepository reservationRepository;
+    @Autowired
     private RoomRepository roomRepository;
+    @Autowired
+    private ReservationService reservationService;
+
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     private Room room1 = new Room();
@@ -29,17 +44,14 @@ public class ReservationServiceTest {
 
     @Before
     public void setupRoom() {
-        roomRepository = new RoomRepository();
-
         roomType1 = new RoomType((byte) 0, (byte) 2);
         room1.setRoomType(roomType1);
 
-        roomRepository.addRoom(room1);
+        roomRepository.save(room1);
     }
 
     @Before
     public void setupReservation() {
-        reservationRepository = new ReservationRepository();
         Date startDateReservation1 = null;
         Date endDateReservation1 = null;
 
@@ -50,7 +62,7 @@ public class ReservationServiceTest {
 
             Reservation reservation = new Reservation(startDateReservation1, endDateReservation1, guest, 6, room1, roomType1);
 
-            reservationRepository.addReservation(reservation);
+            reservationRepository.save(reservation);
         }
          catch(ParseException e){
                 e.printStackTrace();
@@ -62,10 +74,6 @@ public class ReservationServiceTest {
             try {
                 Date startDateReservation = dateFormat.parse("20-04-2018");
                 Date endDateReservation = dateFormat.parse("24-04-2018");
-
-                ReservationService reservationService = new ReservationService();
-                reservationService.setReservationRepository(reservationRepository);
-                reservationService.setRoomRepository(roomRepository);
                 List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation);
 
                 //comparison, expected = 0 rooms left. compare with size of results
@@ -82,10 +90,6 @@ public class ReservationServiceTest {
 
                 Date startDateReservation = dateFormat.parse("16-04-2018");
                 Date endDateReservation = dateFormat.parse("18-04-2018");
-
-                ReservationService reservationService = new ReservationService();
-                reservationService.setReservationRepository(reservationRepository);
-                reservationService.setRoomRepository(roomRepository);
                 List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation);
 
                 //comparison, expected = 2 rooms left. compare with size of results
@@ -102,9 +106,6 @@ public class ReservationServiceTest {
 
                 Date startDateReservation = dateFormat.parse("18-04-2018");
                 Date endDateReservation = dateFormat.parse("23-04-2018");
-
-                ReservationService reservationService = new ReservationService();
-                reservationService.setReservationRepository(reservationRepository);
                 reservationService.setRoomRepository(roomRepository);
                 List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation);
 
@@ -122,10 +123,6 @@ public class ReservationServiceTest {
 
                 Date startDateReservation = dateFormat.parse("23-04-2018");
                 Date endDateReservation = dateFormat.parse("28-04-2018");
-
-                ReservationService reservationService = new ReservationService();
-                reservationService.setReservationRepository(reservationRepository);
-                reservationService.setRoomRepository(roomRepository);
                 List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation);
 
                 //comparison, expected = 0 rooms left. compare with size of results
@@ -144,11 +141,6 @@ public class ReservationServiceTest {
                 Date endDateReservation = dateFormat.parse("18-04-2018");
 
                 RoomType roomTypeTest = new RoomType((byte)0, (byte)2);
-
-                ReservationService reservationService = new ReservationService();
-                reservationService.setReservationRepository(reservationRepository);
-                reservationService.setRoomRepository(roomRepository);
-
                 List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation, roomTypeTest);
 
                 //comparison, expected = 1 rooms left. compare with size of results
@@ -167,9 +159,6 @@ public class ReservationServiceTest {
                 Date endDateReservation = dateFormat.parse("18-04-2018");
 
                 RoomType roomTypeTest = new RoomType((byte)0, (byte)3);
-
-                ReservationService reservationService = new ReservationService();
-                reservationService.setReservationRepository(reservationRepository);
                 reservationService.setRoomRepository(roomRepository);
 
                 List<Room> result = reservationService.getAllAvailableRooms(startDateReservation, endDateReservation, roomTypeTest);
@@ -185,17 +174,10 @@ public class ReservationServiceTest {
 
 
     @Test
-    public void softDeleteReservation(){
-        try {
-            ReservationService reservationService = new ReservationService();
-            reservationService.setReservationRepository(reservationRepository);
-            Reservation reservation = reservationRepository.getAllReservations().get(0);
-            reservationService.softDelete(reservation);
-            Assert.assertSame(true, reservation.isDeleted());
-        } catch(Exception e){
-            e.printStackTrace();
-            Assert.assertTrue(false);
-        }
+    public void softDeleteReservation() throws InvalidObjectException {
+        Reservation reservation = reservationRepository.findAll().stream().findFirst().get();
+        reservationService.softDelete(reservation);
+        Assert.assertSame(true, reservation.isDeleted());
     }
 }
 

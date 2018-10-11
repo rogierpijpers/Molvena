@@ -1,26 +1,15 @@
 package com.capgemini.data;
 
 import com.capgemini.domain.RoomType;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-public class RoomTypeRepository {
-
-    private ArrayList<RoomType> roomTypeList = new ArrayList<>();
-
-    public void addRoomType(RoomType type) {
-        roomTypeList.add(type);
-    }
-
-    public RoomType getRoomType(int n) {
-        return roomTypeList.get(n);
-    }
-
-    public List<RoomType> getAllRoomTypes(){
-        return roomTypeList;
-    }
-
+@Repository
+public interface RoomTypeRepository extends CrudRepository<RoomType, Long> {
+    @Override
+    List<RoomType> findAll();
 }

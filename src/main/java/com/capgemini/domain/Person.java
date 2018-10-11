@@ -2,15 +2,18 @@ package com.capgemini.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class Person {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-    @NotNull
-    @NotEmpty
-    protected int id;
     @NotNull
     @NotEmpty
     protected String firstName;
@@ -36,7 +39,7 @@ public abstract class Person {
     protected String state;
     protected String country;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
