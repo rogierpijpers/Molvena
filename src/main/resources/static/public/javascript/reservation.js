@@ -5,7 +5,6 @@ $(document).ready(function () {
 
     roomDropdown('inputRoom');
     roomDropdown('updateRoom');
-
     var notBefore = new Date();
     var dd = notBefore.getDate();
     var mm = notBefore.getMonth()+1;
@@ -44,57 +43,149 @@ $(document).ready(function () {
         document.getElementById("updateCheckIn").setAttribute("max", checkOutInput);
     });
 
+    function getRoomTypesInput(){
+        $.ajax({
+            url: "http://localhost:8080/roomtype/available/" + $("#inputCheckIn")[0].value +"/"+ $("#inputCheckOut")[0].value +"",
+
+            type: "get",
+            success: function(data){
+                let dropdown2 = $("#inputRoom");
+                dropdown2.children().remove();
+
+                $.each(data, function(index, value){
+                    dropdown2.append("<option value=\"" + value.roomType.roomTypeId + "\">" + value.roomType.name + "</option>");
+                });
+            },
+            error: function(error){
+                console.log("Error: " + error);
+            }
+        });
+    }
+
+    function getRoomTypesUpdate(){
+        $.ajax({
+            url: "http://localhost:8080/roomtype/available/" + $("#updateCheckIn")[0].value +"/"+ $("#updateCheckOut")[0].value +"",
+
+            type: "get",
+            success: function(data){
+                let dropdown = $("#updateRoom");
+                dropdown.children().remove();
+
+                $.each(data, function(index, value){
+                    dropdown.append("<option value=\"" + value.roomType.roomTypeId + "\">" + value.roomType.name + "</option>");
+                });
+            },
+            error: function(error){
+                console.log("Error: " + error);
+            }
+        });
+    }
+
+    function getRoomByRoomType(checkIn, checkOut, roomType, email, guest){
+        $.ajax({
+        url:"http://localhost:8080/room/available/"+checkIn+"/"+checkOut+"/"+roomType+"",
+        type:"get",
+        async:false,
+        success: function(result){
+         $.ajax({
+                url: "http://localhost:8080/guest/" + email,
+                type:"get",
+                success: function(result2){
+                    email = result2;
+
+                     var newReservation = {
+                                "startDate": checkIn,
+                                "endDate": checkOut,
+                                "amountOfGuests": guest,
+                                "guest": email,
+                                "room": result[0]
+                               };
+
+                    var JsonReservation = JSON.stringify(newReservation);
+                    console.log(JsonReservation);
+                    $.ajax({
+                        url:"http://localhost:8080/reservation/",
+                        type:"post",
+                        data: JsonReservation,
+                        contentType: "application/json",
+                        success: function(result) {
+                            $("#newReservationModal").hide();
+                            $('body').removeClass('modal-open');
+                            $('.modal-backdrop').remove();
+                            getData();
+                            $("#newReservationForm")[0].reset();
+                        }
+                    });
+                }});
+
+        },
+        error: function(error){
+            console.log(error);
+        }
+        })
+    }
+
     function postData() {
         var email = $("#inputEmail").val();
         var guest = $("#inputGuest").val();
         var checkIn = $("#inputCheckIn").val();
         var checkOut = $("#inputCheckOut").val();
-        var room = $("#inputRoom").val();
+        var roomType = $("#inputRoom").val();
+
+        var room = getRoomByRoomType(checkIn,checkOut,roomType, email, guest);
+    }
+
+    function getRoomByRoomTypeUpdate(){
+        var reservationID = selectedValue.reservationID;
+        var email = $("#updateEmail").val();
+        var guest = $("#updateGuest").val();
+        var checkIn = $("#updateCheckIn").val();
+        var checkOut = $("#updateCheckOut").val();
+        var roomType = $("#updateRoom").val();
+
+
+      $.ajax({
+      url:"http://localhost:8080/room/available/"+checkIn+"/"+checkOut+"/"+roomType+"",
+      type:"get",
+      async:false,
+      success: function(result){
 
         $.ajax({
-            url:"http://localhost:8080/room/" + room,
+            url: "http://localhost:8080/guest/" + email,
             type:"get",
+            success: function(result4){
+                email = result4;
+
+                 var updatedReservation = {
+                            "reservationID" : reservationID,
+                            "startDate": checkIn,
+                            "endDate": checkOut,
+                            "amountOfGuests": guest,
+                            "guest": email,
+                            "room": result[0]
+                           };
+
+                var JsonUpdate = JSON.stringify(updatedReservation);
+
+        $.ajax({
+            url:"http://localhost:8080/reservation/" + reservationID,
+            type:"put",
+            data: JsonUpdate,
             contentType: "application/json",
             success: function(result) {
-               room = result;
-               $.ajax({
-                   url:"http://localhost:8080/guest/" + email,
-                   type:"get",
-                   contentType: "application/json",
-                   success: function(result) {
-                      email = result;
-                      console.log(email);
-                      var newReservation = {
-                          "startDate": checkIn,
-                          "endDate": checkOut,
-                          "amountOfGuests": guest,
-                          "guest": email,
-                          "room": room
-                      };
-
-                      var JsonReservation = JSON.stringify(newReservation);
-
-                      $.ajax({
-                          url:"http://localhost:8080/reservation/",
-                          type:"post",
-                          data: JsonReservation,
-                          contentType: "application/json",
-                          success: function(result) {
-                              $("#newReservationModal").hide();
-                              $('body').removeClass('modal-open');
-                              $('.modal-backdrop').remove();
-                              getData();
-                              $("#newReservationForm")[0].reset();
-                          },
-                          error: function(error){
-                            console.log("Error creating reservation: " + error);
-                            console.log(error);
-                          }
-                       });
-                   }
-               });
+                $("#newUpdateModal").hide();
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                getData();
             }
         });
+    }
+    });
+    },
+            error: function(error){
+                console.log(error);
+            }
+            })
     }
 
     function updateData() {
@@ -103,48 +194,28 @@ $(document).ready(function () {
         var guest = $("#updateGuest").val();
         var checkIn = $("#updateCheckIn").val();
         var checkOut = $("#updateCheckOut").val();
-        var room = $("#updateRoom").val();
+        var roomType = $("#updateRoom").val();
 
-        room = room.charAt(0);
+        var room = getRoomByRoomTypeUpdate (checkIn,checkOut,roomType, email, guest);
 
-        $.ajax({
-            url:"http://localhost:8080/room/" + room,
-            type:"get",
-            contentType: "application/json",
-            success: function(result) {
-                room = result;
-                $.ajax({
-                    url:"http://localhost:8080/guest/" + email,
-                    type:"get",
-                    contentType: "application/json",
-                    success: function(result) {
-                        email = result;
-                        var updateReservation = {
-                            "reservationID": reservationID,
-                            "startDate": checkIn,
-                            "endDate": checkOut,
-                            "amountOfGuests": guest,
-                            "guest": email,
-                            "room": room
-                        };
-                        var JsonUpdate = JSON.stringify(updateReservation);
-                        $.ajax({
-                            url: "http://localhost:8080/reservation/" + selectedValue.reservationID,
-                            type:"put",
-                            data: JsonUpdate,
-                            contentType: "application/json",
-                            success: function(result) {
-                                $("#newUpdateModal").hide();
-                                $('body').removeClass('modal-open');
-                                $('.modal-backdrop').remove();
-                                getData();
-                            }
-                        });
-                    }
-                });
-            }
-        });
     }
+
+    $("#inputCheckIn").change(function(){
+        getRoomTypesInput();
+    });
+
+
+    $("#inputCheckOut").change(function(){
+        getRoomTypesInput();
+    })
+
+    $("#updateCheckIn").change(function(){
+        getRoomTypesUpdate();
+    });
+
+    $("#updateCheckOut").change(function(){
+        getRoomTypesUpdate();
+    });
 
     function getData() {
         $.ajax({
@@ -239,8 +310,5 @@ $(document).ready(function () {
             }
         });
     });
-
     getData();
-
 });
-
